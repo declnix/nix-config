@@ -35,11 +35,11 @@ Replace `<hostname>` with your target host as defined in `hosts/`.
 - **Rebuild system:**  
   `sudo nixos-rebuild switch --flake .#<hostname>`
 - **Regenerate macros:**  
-  `./eval-macros.sh`
+  `./scripts/eval-macros.sh`
 - **Apps/modules:**  
-  Find and edit individual app modules in `apps/`.
+  Find and edit individual app modules in `nix/apps/`.
 - **Hosts:**  
-  Find and edit host-specific configs in `hosts/`.
+  Find and edit host-specific configs in `nix/hosts/`.
 
 ## Credits
 

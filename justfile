@@ -55,7 +55,7 @@ RESET := '\033[0m'
 # Evaluate macros
 [private]
 @eval-macros:
-    ./eval-macros.sh | xargs -r git add
+    ./scripts/eval-macros.sh | xargs -r git add
 
 # Logging
 [private]
