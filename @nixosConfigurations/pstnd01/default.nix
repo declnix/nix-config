@@ -80,22 +80,25 @@
       security.sudo.enable = true;
       security.sudo.wheelNeedsPassword = false;
     }
-    
-    # FIXME: this is very hacky workaround, find how to make it works properly with corporate proxy
-    ({pkgs, ...}: {
-      systemd.services.proxy-forward = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        serviceConfig.Restart = "always";
-        script = ''
-          HOST=$(${pkgs.iproute2}/bin/ip route | ${pkgs.gawk}/bin/awk '/default/ {print $3}')
-          exec ${pkgs.socat}/bin/socat TCP-LISTEN:9000,fork,reuseaddr TCP:$HOST:9000
-        '';
-      };
 
-      networking.proxy.default = "http://127.0.0.1:9000";
-      networking.proxy.noProxy = "127.0.0.1,localhost,intra.laposte.fr,gitlab.net.extra.laposte.fr";
-    })
+    # FIXME: this is very hacky workaround, find how to make it works properly with corporate proxy
+    (
+      { pkgs, ... }:
+      {
+        systemd.services.proxy-forward = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network-online.target" ];
+          serviceConfig.Restart = "always";
+          script = ''
+            HOST=$(${pkgs.iproute2}/bin/ip route | ${pkgs.gawk}/bin/awk '/default/ {print $3}')
+            exec ${pkgs.socat}/bin/socat TCP-LISTEN:9000,fork,reuseaddr TCP:$HOST:9000
+          '';
+        };
+
+        networking.proxy.default = "http://127.0.0.1:9000";
+        networking.proxy.noProxy = "127.0.0.1,localhost,intra.laposte.fr,gitlab.net.extra.laposte.fr";
+      }
+    )
 
     {
       nix.settings.experimental-features = [
