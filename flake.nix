@@ -36,18 +36,5 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
-  outputs =
-    { flakelight, ... }@inputs:
-    flakelight ./. {
-      inherit inputs;
-
-      nixDirAliases = {
-        nixosConfigurations = [ "@nixosConfigurations" ];
-        packages = [ "@packages" ];
-      };
-
-      nixDir = ./.;
-
-      nixpkgs.config.allowUnfree = true;
-    };
+  outputs = import ./outputs.nix;
 }
