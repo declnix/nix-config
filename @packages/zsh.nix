@@ -47,7 +47,6 @@ let
       config = {
         package = config.pkgs.zsh;
 
-        # Dodaj pluginy do PATH
         extraPackages = lib.mapAttrsToList (_: p: p.src) config.plugins;
 
         env.ZDOTDIR = "${config.pkgs.writeTextDir ".zshrc" ''
