@@ -1,5 +1,4 @@
-{ flakelight, ... }@inputs:
-flakelight ./. {
+inputs: {
   inherit inputs;
 
   nixDirAliases = {
