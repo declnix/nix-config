@@ -11,6 +11,5 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
-  outputs = inputs@{ flakelight, ... }:
-    (flakelight ./.) (import ./outputs.nix inputs);
+  outputs = inputs@{ flakelight, ... }: (flakelight ./.) (import ./outputs.nix inputs);
 }
