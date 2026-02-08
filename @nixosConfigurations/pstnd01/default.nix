@@ -1,3 +1,4 @@
+{ inputs, ... }: 
 {
   system = "x86_64-linux";
 
@@ -10,44 +11,52 @@
     (
       { pkgs, ... }:
       {
+        home-manager.users.nixos = { pkgs, ... }: {
+          programs.git = {
+            enable = true;
+            extraConfig = {
+              credential.helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
+            };
+          };
+
+          programs.zsh = {
+            enable = true;
+            enableCompletion = true;
+          };
+
+          programs.direnv = {
+            enable = true;
+            nix-direnv.enable = true;
+          };
+
+          programs.fzf.enable = true;
+          programs.ripgrep.enable = true;
+          programs.bat.enable = true;
+          programs.eza = {
+            enable = true;
+            enableZshIntegration = true;
+          };
+
+          home.packages = with pkgs; [ devbox openshift ];
+
+          home.stateVersion = "25.11";
+        };
+
         users.users.nixos = {
           isNormalUser = true;
           home = "/home/nixos";
+          
           extraGroups = [
             "wheel"
             "networkmanager"
           ];
+
+          shell = pkgs.zsh;
+
           initialPassword = "password";
           ignoreShellProgramCheck = true;
-            subUidRanges = [{ startUid = 100000; count = 65536; }];
-  subGidRanges = [{ startGid = 100000; count = 65536; }];
-        };
-      }
-    )
-
-    (
-      { inputs, pkgs, ... }:
-      {
-        users.users.nixos = {
-          packages =
-            (with inputs.self.packages.${pkgs.system}; [
-              (zsh.apply {
-                aliases = {
-                  rebuild = "sudo nixos-rebuild switch --flake .";
-                  gs = "git status";
-                };
-              })
-
-              tmux
-            ])
-            ++ (with pkgs; [
-              git
-              wget
-              curl
-              fzf
-              eza
-              bat
-            ]);
+          subUidRanges = [{ startUid = 100000; count = 65536; }];
+          subGidRanges = [{ startGid = 100000; count = 65536; }];
         };
       }
     )
@@ -130,6 +139,11 @@
     )
 
     {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+    }
+
+    {
       nix.settings.experimental-features = [
         "nix-command"
         "flakes"
@@ -140,5 +154,6 @@
     }
 
     ./configuration.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 }

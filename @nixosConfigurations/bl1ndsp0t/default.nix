@@ -110,5 +110,6 @@
     }
 
     ./configuration.nix
+    
   ];
 }
