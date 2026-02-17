@@ -1,105 +1,96 @@
-{
-  pkgs,
-  inputs,
-  lib,
-  ...
-}:
+{ pkgs, inputs, lib, ... }:
 
 let
-  tmuxModule = inputs.wrappers.lib.wrapModule (
-    { config, ... }:
-    {
-      options = {
-        prefix = lib.mkOption {
-          type = lib.types.str;
-          default = "C-b";
-          description = "Tmux prefix key";
-        };
-
-        baseIndex = lib.mkOption {
-          type = lib.types.int;
-          default = 1;
-          description = "Base index for windows and panes";
-        };
-
-        terminal = lib.mkOption {
-          type = lib.types.str;
-          default = "screen-256color";
-          description = "Default terminal type";
-        };
-
-        mouse = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Enable mouse support";
-        };
-
-        escapeTime = lib.mkOption {
-          type = lib.types.int;
-          default = 0;
-          description = "Time in milliseconds for escape key";
-        };
-
-        historyLimit = lib.mkOption {
-          type = lib.types.int;
-          default = 10000;
-          description = "Scrollback buffer size";
-        };
-
-        plugins = lib.mkOption {
-          type = lib.types.listOf lib.types.package;
-          default = [ ];
-          description = "Tmux plugins";
-        };
-
-        extraConfig = lib.mkOption {
-          type = lib.types.lines;
-          default = "";
-          description = "Extra tmux configuration";
-        };
+  tmuxModule = inputs.wrappers.lib.wrapModule ({ config, ... }: {
+    options = {
+      prefix = lib.mkOption {
+        type = lib.types.str;
+        default = "C-b";
+        description = "Tmux prefix key";
       };
 
-      config =
-        let
-          tmuxConf = config.pkgs.writeText "tmux.conf" ''
-            # Prefix
-            set -g prefix ${config.prefix}
+      baseIndex = lib.mkOption {
+        type = lib.types.int;
+        default = 1;
+        description = "Base index for windows and panes";
+      };
 
-            # Base index
-            set -g base-index ${toString config.baseIndex}
-            setw -g pane-base-index ${toString config.baseIndex}
+      terminal = lib.mkOption {
+        type = lib.types.str;
+        default = "screen-256color";
+        description = "Default terminal type";
+      };
 
-            # Terminal
-            set -g default-terminal "${config.terminal}"
+      mouse = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable mouse support";
+      };
 
-            # Mouse
-            set -g mouse ${if config.mouse then "on" else "off"}
+      escapeTime = lib.mkOption {
+        type = lib.types.int;
+        default = 0;
+        description = "Time in milliseconds for escape key";
+      };
 
-            # Escape time
-            set -sg escape-time ${toString config.escapeTime}
+      historyLimit = lib.mkOption {
+        type = lib.types.int;
+        default = 10000;
+        description = "Scrollback buffer size";
+      };
 
-            # History
-            set -g history-limit ${toString config.historyLimit}
+      plugins = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = [ ];
+        description = "Tmux plugins";
+      };
 
-            # Plugins
-            ${lib.concatMapStringsSep "\n" (p: "run-shell ${p}/share/tmux-plugins/*/*.tmux") config.plugins}
+      extraConfig = lib.mkOption {
+        type = lib.types.lines;
+        default = "";
+        description = "Extra tmux configuration";
+      };
+    };
 
-            # Extra config
-            ${config.extraConfig}
+    config = let
+      tmuxConf = config.pkgs.writeText "tmux.conf" ''
+        # Prefix
+        set -g prefix ${config.prefix}
 
-            # Local config (not managed by Nix)
-            if-shell "[ -f ~/.tmux.conf.local ]" "source-file ~/.tmux.conf.local"
-          '';
-        in
-        {
-          package = config.pkgs.writeShellScriptBin "tmux" ''
-            exec ${config.pkgs.tmux}/bin/tmux -f ${tmuxConf} "$@"
-          '';
+        # Base index
+        set -g base-index ${toString config.baseIndex}
+        setw -g pane-base-index ${toString config.baseIndex}
 
-          extraPackages = config.plugins;
-        };
-    }
-  );
+        # Terminal
+        set -g default-terminal "${config.terminal}"
+
+        # Mouse
+        set -g mouse ${if config.mouse then "on" else "off"}
+
+        # Escape time
+        set -sg escape-time ${toString config.escapeTime}
+
+        # History
+        set -g history-limit ${toString config.historyLimit}
+
+        # Plugins
+        ${lib.concatMapStringsSep "\n"
+        (p: "run-shell ${p}/share/tmux-plugins/*/*.tmux") config.plugins}
+
+        # Extra config
+        ${config.extraConfig}
+
+        # Local config (not managed by Nix)
+        if-shell "[ -f ~/.tmux.conf.local ]" "source-file ~/.tmux.conf.local"
+      '';
+    in {
+      package = config.pkgs.writeShellScriptBin "tmux" ''
+        exec ${config.pkgs.tmux}/bin/tmux -f ${tmuxConf} "$@"
+      '';
+
+      extraPackages = config.plugins;
+    };
+  });
 
   # Default configuration
   defaultWrapper = tmuxModule.apply {
@@ -110,10 +101,7 @@ let
     mouse = true;
     escapeTime = 0;
 
-    plugins = with pkgs.tmuxPlugins; [
-      sensible
-      yank
-    ];
+    plugins = with pkgs.tmuxPlugins; [ sensible yank ];
 
     extraConfig = ''
       # Vi mode
@@ -144,9 +132,8 @@ let
       set -g status-right "#[fg=yellow]%H:%M"
     '';
   };
-in
-defaultWrapper.wrapper
-// {
-  apply = cfg: (tmuxModule.apply (lib.recursiveUpdate { inherit pkgs; } cfg)).wrapper;
+in defaultWrapper.wrapper // {
+  apply = cfg:
+    (tmuxModule.apply (lib.recursiveUpdate { inherit pkgs; } cfg)).wrapper;
   meta.mainProgram = "tmux";
 }

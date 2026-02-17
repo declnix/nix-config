@@ -1,11 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
-  options.hardware.lenovoThinkBook16G4IAP.enable = lib.mkEnableOption "Enable support for Lenovo ThinkBook 16 G4 IAP";
+{ config, lib, pkgs, ... }: {
+  options.hardware.lenovoThinkBook16G4IAP.enable =
+    lib.mkEnableOption "Enable support for Lenovo ThinkBook 16 G4 IAP";
 
   config = lib.mkIf config.hardware.lenovoThinkBook16G4IAP.enable {
     services.xserver.videoDrivers = [ "intel" ];

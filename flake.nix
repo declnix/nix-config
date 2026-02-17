@@ -32,5 +32,6 @@
     nzf.url = "github:yehvaed/nzf";
   };
 
-  outputs = inputs@{ flakelight, ... }: (flakelight ./.) (import ./outputs.nix inputs);
+  outputs = inputs@{ flakelight, ... }:
+    (flakelight ./.) (import ./outputs.nix inputs);
 }

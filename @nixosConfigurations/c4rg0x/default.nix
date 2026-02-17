@@ -1,5 +1,4 @@
-{ inputs, ... }: 
-{
+{ inputs, ... }: {
   system = "x86_64-linux";
 
   modules = [
@@ -8,79 +7,31 @@
       i18n.defaultLocale = "en_US.UTF-8";
     }
 
-    (
-      { pkgs, ... }:
-      {
-        home-manager.users.nixos = { pkgs, ... }: {
-          programs.git = {
-            enable = true;
-            extraConfig = {
-              credential.helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
-            };
-          };
+    ({ pkgs, ... }: {
+      users.users.nixos = {
+        isNormalUser = true;
+        home = "/home/nixos";
 
-          programs.zsh = {
-            enable = true;
-            enableCompletion = true;
-          };
+        extraGroups = [ "wheel" "networkmanager" ];
 
-          programs.direnv = {
-            enable = true;
-            nix-direnv.enable = true;
-          };
+        shell = pkgs.zsh;
 
-          programs.fzf.enable = true;
-          programs.ripgrep.enable = true;
-          programs.bat.enable = true;
-          programs.eza = {
-            enable = true;
-            enableZshIntegration = true;
-          };
+        initialPassword = "password";
+        ignoreShellProgramCheck = true;
+      };
+    })
 
-          home.packages = with pkgs; [ devbox openshift ];
+    ({ pkgs, ... }: { fonts.packages = with pkgs; [ nerd-fonts.fira-code ]; })
 
-          home.stateVersion = "25.11";
-        };
-
-        users.users.nixos = {
-          isNormalUser = true;
-          home = "/home/nixos";
-          
-          extraGroups = [
-            "wheel"
-            "networkmanager"
-          ];
-
-          shell = pkgs.zsh;
-
-          initialPassword = "password";
-          ignoreShellProgramCheck = true;
-        };
-      }
-    )
-
-    (
-      { pkgs, ... }:
-      {
-        fonts.packages = with pkgs; [ nerd-fonts.fira-code ];
-      }
-    )
-
-    (
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          vim
-        ];
-      }
-    )
+    ({ pkgs, ... }: { environment.systemPackages = with pkgs; [ vim ]; })
 
     {
       programs.git = {
         enable = true;
 
         config = {
-          credential.helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
+          credential.helper =
+            "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
         };
       };
     }
@@ -93,14 +44,12 @@
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
+      home-manager.users.nixos = import ./home.nix;
     }
 
     {
-      nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-        "pipe-operators"
-      ];
+      nix.settings.experimental-features =
+        [ "nix-command" "flakes" "pipe-operators" ];
 
       nixpkgs.config.allowUnfree = true;
     }
