@@ -23,7 +23,14 @@
 
     ({ pkgs, ... }: { fonts.packages = with pkgs; [ nerd-fonts.fira-code ]; })
 
-    ({ pkgs, ... }: { environment.systemPackages = with pkgs; [ vim ]; })
+    ({ pkgs, ... }: {
+      environment.systemPackages = with pkgs; [
+        vim
+        comma
+      ];
+
+      programs.nix-index.enable = true;
+    })
 
     {
       programs.git = {
