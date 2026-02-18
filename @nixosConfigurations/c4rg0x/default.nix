@@ -61,12 +61,6 @@
       nixpkgs.config.allowUnfree = true;
     }
 
-    {
-      environment.shellInit = ''
-        export WIN_HOME="$(wslpath "$(cmd.exe /c 'echo %USERPROFILE%' 2>/dev/null | tr -d '\r')")"
-      '';
-    }
-
     ./configuration.nix
     inputs.home-manager.nixosModules.home-manager
   ];
