@@ -8,12 +8,12 @@
 
     # ===========================================================
     # PLATFORMS
-    # ===========================================================   
+    # ===========================================================
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     # ===========================================================
     # FRAMEWORKS
-    # ===========================================================   
+    # ===========================================================
     flakelight = {
       url = "github:nix-community/flakelight";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +32,5 @@
     nzf.url = "github:yehvaed/nzf";
   };
 
-  outputs = inputs@{ flakelight, ... }:
-    (flakelight ./.) (import ./outputs.nix inputs);
+  outputs = inputs@{ flakelight, ... }: (flakelight ./.) (import ./outputs.nix inputs);
 }

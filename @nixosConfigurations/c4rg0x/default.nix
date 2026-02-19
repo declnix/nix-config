@@ -1,4 +1,5 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   system = "x86_64-linux";
 
   modules = [
@@ -7,38 +8,51 @@
       i18n.defaultLocale = "en_US.UTF-8";
     }
 
-    ({ pkgs, ... }: {
-      users.users.nixos = {
-        isNormalUser = true;
-        home = "/home/nixos";
+    (
+      { pkgs, ... }:
+      {
+        users.users.nixos = {
+          isNormalUser = true;
+          home = "/home/nixos";
 
-        extraGroups = [ "wheel" "networkmanager" ];
+          extraGroups = [
+            "wheel"
+            "networkmanager"
+          ];
 
-        shell = pkgs.zsh;
+          shell = pkgs.zsh;
 
-        initialPassword = "password";
-        ignoreShellProgramCheck = true;
-      };
-    })
+          initialPassword = "password";
+          ignoreShellProgramCheck = true;
+        };
+      }
+    )
 
-    ({ pkgs, ... }: { fonts.packages = with pkgs; [ nerd-fonts.fira-code ]; })
+    (
+      { pkgs, ... }:
+      {
+        fonts.packages = with pkgs; [ nerd-fonts.fira-code ];
+      }
+    )
 
-    ({ pkgs, ... }: {
-      environment.systemPackages = with pkgs; [
-        vim
-        comma
-      ];
+    (
+      { pkgs, ... }:
+      {
+        environment.systemPackages = with pkgs; [
+          vim
+          comma
+        ];
 
-      programs.nix-index.enable = true;
-    })
+        programs.nix-index.enable = true;
+      }
+    )
 
     {
       programs.git = {
         enable = true;
 
         config = {
-          credential.helper =
-            "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
+          credential.helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
         };
       };
     }
@@ -55,8 +69,11 @@
     }
 
     {
-      nix.settings.experimental-features =
-        [ "nix-command" "flakes" "pipe-operators" ];
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+        "pipe-operators"
+      ];
 
       nixpkgs.config.allowUnfree = true;
     }

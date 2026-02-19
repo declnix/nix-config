@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs = {
     git = {
       enable = true;
       extraConfig = {
-        credential.helper =
-          "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
+        credential.helper = "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
       };
     };
 
@@ -22,14 +22,14 @@
           src = pkgs.zsh-fzf-history-search;
         }
         {
-      name = "fzf-tab";
-      src = pkgs.fetchFromGitHub {
-        owner = "Aloxaf";
-        repo = "fzf-tab";
-        rev = "v1.2.0";
-        sha256 = "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY=";
-      };
-    }
+          name = "fzf-tab";
+          src = pkgs.fetchFromGitHub {
+            owner = "Aloxaf";
+            repo = "fzf-tab";
+            rev = "v1.2.0";
+            sha256 = "sha256-q26XVS/LcyZPRqDNwKKA9exgBByE0muyuNb0Bbar2lY=";
+          };
+        }
       ];
     };
 
@@ -48,7 +48,10 @@
     };
   };
 
-  home.packages = with pkgs; [ devbox claude-code ];
+  home.packages = with pkgs; [
+    devbox
+    claude-code
+  ];
 
   home.stateVersion = "25.11";
 }

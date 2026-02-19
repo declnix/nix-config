@@ -7,48 +7,71 @@
       i18n.defaultLocale = "en_US.UTF-8";
     }
 
-    ({ pkgs, ... }: {
-      users.users.declnix = {
-        isNormalUser = true;
-        home = "/home/declnix";
-        extraGroups = [ "wheel" "networkmanager" "libvirtd" "kvm" ];
+    (
+      { pkgs, ... }:
+      {
+        users.users.declnix = {
+          isNormalUser = true;
+          home = "/home/declnix";
+          extraGroups = [
+            "wheel"
+            "networkmanager"
+            "libvirtd"
+            "kvm"
+          ];
 
-        initialPassword = "password";
-        ignoreShellProgramCheck = true;
-      };
-    })
+          initialPassword = "password";
+          ignoreShellProgramCheck = true;
+        };
+      }
+    )
 
-    ({ inputs, pkgs, ... }: {
-      users.users.declnix = {
-        packages = (with inputs.self.packages.${pkgs.system}; [
-          (zsh.apply {
-            aliases = {
-              rebuild = "sudo nixos-rebuild switch --flake .";
-              gs = "git status";
-            };
-          })
+    (
+      { inputs, pkgs, ... }:
+      {
+        users.users.declnix = {
+          packages =
+            (with inputs.self.packages.${pkgs.system}; [
+              (zsh.apply {
+                aliases = {
+                  rebuild = "sudo nixos-rebuild switch --flake .";
+                  gs = "git status";
+                };
+              })
 
-          tmux
-        ]) ++ (with pkgs; [
-          git
-          wget
-          curl
-          fzf
-          eza
-          bat
+              tmux
+            ])
+            ++ (with pkgs; [
+              git
+              wget
+              curl
+              fzf
+              eza
+              bat
 
-          # ai
-          claude-code
+              # ai
+              claude-code
 
-          # gui / browsers
-          firefox
-        ]);
-      };
-    })
+              # gui / browsers
+              firefox
+            ]);
+        };
+      }
+    )
 
-    ({ pkgs, ... }: { fonts.packages = with pkgs; [ nerd-fonts.fira-code ]; })
+    (
+      { pkgs, ... }:
+      {
+        fonts.packages = with pkgs; [ nerd-fonts.fira-code ];
+      }
+    )
 
-    ({ pkgs, ... }: { environment.systemPackages = with pkgs; [ vim ]; })
+    (
+      { pkgs, ... }:
+      {
+        environment.systemPackages = with pkgs; [ vim ];
+      }
+    )
 
     {
       virtualisation.libvirtd.enable = true;
@@ -76,7 +99,10 @@
     }
 
     {
-      nix.settings.experimental-features = [ "nix-command" "flakes" ];
+      nix.settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       nixpkgs.config.allowUnfree = true;
     }

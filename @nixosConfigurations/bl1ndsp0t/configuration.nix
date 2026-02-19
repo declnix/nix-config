@@ -1,4 +1,11 @@
-{ host, config, lib, pkgs, ... }: {
+{
+  host,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -8,8 +15,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.hostName = "bl1ndsp0t";
   time.timeZone = "Europe/Warsaw";
@@ -18,7 +24,10 @@
     isNormalUser = true;
 
     home = "/home/declnix";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
 
     shell = pkgs.zsh;
   };
