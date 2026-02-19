@@ -16,6 +16,10 @@
         plugins = [ "git" ];
         theme = "robbyrussell";
       };
+      plugins = [{
+        name = "zsh-fzf-history-search";
+        src = pkgs.zsh-fzf-history-search;
+      }];
     };
 
     direnv = {
