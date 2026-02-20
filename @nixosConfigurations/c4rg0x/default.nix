@@ -76,6 +76,11 @@
       ];
 
       nixpkgs.config.allowUnfree = true;
+      nix.settings.extra-sandbox-paths = [ "/var/lib/certs" ];
+    }
+
+    {
+      _module.args.requiresImpure = true;
     }
 
     ./configuration.nix
