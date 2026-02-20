@@ -3,7 +3,6 @@ inputs: {
 
   nixDirAliases = {
     nixosConfigurations = [ "@nixosConfigurations" ];
-    packages = [ "@packages" ];
   };
 
   nixDir = ./.;
