@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs = {
     git.enable = true;
@@ -12,6 +12,12 @@
         plugins = [ "git" ];
         theme = "robbyrussell";
       };
+      plugins = [
+        {
+          name = "zsh-fzf-history-search";
+          src = pkgs.zsh-fzf-history-search;
+        }
+      ];
     };
   };
 
