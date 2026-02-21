@@ -16,7 +16,6 @@ _log level msg:
     just _log info "$line"; \
     just _log info "→ switching configuration: $h"; \
     just _log info "$line"; \
-    impure=$(nix eval --raw ".#nixosConfigurations.${h}.config._module.args.requiresImpure" 2>/dev/null || echo false); \
-    sudo nixos-rebuild switch --flake ".#${h}" ${impure:+--impure} \
+    sudo nixos-rebuild switch --flake ".#${h}" \
       && just _log ok "✔ success" \
       || just _log err "✘ failed"
