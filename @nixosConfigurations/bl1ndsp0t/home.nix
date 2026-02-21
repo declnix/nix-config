@@ -31,6 +31,11 @@
         }
       ];
     };
+
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 
   home.stateVersion = "25.11";
