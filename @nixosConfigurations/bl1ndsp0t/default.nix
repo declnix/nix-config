@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   system = "x86_64-linux";
 
@@ -99,15 +100,22 @@
     }
 
     {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.declnix = import ./home.nix;
+    }
+
+    {
       nix.settings.experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operators"
       ];
 
       nixpkgs.config.allowUnfree = true;
     }
 
     ./configuration.nix
-
+    inputs.home-manager.nixosModules.home-manager
   ];
 }
