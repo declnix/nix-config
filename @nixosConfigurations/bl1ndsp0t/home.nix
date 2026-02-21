@@ -32,11 +32,30 @@
       ];
     };
 
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
+    fzf.enable = true;
+    ripgrep.enable = true;
+    bat.enable = true;
+
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
     zoxide = {
       enable = true;
       enableZshIntegration = true;
     };
   };
+
+  home.packages = with pkgs; [
+    devbox
+    claude-code
+  ];
 
   home.stateVersion = "25.11";
 }
