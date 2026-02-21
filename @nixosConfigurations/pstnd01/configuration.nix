@@ -5,7 +5,7 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
@@ -20,6 +20,8 @@
   };
 
   programs.nix-ld.enable = true;
+
+  security.pki.certificateFiles = [ "${pkgs.zscaler-cacert}/etc/ssl/certs/zscaler-ca.crt" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
