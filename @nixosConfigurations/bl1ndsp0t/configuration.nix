@@ -20,19 +20,6 @@
   networking.hostName = "bl1ndsp0t";
   time.timeZone = "Europe/Warsaw";
 
-  users.users.declnix = {
-    isNormalUser = true;
-
-    home = "/home/declnix";
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
-
-    shell = pkgs.zsh;
-  };
-
-  programs.zsh.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

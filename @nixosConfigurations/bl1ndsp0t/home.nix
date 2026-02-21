@@ -55,6 +55,9 @@
   home.packages = with pkgs; [
     devbox
     claude-code
+    wget
+    curl
+    firefox
   ];
 
   home.stateVersion = "25.11";

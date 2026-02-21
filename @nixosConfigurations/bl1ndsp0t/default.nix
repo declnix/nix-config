@@ -36,7 +36,6 @@
           packages = with pkgs; [
             wget
             curl
-
             firefox
           ];
         };
