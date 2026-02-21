@@ -78,10 +78,6 @@
       nixpkgs.config.allowUnfree = true;
     }
 
-    {
-      _module.args.requiresImpure = true;
-    }
-
     ./configuration.nix
     inputs.home-manager.nixosModules.home-manager
   ];
