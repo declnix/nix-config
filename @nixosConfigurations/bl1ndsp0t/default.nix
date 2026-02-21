@@ -21,6 +21,8 @@
             "kvm"
           ];
 
+          shell = pkgs.zsh;
+
           initialPassword = "password";
           ignoreShellProgramCheck = true;
         };
