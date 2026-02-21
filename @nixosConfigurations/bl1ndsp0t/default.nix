@@ -30,34 +30,15 @@
     )
 
     (
-      { inputs, pkgs, ... }:
+      { pkgs, ... }:
       {
         users.users.declnix = {
-          packages =
-            (with inputs.self.packages.${pkgs.system}; [
-              (zsh.apply {
-                aliases = {
-                  rebuild = "sudo nixos-rebuild switch --flake .";
-                  gs = "git status";
-                };
-              })
+          packages = with pkgs; [
+            wget
+            curl
 
-              tmux
-            ])
-            ++ (with pkgs; [
-              git
-              wget
-              curl
-              fzf
-              eza
-              bat
-
-              # ai
-              claude-code
-
-              # gui / browsers
-              firefox
-            ]);
+            firefox
+          ];
         };
       }
     )
