@@ -64,7 +64,7 @@ style(core): format repository
 
 ---
 
-### Additional Rule
+### Additional Rules
 
 If a previously host-local module becomes shared:
 
@@ -73,3 +73,19 @@ refactor(core): move backup module to shared
 ```
 
 The commit should always describe the **scope of impact**, not the technical form of the change.
+
+---
+
+When copying configuration from one host to another, use the same commit titles with the target hostname as scope, maintaining the same granularity:
+
+```
+feat(c4rg0x): enable zsh autosuggestion and syntax highlighting
+feat(c4rg0x): enable zoxide with zsh integration
+```
+
+becomes:
+
+```
+feat(pstnd01): enable zsh autosuggestion and syntax highlighting
+feat(pstnd01): enable zoxide with zsh integration
+```
