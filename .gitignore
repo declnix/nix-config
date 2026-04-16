@@ -1,0 +1,8 @@
+# nix artifacts
+result
+*.qcow2
+.direnv/
+
+# ai
+.codex
+.claude/
