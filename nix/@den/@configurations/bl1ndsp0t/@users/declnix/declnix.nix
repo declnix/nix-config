@@ -19,10 +19,6 @@
     ++ (with den.aspects; [
       dev-tools
       dev-ai
-      niri
-      alacritty
-      fuzzel
-      waybar
     ]);
 
     provides.bl1ndsp0t.nixos = {

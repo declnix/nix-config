@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.waybar = {
+    den.aspects.bl1ndsp0t.provides.declnix = {
     hjem =
       { ... }:
       {
