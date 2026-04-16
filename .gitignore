@@ -1,0 +1,11 @@
+# nix artifacts
+result
+*.qcow2
+.direnv/
+
+# ai
+# Agent skill pending changes
+WORKSPACE.md
+
+# misc
+.workspace/
