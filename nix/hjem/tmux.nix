@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   options.tmux = {
     mouse = lib.mkEnableOption "mouse support" // {

@@ -4,7 +4,12 @@
     hjem =
       { pkgs, ... }:
       {
-        packages = with pkgs; [ codex wget curl firefox ];
+        packages = with pkgs; [
+          codex
+          wget
+          curl
+          firefox
+        ];
       };
 
     includes = [

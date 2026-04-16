@@ -4,7 +4,15 @@
     hjem =
       { pkgs, ... }:
       {
-        packages = with pkgs; [ ripgrep bat fzf zoxide direnv nix-direnv eza ];
+        packages = with pkgs; [
+          ripgrep
+          bat
+          fzf
+          zoxide
+          direnv
+          nix-direnv
+          eza
+        ];
         zsh.extraConfig = ''
           source ${pkgs.fzf}/share/fzf/key-bindings.zsh
           source ${pkgs.fzf}/share/fzf/completion.zsh
