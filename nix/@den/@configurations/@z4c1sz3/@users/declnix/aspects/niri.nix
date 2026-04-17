@@ -2,7 +2,7 @@
 {
   den.aspects.z4c1sz3.provides.declnix = {
     hjem =
-      { ... }:
+      { pkgs, ... }:
       {
         rum.desktops.niri = {
           enable = true;
@@ -13,6 +13,7 @@
             "Mod+T" = { spawn = [ "alacritty" ]; parameters.hotkey-overlay-title = "Open a Terminal: alacritty"; };
             "Mod+D" = { spawn = [ "fuzzel" ]; parameters.hotkey-overlay-title = "Run an Application: fuzzel"; };
             "Super+Alt+L" = { spawn = [ "swaylock" ]; parameters.hotkey-overlay-title = "Lock the Screen: swaylock"; };
+            "Super+Alt+S" = { spawn = [ "${pkgs.writeShellScript "toggle-orca" "pkill orca || exec orca"}" ]; parameters.allow-when-locked = true; };
 
             "XF86AudioRaiseVolume" = { spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0" ]; parameters.allow-when-locked = true; };
             "XF86AudioLowerVolume" = { spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-" ]; parameters.allow-when-locked = true; };
@@ -151,10 +152,6 @@
           config = ''
             layout {
               gaps 0
-            }
-
-            binds {
-              Super+Alt+S allow-when-locked=true { spawn-sh "pkill orca || exec orca"; }
             }
           '';
         };
