@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.bl1ndsp0t =
+  den.aspects.z4c1sz3 =
     { host, ... }:
     {
       nixos =
@@ -36,5 +36,5 @@
       ];
     };
 
-  den.hosts.x86_64-linux.bl1ndsp0t = { };
+  den.hosts.x86_64-linux.z4c1sz3 = { };
 }

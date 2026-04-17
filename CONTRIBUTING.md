@@ -17,10 +17,14 @@ Format: `type(scope): message`
 ### Scopes
 
 - **Programs/aspects:** `niri`, `git`, `wsl`, `zsh`, `tmux`, `nvf`, `fonts`, `hjem`, `nix`, `podman`
-- **Hosts:** `bl1ndsp0t`, `bur34u`, `c4rg0x`
+- **Hosts:** `z4c1sz3`, `bur34u`, `c4rg0x`
 - **Global:** `flake`, `den`, `hardware`
 
 Omit scope only for truly global commits (e.g. `init`).
+
+## Directory naming
+
+Directories that should sort first when listing are prefixed with `@` (e.g. `@z4c1sz3`, `@configurations`, `@users`). Use this prefix for important structural directories, not for every folder.
 
 ### Rules
 

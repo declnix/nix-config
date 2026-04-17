@@ -1,6 +1,6 @@
 { den, lib, ... }:
 {
-  den.aspects.bl1ndsp0t =
+  den.aspects.z4c1sz3 =
     { ... }:
     {
       nixos =

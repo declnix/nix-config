@@ -21,10 +21,10 @@
       dev-ai
     ]);
 
-    provides.bl1ndsp0t.nixos = {
+    provides.z4c1sz3.nixos = {
       users.users.declnix.initialPassword = "test";
     };
   };
 
-  den.hosts.x86_64-linux.bl1ndsp0t.users.declnix = { };
+  den.hosts.x86_64-linux.z4c1sz3.users.declnix = { };
 }
