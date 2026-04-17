@@ -1,6 +1,6 @@
 { den, ... }:
 {
-    den.aspects.z4c1sz3.provides.declnix = {
+  den.aspects.z4c1sz3.provides.declnix = {
     hjem =
       { ... }:
       {
