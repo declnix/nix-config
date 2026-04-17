@@ -4,7 +4,7 @@
     hjem =
       { ... }:
       {
-        git.enable = true;
+        rum.programs.git.enable = true;
       };
   };
 }

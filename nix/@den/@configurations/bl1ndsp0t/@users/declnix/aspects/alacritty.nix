@@ -4,11 +4,10 @@
     hjem =
       { ... }:
       {
-        alacritty.enable = true;
-        alacritty.extraConfig = ''
-          [window]
-          decorations = "None"
-        '';
+        rum.programs.alacritty = {
+          enable = true;
+          settings.window.decorations = "None";
+        };
       };
   };
 }

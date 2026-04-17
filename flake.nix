@@ -22,6 +22,13 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    hjem-rum = {
+      url = "github:snugnug/hjem-rum";
+      inputs = {
+        hjem.follows = "hjem";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     import-tree.url = "github:vic/import-tree";
     nixos-wsl = {
       url = "github:nix-community/nixos-wsl";
