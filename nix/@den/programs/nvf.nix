@@ -40,6 +40,7 @@
       { pkgs, ... }:
       {
         packages = [ (den.lib.nvim.package pkgs den.aspects.nvim { }) ];
+        environment.sessionVariables.EDITOR = "nvim";
       };
 
     vim = {
