@@ -5,10 +5,6 @@
   ...
 }:
 {
-  ########################################
-  # LIB
-  ########################################
-
   den.lib.nvim.package =
     pkgs: vimAspect: ctx:
     (inputs.nvf.lib.neovimConfiguration {
@@ -39,10 +35,6 @@
     in
     den.lib.aspects.resolve "nvf" aspect;
 
-  ########################################
-  # ASPECT (config + package)
-  ########################################
-
   den.aspects.nvim = {
     hjem =
       { pkgs, ... }:
@@ -60,12 +52,35 @@
         format.enable = true;
         lsp.enable = true;
       };
+
+      fzf-lua.enable = true;
+      maps.normal = {
+        "<C-p>" = {
+          action = "<cmd>FzfLua files<CR>";
+          desc = "Find files";
+        };
+        "<C-S-f>" = {
+          action = "<cmd>FzfLua live_grep<CR>";
+          desc = "Search in files";
+        };
+        "<C-b>" = {
+          action = ":Neotree toggle<CR>";
+          desc = "Toggle file explorer";
+        };
+      };
+
+      filetree.neo-tree = {
+        enable = true;
+        setupOpts = {
+          enable_git_status = true;
+          enable_diagnostics = true;
+        };
+      };
+
+      visuals.nvim-web-devicons.enable = true;
+      tabline.nvimBufferline.enable = true;
     };
   };
-
-  ########################################
-  # INPUT
-  ########################################
 
   flake-file.inputs.nvf.url = "github:notashelf/nvf";
 }
