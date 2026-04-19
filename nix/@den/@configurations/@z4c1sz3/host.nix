@@ -49,7 +49,8 @@
           };
 
           programs.niri.enable = true;
-          programs.swaylock.enable = true;
+
+          environment.systemPackages = [ pkgs.swaylock pkgs.swayidle ];
 
           virtualisation = {
             libvirtd.enable = true;
