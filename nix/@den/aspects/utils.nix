@@ -23,6 +23,5 @@
         '';
       };
 
-    includes = with den.aspects; [ comma ];
   };
 }

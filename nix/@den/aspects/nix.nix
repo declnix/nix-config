@@ -9,5 +9,7 @@
       ];
       programs.nh.enable = true;
     };
+
+    includes = with den.aspects; [ comma ];
   };
 }
