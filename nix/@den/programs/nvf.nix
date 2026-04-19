@@ -55,15 +55,15 @@
 
       fzf-lua.enable = true;
       maps.normal = {
-        "<C-p>" = {
+        "<leader>ff" = {
           action = "<cmd>FzfLua files<CR>";
           desc = "Find files";
         };
-        "<C-S-f>" = {
+        "<leader>fg" = {
           action = "<cmd>FzfLua live_grep<CR>";
           desc = "Search in files";
         };
-        "<C-b>" = {
+        "<leader>e" = {
           action = ":Neotree toggle<CR>";
           desc = "Toggle file explorer";
         };
