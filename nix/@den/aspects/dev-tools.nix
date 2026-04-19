@@ -16,8 +16,7 @@
       tmux
       git
       nvim
-      yazi
-      lazygit
+      utils
     ];
   };
 }
