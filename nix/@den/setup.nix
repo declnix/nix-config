@@ -22,7 +22,7 @@
     den._.hostname
     den._.define-user
   ]
-  ++ (with den.aspects; [ nix ]);
+  ++ (with den.aspects; [ nix utils ]);
 
   den.default = {
     nixos.system.stateVersion = "25.11";
