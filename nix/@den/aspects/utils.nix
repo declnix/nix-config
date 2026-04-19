@@ -4,9 +4,10 @@
     hjem =
       { pkgs, ... }:
       {
-        packages = with pkgs; [
-          bat
-        ];
+        rum.programs.bat = {
+          enable = true;
+          integrations.zsh.enable = true;
+        };
         rum.programs.eza = {
           enable = true;
           integrations.zsh.enable = true;
