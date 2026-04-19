@@ -11,12 +11,41 @@
 
           networking.networkmanager.enable = true;
 
-          services = {
-            desktopManager.plasma6.enable = true;
-            displayManager.sddm = {
-              enable = true;
-              wayland.enable = true;
+          programs.regreet = {
+            enable = true;
+            font = {
+              package = pkgs.nerd-fonts.jetbrains-mono;
+              name = "JetBrainsMono Nerd Font";
+              size = 14;
             };
+            extraCss = ''
+              window {
+                background-color: #1e1e2e;
+              }
+              box#main_box {
+                background-color: #313244;
+                border-radius: 12px;
+                padding: 32px;
+              }
+              label {
+                color: #cdd6f4;
+              }
+              entry {
+                background-color: #45475a;
+                color: #cdd6f4;
+                border: 1px solid #585b70;
+                border-radius: 6px;
+              }
+              button {
+                background-color: #89b4fa;
+                color: #1e1e2e;
+                border-radius: 6px;
+                border: none;
+              }
+              button:hover {
+                background-color: #b4befe;
+              }
+            '';
           };
 
           programs.niri.enable = true;
