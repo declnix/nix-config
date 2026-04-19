@@ -59,6 +59,8 @@
 
           programs.virt-manager.enable = true;
 
+          time.timeZone = "Europe/Warsaw";
+
         };
 
       includes = with den.aspects; [
