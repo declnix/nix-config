@@ -1,25 +1,5 @@
-{ inputs, ... }:
-let
-  hjemModules = builtins.attrValues (
-    builtins.mapAttrs (name: _: ../hjem/${name}) (builtins.readDir ../hjem)
-  );
-in
+{ ... }:
 {
-  den.default.nixos =
-    { ... }:
-    {
-      hjem.extraModules = hjemModules ++ [
-        inputs.hjem-impure.hjemModules.default
-        inputs.hjem-rum.hjemModules.default
-      ];
-    };
-
-  den.default.hjem =
-    { ... }:
-    {
-      impure.enable = true;
-    };
-
   flake-file.inputs = {
     hjem = {
       url = "github:feel-co/hjem";
