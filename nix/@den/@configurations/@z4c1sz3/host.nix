@@ -20,6 +20,7 @@
           };
 
           programs.niri.enable = true;
+          programs.swaylock.enable = true;
 
           virtualisation = {
             libvirtd.enable = true;
