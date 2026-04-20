@@ -1,9 +1,13 @@
 { den, ... }:
 {
-  den.aspects.declnix = {
-    hjem =
-      { pkgs, ... }:
-      {
+  den.aspects.declnix.provides.z4c1sz3 =
+    { pkgs, ... }:
+    {
+      nixos = {
+        users.users.declnix.initialPassword = "test";
+      };
+
+      hjem = { pkgs, ... }: {
         packages = with pkgs; [
           codex
           wget
@@ -12,19 +16,15 @@
         ];
       };
 
-    includes = [
-      den._.primary-user
-      (den._.user-shell "zsh")
-    ]
-    ++ (with den.aspects; [
-      dev-tools
-      dev-ai
-    ]);
-
-    provides.z4c1sz3.nixos = {
-      users.users.declnix.initialPassword = "test";
+      includes = [
+        den._.primary-user
+        (den._.user-shell "zsh")
+      ]
+      ++ (with den.aspects; [
+        dev-tools
+        dev-ai
+      ]);
     };
-  };
 
   den.hosts.x86_64-linux.z4c1sz3.users.declnix = { };
 
