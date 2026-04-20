@@ -7,7 +7,28 @@
 
 ## Den configuration conventions
 
-- User aspects must always be host-scoped: `den.aspects.<user>.provides.<host>`, never a global `den.aspects.<user>` — unless explicitly asked otherwise.
+### File naming
+- Entry-point files are named `default.nix`.
+- The `@` prefix belongs on directories only (for sort order), never on files.
+
+### Merging short files
+- Files under ~20 lines are candidates for merging into `default.nix`.
+- Keep a file separate if it contains `flake-file.inputs` — that signals an external dependency that is easier to locate in its own file.
+- Keep a file separate if it has a clearly distinct domain (e.g. `wsl.nix`, `comma.nix`).
+
+### Small hosts (e.g. WSL)
+- Merge host and user config into a single `default.nix`.
+
+### Block order in host files
+- User provides → user host registration → host aspect → host registration.
+
+### User aspects
+- User aspects must always be host-scoped: `den.aspects.<user>.provides.<host>`.
+- Never create a global `den.aspects.<user>` unless explicitly asked.
+
+### Hjem modules vs aspects
+- Programs with shell integrations (aliases, functions, init snippets) belong in a rum module under `nix/hjem/`.
+- Aspects only aggregate and enable modules — they do not define program logic inline.
 
 ## Nix
 
