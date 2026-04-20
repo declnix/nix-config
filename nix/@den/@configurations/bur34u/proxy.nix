@@ -7,6 +7,7 @@
         systemd.services.nix-proxy-env = {
           wantedBy = [ "nix-daemon.service" ];
           before = [ "nix-daemon.service" ];
+          path = [ pkgs.iproute2 pkgs.gawk ];
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
@@ -19,7 +20,7 @@
         };
 
         systemd.services.nix-daemon.serviceConfig.EnvironmentFile =
-          "/run/nix-proxy.env";
+          "-/run/nix-proxy.env";
 
         security.sudo.extraConfig = ''
           Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY"
