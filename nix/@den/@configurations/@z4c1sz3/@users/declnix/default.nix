@@ -13,26 +13,6 @@
           wget
           curl
           firefox
-        ];
-      };
-
-      includes = [
-        den._.primary-user
-        (den._.user-shell "zsh")
-      ]
-      ++ (with den.aspects; [
-        dev-tools
-        dev-ai
-      ]);
-    };
-
-  den.hosts.x86_64-linux.z4c1sz3.users.declnix = { };
-
-  den.aspects.z4c1sz3.provides.declnix = {
-    hjem =
-      { pkgs, ... }:
-      {
-        packages = with pkgs; [
           swaylock
           swayidle
         ];
@@ -46,5 +26,16 @@
         };
         rum.programs.fuzzel.enable = true;
       };
-  };
+
+      includes = [
+        den._.primary-user
+        (den._.user-shell "zsh")
+      ]
+      ++ (with den.aspects; [
+        dev-tools
+        dev-ai
+      ]);
+    };
+
+  den.hosts.x86_64-linux.z4c1sz3.users.declnix = { };
 }
