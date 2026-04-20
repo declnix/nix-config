@@ -29,7 +29,7 @@
 
     provides.to-users.hjem = { ... }: {
       rum.programs.zsh.initConfig = ''
-        [ -f "$HOME/.env" ] && source "$HOME/.env"
+        [ -f /run/nix-proxy.env ] && source /run/nix-proxy.env
       '';
     };
   };
