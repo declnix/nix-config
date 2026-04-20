@@ -27,4 +27,24 @@
   };
 
   den.hosts.x86_64-linux.z4c1sz3.users.declnix = { };
+
+  den.aspects.z4c1sz3.provides.declnix = {
+    hjem =
+      { pkgs, ... }:
+      {
+        packages = with pkgs; [
+          swaylock
+          swayidle
+        ];
+        files.".config/swaylock/config".text = ''
+          color=000000
+          show-failed-attempts
+        '';
+        rum.programs.alacritty = {
+          enable = true;
+          settings.window.decorations = "None";
+        };
+        rum.programs.fuzzel.enable = true;
+      };
+  };
 }
