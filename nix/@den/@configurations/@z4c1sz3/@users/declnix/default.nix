@@ -7,25 +7,27 @@
         users.users.declnix.initialPassword = "test";
       };
 
-      hjem = { pkgs, ... }: {
-        packages = with pkgs; [
-          codex
-          wget
-          curl
-          firefox
-          swaylock
-          swayidle
-        ];
-        files.".config/swaylock/config".text = ''
-          color=000000
-          show-failed-attempts
-        '';
-        rum.programs.alacritty = {
-          enable = true;
-          settings.window.decorations = "None";
+      hjem =
+        { pkgs, ... }:
+        {
+          packages = with pkgs; [
+            codex
+            wget
+            curl
+            firefox
+            swaylock
+            swayidle
+          ];
+          files.".config/swaylock/config".text = ''
+            color=000000
+            show-failed-attempts
+          '';
+          rum.programs.alacritty = {
+            enable = true;
+            settings.window.decorations = "None";
+          };
+          rum.programs.fuzzel.enable = true;
         };
-        rum.programs.fuzzel.enable = true;
-      };
 
       includes = [
         den._.primary-user

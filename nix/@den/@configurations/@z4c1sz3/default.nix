@@ -51,7 +51,10 @@
           programs.niri.enable = true;
           security.pam.services.swaylock = { };
 
-          environment.systemPackages = [ pkgs.swaylock pkgs.swayidle ];
+          environment.systemPackages = [
+            pkgs.swaylock
+            pkgs.swayidle
+          ];
 
           virtualisation = {
             libvirtd.enable = true;

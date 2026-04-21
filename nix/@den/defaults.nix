@@ -1,4 +1,9 @@
-{ den, inputs, lib, ... }:
+{
+  den,
+  inputs,
+  lib,
+  ...
+}:
 let
   hjemModules = builtins.attrValues (
     builtins.mapAttrs (name: _: ../hjem/${name}) (builtins.readDir ../hjem)
@@ -10,7 +15,10 @@ in
     den._.hostname
     den._.define-user
   ]
-  ++ (with den.aspects; [ nix essentials ]);
+  ++ (with den.aspects; [
+    nix
+    essentials
+  ]);
 
   den.default.nixos = {
     system.stateVersion = "25.11";

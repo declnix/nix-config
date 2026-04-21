@@ -4,7 +4,10 @@
     hjem =
       { pkgs, ... }:
       {
-        packages = with pkgs; [ ripgrep devbox ];
+        packages = with pkgs; [
+          ripgrep
+          devbox
+        ];
         rum.programs.direnv = {
           enable = true;
           integrations.zsh.enable = true;
