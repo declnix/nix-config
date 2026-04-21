@@ -11,6 +11,9 @@
 - Entry-point files are named `default.nix`.
 - The `@` prefix belongs on directories only (for sort order), never on files.
 
+### New host
+- if host file is short keep it as name of name + ".nix"
+
 ### Merging short files
 - Files under ~20 lines are candidates for merging into `default.nix`.
 - Keep a file separate if it contains `flake-file.inputs` — that signals an external dependency that is easier to locate in its own file.
