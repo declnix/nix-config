@@ -1,4 +1,7 @@
 { den, ... }:
+let
+  sourceExported = file: "set -a; source ${file}; set +a";
+in
 {
   den.aspects.bur34u.nixos =
     { pkgs, ... }:
@@ -15,7 +18,7 @@
           RemainAfterExit = true;
           ExecStart = pkgs.writeShellScript "eval-proxy-env" ''
             [ -f /etc/proxy.env ] || exit 0
-            set -a; source /etc/proxy.env; set +a
+            ${sourceExported "/etc/proxy.env"}
             env | grep -iE '^(http|https|no)_proxy=' > /run/nix-proxy.env
           '';
         };
@@ -29,9 +32,7 @@
 
       programs.zsh.shellInit = ''
         if [ -f /run/nix-proxy.env ]; then
-          set -a
-          source /run/nix-proxy.env
-          set +a
+          ${sourceExported "/run/nix-proxy.env"}
         fi
       '';
     };
