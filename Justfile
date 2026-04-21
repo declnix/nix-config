@@ -11,9 +11,9 @@
     nixos-rebuild build-vm --flake ".#{{host}}"
     ./result/bin/run-{{host}}-vm
 
-# format nix files
+# format files
 @fmt:
-    nixfmt $(find . -name '*.nix')
+    nix fmt
 
 # regenerate flake.nix
 @flake:
