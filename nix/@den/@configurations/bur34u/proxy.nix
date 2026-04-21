@@ -28,7 +28,11 @@
       '';
 
       programs.zsh.shellInit = ''
-        [ -f /run/nix-proxy.env ] && source /run/nix-proxy.env
+        if [ -f /run/nix-proxy.env ]; then
+          set -a
+          source /run/nix-proxy.env
+          set +a
+        fi
       '';
     };
 }
