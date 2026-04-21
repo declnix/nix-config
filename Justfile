@@ -15,6 +15,14 @@
 @fmt:
     nix fmt
 
+# remove old generations (keeping last 5) and garbage collect
+@cleanup:
+    sudo nix-env -p /nix/var/nix/profiles/system --delete-generations +5
+    nix-env --delete-generations +5
+    sudo nix-collect-garbage
+    nix-collect-garbage
+    nix-store --gc
+
 # regenerate flake.nix
 @flake:
     nix run ".#write-flake"
