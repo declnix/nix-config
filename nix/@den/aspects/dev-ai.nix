@@ -4,10 +4,7 @@
     hjem =
       { pkgs, ... }:
       {
-        packages = [
-          pkgs.claude-code
-          pkgs.gemini-cli
-        ];
+        packages = [ pkgs.claude-code ];
       };
   };
 

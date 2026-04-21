@@ -11,7 +11,6 @@
         { pkgs, ... }:
         {
           packages = with pkgs; [
-            codex
             wget
             curl
             firefox
