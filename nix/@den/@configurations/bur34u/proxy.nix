@@ -29,23 +29,15 @@ in
 
           systemd.services.nix-daemon.serviceConfig.EnvironmentFile = "-/run/nix-proxy.env";
 
+          programs.zsh.interactiveShellInit = ''
+            if [ -f /run/nix-proxy.env ]; then
+              ${sourceExported "/run/nix-proxy.env"}
+            fi
+          '';
+
           security.sudo.extraConfig = ''
             Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY"
           '';
-        };
-
-      provides.to-users =
-        { ... }:
-        {
-          hjem =
-            { lib, ... }:
-            {
-              rum.programs.zsh.initConfig = lib.mkBefore ''
-                if [ -f /run/nix-proxy.env ]; then
-                  ${sourceExported "/run/nix-proxy.env"}
-                fi
-              '';
-            };
         };
     };
 }
