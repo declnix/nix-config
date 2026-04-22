@@ -7,7 +7,6 @@
         rum.desktops.niri = {
           enable = true;
           spawn-at-startup = [
-            [ "waybar" ]
             [
               "swayidle"
               "-w"

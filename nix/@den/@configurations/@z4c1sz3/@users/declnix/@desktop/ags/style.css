@@ -1,0 +1,24 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+}
+
+window {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+centerbox {
+  padding: 4px 8px;
+  min-height: 32px;
+}
+
+.modules-right > * {
+  margin: 0 6px;
+}
+
+label.charging { color: #44cc44; }
+label.warning  { color: #ffaa00; }
+label.critical { color: #ff4444; }
+.modules-right label:first-child { color: #4a9eff; }
