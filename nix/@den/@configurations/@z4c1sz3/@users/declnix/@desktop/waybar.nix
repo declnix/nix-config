@@ -10,13 +10,17 @@
           layer = "top";
           position = "top";
           height = 30;
-          modules-left = [ ];
+          modules-left = [ "custom/nixos" ];
           modules-center = [ ];
           modules-right = [
             "network"
             "battery"
             "clock"
           ];
+          "custom/nixos" = {
+            format = "";
+            tooltip = false;
+          };
           clock = {
             format = "󰃰  {:%d %b %H:%M}";
             tooltip = false;
@@ -58,8 +62,15 @@
             background: #1a1a1a;
             color: #e0e0e0;
           }
+          .modules-left {
+            padding: 2px 8px;
+          }
           .modules-right {
             padding: 2px 8px;
+          }
+          #custom-nixos {
+            color: #7ebae4;
+            margin: 0 6px;
           }
           #network,
           #battery,
