@@ -28,7 +28,7 @@ Directories that should sort first when listing are prefixed with `@` (e.g. `@z4
 
 ### Rules
 
-- Scope = name of the aspect or file being changed
+- Scope = name of the **host** when the change is host-specific, otherwise name of the aspect or file being changed
 - Message lowercase, no trailing period
 
 ### Examples
