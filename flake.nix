@@ -5,17 +5,6 @@
     inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree (./nix + "/@den"));
 
   inputs = {
-    ags = {
-      url = "github:aylur/ags";
-      inputs = {
-        astal.follows = "astal";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     den.url = "github:vic/den";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
