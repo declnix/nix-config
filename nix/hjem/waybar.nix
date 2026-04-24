@@ -18,7 +18,7 @@
   };
   config = lib.mkIf config.waybar.enable {
     packages = [ pkgs.waybar ];
-    files.".config/waybar/config.jsonc".text = config.waybar.extraConfig;
+    files.".config/waybar/config".text = config.waybar.extraConfig;
     files.".config/waybar/style.css".text = config.waybar.extraStyle;
   };
 }
