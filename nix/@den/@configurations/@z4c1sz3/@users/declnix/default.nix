@@ -14,13 +14,8 @@
             wget
             curl
             firefox
-            swaylock
             swayidle
           ];
-          files.".config/swaylock/config".text = ''
-            color=000000
-            show-failed-attempts
-          '';
           rum.programs.alacritty = {
             enable = true;
             settings.window.decorations = "None";

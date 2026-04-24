@@ -12,10 +12,8 @@
           networking.networkmanager.enable = true;
 
           programs.niri.enable = true;
-          security.pam.services.swaylock = { };
 
           environment.systemPackages = [
-            pkgs.swaylock
             pkgs.swayidle
           ];
 

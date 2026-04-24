@@ -6,20 +6,6 @@
       {
         rum.desktops.niri = {
           enable = true;
-          spawn-at-startup = [
-            [
-              "swayidle"
-              "-w"
-              "timeout"
-              "300"
-              "swaylock -f"
-              "timeout"
-              "600"
-              "niri msg action power-off-monitors"
-              "resume"
-              "niri msg action power-on-monitors"
-            ]
-          ];
           binds = {
             "Mod+Shift+Slash" = {
               action = "show-hotkey-overlay";
@@ -32,10 +18,6 @@
             "Mod+D" = {
               spawn = [ "fuzzel" ];
               parameters.hotkey-overlay-title = "Run an Application: fuzzel";
-            };
-            "Super+Alt+L" = {
-              spawn = [ "swaylock" ];
-              parameters.hotkey-overlay-title = "Lock the Screen: swaylock";
             };
             "Super+Alt+S" = {
               spawn = [ "${pkgs.writeShellScript "toggle-orca" "pkill orca || exec orca"}" ];
