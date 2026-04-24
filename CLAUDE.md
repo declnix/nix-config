@@ -19,6 +19,7 @@
 - For small hosts (e.g. WSL), merge host and user config into a single `default.nix`.
 - Files under ~20 lines are candidates for merging into `default.nix`.
 - Keep a file separate if it contains `flake-file.inputs` — that signals an external dependency that is easier to locate in its own file.
+- In files that contain `flake-file.inputs`, place `den` attributes before the `flake-file.inputs` block.
 - Keep a file separate if it has a clearly distinct domain (e.g. `wsl.nix`, `comma.nix`).
 - In host files, keep this block order: user provides → user host registration → host aspect → host registration.
 - User aspects must always be host-scoped: `den.aspects.<user>.provides.<host>`.
