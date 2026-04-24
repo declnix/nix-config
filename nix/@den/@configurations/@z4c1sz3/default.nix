@@ -11,10 +11,6 @@
 
           programs.niri.enable = true;
 
-          environment.systemPackages = [
-            pkgs.swayidle
-          ];
-
           virtualisation = {
             libvirtd.enable = true;
           };

@@ -12,7 +12,6 @@
             wget
             curl
             firefox
-            swayidle
           ];
           rum.programs.alacritty = {
             enable = true;

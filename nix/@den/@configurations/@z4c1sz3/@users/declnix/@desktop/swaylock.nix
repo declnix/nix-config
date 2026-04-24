@@ -5,13 +5,19 @@
       { pkgs, ... }:
       {
         security.pam.services.swaylock = { };
-        environment.systemPackages = [ pkgs.swaylock-effects ];
+        environment.systemPackages = [
+          pkgs.swaylock-effects
+          pkgs.swayidle
+        ];
       };
 
     hjem =
       { pkgs, ... }:
       {
-        packages = [ pkgs.swaylock-effects ];
+        packages = [
+          pkgs.swaylock-effects
+          pkgs.swayidle
+        ];
         files.".config/swaylock/config".text = ''
           color=000000
           show-failed-attempts
