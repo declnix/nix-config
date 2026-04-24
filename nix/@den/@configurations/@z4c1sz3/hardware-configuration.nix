@@ -1,8 +1,6 @@
 { den, lib, ... }:
 {
-  den.aspects.z4c1sz3 =
-    { ... }:
-    {
+  den.aspects.z4c1sz3 = {
       nixos =
         {
           modulesPath,

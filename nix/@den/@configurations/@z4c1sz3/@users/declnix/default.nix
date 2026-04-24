@@ -1,8 +1,6 @@
 { den, ... }:
 {
-  den.aspects.declnix.provides.z4c1sz3 =
-    { ... }:
-    {
+  den.aspects.declnix.provides.z4c1sz3 = {
       nixos = {
         users.users.declnix.initialPassword = "test";
       };
