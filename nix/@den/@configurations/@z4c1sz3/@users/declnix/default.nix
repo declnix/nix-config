@@ -12,6 +12,7 @@
             wget
             curl
             firefox
+            gh
           ];
           rum.programs.alacritty = {
             enable = true;
