@@ -8,6 +8,7 @@
           boot.loader.efi.canTouchEfiVariables = true;
 
           networking.networkmanager.enable = true;
+          networking.firewall.allowedTCPPorts = [ 5173 ];
 
           programs.niri.enable = true;
 
