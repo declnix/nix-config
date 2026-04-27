@@ -4,13 +4,6 @@
 }:
 {
   den.aspects.nvim = {
-    hjem =
-      { pkgs, ... }:
-      {
-        packages = [ (den.lib.nvim.package pkgs den.aspects.nvim { }) ];
-        environment.sessionVariables.EDITOR = "nvim";
-      };
-
     vim = {
       theme.enable = true;
       lsp.enable = true;
@@ -86,6 +79,13 @@
       visuals.nvim-web-devicons.enable = true;
       tabline.nvimBufferline.enable = true;
     };
+
+    hjem =
+      { pkgs, ... }:
+      {
+        packages = [ (den.lib.nvim.package pkgs den.aspects.nvim { }) ];
+        environment.sessionVariables.EDITOR = "nvim";
+      };
   };
 
   flake-file.inputs.nvf.url = "github:notashelf/nvf";

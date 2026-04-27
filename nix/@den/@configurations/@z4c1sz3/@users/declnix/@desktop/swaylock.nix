@@ -1,16 +1,6 @@
 { den, ... }:
 {
   den.aspects.z4c1sz3.provides.declnix = {
-    nixos =
-      { pkgs, ... }:
-      {
-        security.pam.services.swaylock = { };
-        environment.systemPackages = [
-          pkgs.swaylock-effects
-          pkgs.swayidle
-        ];
-      };
-
     hjem =
       { pkgs, ... }:
       {
@@ -52,6 +42,16 @@
             parameters.hotkey-overlay-title = "Lock the Screen: swaylock";
           };
         };
+      };
+
+    nixos =
+      { pkgs, ... }:
+      {
+        security.pam.services.swaylock = { };
+        environment.systemPackages = [
+          pkgs.swaylock-effects
+          pkgs.swayidle
+        ];
       };
   };
 }

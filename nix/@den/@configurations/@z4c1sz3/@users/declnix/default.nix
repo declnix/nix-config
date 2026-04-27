@@ -1,10 +1,6 @@
 { den, ... }:
 {
   den.aspects.declnix.provides.z4c1sz3 = {
-      nixos = {
-        users.users.declnix.initialPassword = "test";
-      };
-
       hjem =
         { pkgs, ... }:
         {
@@ -20,6 +16,10 @@
           };
           rum.programs.fuzzel.enable = true;
         };
+
+      nixos = {
+        users.users.declnix.initialPassword = "test";
+      };
 
       includes = [
         den._.primary-user
