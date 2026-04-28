@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.aspects.zsh = {
-    config = {
+    zsh = {
       oh-my-zsh.plugins = [ "git" ];
       zsh-autosuggestions.enable = true;
       zsh-syntax-highlighting.enable = true;

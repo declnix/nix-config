@@ -7,14 +7,29 @@
 {
   den.lib.zsh.package =
     pkgs: zshAspect: ctx:
-    (den.lib.zsh.module zshAspect ctx).config.finalConfig;
+    let
+      zshClass =
+        { class, aspect-chain }:
+        den._.forward {
+          each = lib.singleton true;
+          fromClass = _: "zsh";
+          intoClass = _: "";
+          intoPath = _: [ ];
+          fromAspect = _: lib.head aspect-chain;
+          adaptArgs = lib.id;
+        };
 
-  den.lib.zsh.module =
-    zshAspect: ctx:
+      aspect = den.lib.parametric.fixedTo ctx {
+        includes = [
+          zshClass
+          zshAspect
+        ];
+      };
+
+      resolved = den.lib.aspects.resolve "" aspect;
+    in
     inputs.nzf.lib.zsh.zshConfiguration {
-      modules = [
-        zshAspect.config or { }
-      ];
+      modules = [ resolved ];
       specialArgs = {
         lib = inputs.nzf.lib;
       };

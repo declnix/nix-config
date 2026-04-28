@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.aspects.tmux = {
-    config.tmux.settings = {
+    tmux.tmux.settings = {
       mouse = true;
       base-index = 1;
       status-style = "bg=default";
@@ -12,10 +12,12 @@
       window-status-current-format = "#[fg=white,bold] #I:#W ";
     };
 
-    hjem = { pkgs, ... }: {
-      packages = [ pkgs.tmux ];
-      files.".config/tmux/tmux.conf".text = den.lib.tmux.package pkgs den.aspects.tmux { };
-    };
+    hjem =
+      { pkgs, ... }:
+      {
+        packages = [ pkgs.tmux ];
+        files.".config/tmux/tmux.conf".text = den.lib.tmux.package pkgs den.aspects.tmux { };
+      };
   };
 
   flake-file.inputs.ntf.url = "github:declnix/ntf";
