@@ -34,6 +34,17 @@
 - Local modules should expose the basic properties the program needs, including `extraConfig` and shell integration when relevant.
 - Aspects only aggregate and enable modules — they do not define program logic inline.
 
+## Program libraries (lib.nix)
+
+- When a program library needs to collect scattered `provides.to-users` contributions, define an inline parametric forwarder in `lib.nix`, not a separate provides aspect.
+- The forwarder checks the parametric `class` parameter and conditionally includes contributions:
+  ```nix
+  zshFromProvidesToUsers = { class, aspect-chain }:
+    if class == "zsh" then { includes = lib.concatMap (...) (lib.attrValues den.aspects); }
+    else { };
+  ```
+- Include the forwarder directly in the parametric `includes` list, not via `den.default.includes`.
+
 ## Nix
 
 - Format all Nix code the way `nixfmt` does — follow its indentation, line-breaking, and spacing conventions so that running `nixfmt` produces no diff.

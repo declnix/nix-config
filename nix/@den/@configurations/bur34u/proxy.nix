@@ -3,41 +3,43 @@ let
   sourceExported = file: "set -a; source ${file}; set +a";
 in
 {
-  den.aspects.bur34u =
-    { ... }:
-    {
-      nixos =
-        { pkgs, ... }:
-        {
-          systemd.services.nix-proxy-env = {
-            wantedBy = [ "nix-daemon.service" ];
-            before = [ "nix-daemon.service" ];
-            path = [
-              pkgs.iproute2
-              pkgs.gawk
-            ];
-            serviceConfig = {
-              Type = "oneshot";
-              RemainAfterExit = true;
-              ExecStart = pkgs.writeShellScript "eval-proxy-env" ''
-                [ -f /etc/proxy.env ] || exit 0
-                ${sourceExported "/etc/proxy.env"}
-                env | grep -iE '^(http|https|no)_proxy=' > /run/nix-proxy.env
-              '';
-            };
+  den.aspects.bur34u = {
+    nixos =
+      { pkgs, ... }:
+      {
+        systemd.services.nix-proxy-env = {
+          wantedBy = [ "nix-daemon.service" ];
+          before = [ "nix-daemon.service" ];
+          path = [
+            pkgs.iproute2
+            pkgs.gawk
+          ];
+          serviceConfig = {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            ExecStart = pkgs.writeShellScript "eval-proxy-env" ''
+              [ -f /etc/proxy.env ] || exit 0
+              ${sourceExported "/etc/proxy.env"}
+              env | grep -iE '^(http|https|no)_proxy=' > /run/nix-proxy.env
+            '';
           };
-
-          systemd.services.nix-daemon.serviceConfig.EnvironmentFile = "-/run/nix-proxy.env";
-
-          programs.zsh.interactiveShellInit = ''
-            if [ -f /run/nix-proxy.env ]; then
-              ${sourceExported "/run/nix-proxy.env"}
-            fi
-          '';
-
-          security.sudo.extraConfig = ''
-            Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY"
-          '';
         };
+
+        systemd.services.nix-daemon.serviceConfig.EnvironmentFile = "-/run/nix-proxy.env";
+
+        security.sudo.extraConfig = ''
+          Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY"
+        '';
+      };
+
+    provides.to-users = {
+      zsh = {
+        plugins.proxy-env = ''
+          if [ -f /run/nix-proxy.env ]; then
+            ${sourceExported "/run/nix-proxy.env"}
+          fi
+        '';
+      };
     };
+  };
 }

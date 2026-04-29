@@ -19,10 +19,21 @@
           adaptArgs = lib.id;
         };
 
+      tmuxFromProvidesToUsers = { class, aspect-chain }:
+        if class == "tmux" then
+          {
+            includes = lib.concatMap (aspect:
+              let toUsers = if builtins.isAttrs aspect then aspect.provides.to-users or { } else { };
+              in lib.optional (toUsers ? tmux) ({ class, aspect-chain }: { tmux = toUsers.tmux; })
+            ) (lib.attrValues den.aspects);
+          }
+        else { };
+
       aspect = den.lib.parametric.fixedTo ctx {
         includes = [
           tmuxClass
           tmuxAspect
+          tmuxFromProvidesToUsers
         ];
       };
     in

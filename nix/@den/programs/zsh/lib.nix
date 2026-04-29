@@ -19,10 +19,21 @@
           adaptArgs = lib.id;
         };
 
+      zshFromProvidesToUsers = { class, aspect-chain }:
+        if class == "zsh" then
+          {
+            includes = lib.concatMap (aspect:
+              let toUsers = if builtins.isAttrs aspect then aspect.provides.to-users or { } else { };
+              in lib.optional (toUsers ? zsh) ({ class, aspect-chain }: { zsh = toUsers.zsh; })
+            ) (lib.attrValues den.aspects);
+          }
+        else { };
+
       aspect = den.lib.parametric.fixedTo ctx {
         includes = [
           zshClass
           zshAspect
+          zshFromProvidesToUsers
         ];
       };
     in
