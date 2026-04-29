@@ -36,14 +36,9 @@
 
 ## Program libraries (lib.nix)
 
-- When a program library needs to collect scattered `provides.to-users` contributions, define an inline parametric forwarder in `lib.nix`, not a separate provides aspect.
-- The forwarder checks the parametric `class` parameter and conditionally includes contributions:
-  ```nix
-  zshFromProvidesToUsers = { class, aspect-chain }:
-    if class == "zsh" then { includes = lib.concatMap (...) (lib.attrValues den.aspects); }
-    else { };
-  ```
-- Include the forwarder directly in the parametric `includes` list, not via `den.default.includes`.
+- Keep program libs context-free. Helpers like `den.lib.zsh.package` or `den.lib.tmux.package` should accept a source aspect and only resolve the program class they care about.
+- If a program needs host/user-aware behavior, make the owning aspect parametric (`{ host, user, ... }:`) and pass `den.ctx.user { inherit host user; }` into the program lib from there.
+- Do not reconstruct `{ host, user }` inside `hjem`/`homeManager` module functions by probing `_module.args`.
 
 ## Nix
 
