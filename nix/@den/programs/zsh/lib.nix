@@ -5,8 +5,8 @@
   ...
 }:
 {
-  den.lib.zsh.package =
-    pkgs: zshAspect: ctx:
+  den.lib.zsh.module =
+    zshAspect: ctx:
     let
       zshClass =
         { class, aspect-chain }:
@@ -25,11 +25,13 @@
           zshAspect
         ];
       };
-
-      resolved = den.lib.aspects.resolve "" aspect;
     in
+    den.lib.aspects.resolve "" aspect;
+
+  den.lib.zsh.package =
+    pkgs: zshAspect: ctx:
     inputs.nzf.lib.zsh.zshConfiguration {
-      modules = [ resolved ];
+      modules = [ (den.lib.zsh.module zshAspect ctx) ];
       specialArgs = {
         lib = inputs.nzf.lib;
       };

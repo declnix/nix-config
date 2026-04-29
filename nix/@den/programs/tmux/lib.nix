@@ -5,8 +5,8 @@
   ...
 }:
 {
-  den.lib.tmux.package =
-    pkgs: tmuxAspect: ctx:
+  den.lib.tmux.module =
+    tmuxAspect: ctx:
     let
       tmuxClass =
         { class, aspect-chain }:
@@ -25,10 +25,12 @@
           tmuxAspect
         ];
       };
-
-      resolved = den.lib.aspects.resolve "" aspect;
     in
+    den.lib.aspects.resolve "" aspect;
+
+  den.lib.tmux.package =
+    pkgs: tmuxAspect: ctx:
     inputs.ntf.lib.tmux.tmuxConfiguration {
-      modules = [ resolved ];
+      modules = [ (den.lib.tmux.module tmuxAspect ctx) ];
     };
 }
