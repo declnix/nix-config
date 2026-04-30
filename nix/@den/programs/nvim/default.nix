@@ -8,13 +8,11 @@
       theme.enable = true;
       lsp.enable = true;
       lsp.formatOnSave = true;
-
       languages.nix = {
         enable = true;
         format.enable = true;
         lsp.enable = true;
       };
-
       fzf-lua.enable = true;
       luaConfigPost = ''
         vim.api.nvim_create_autocmd("QuitPre", {
@@ -29,7 +27,6 @@
             end
           end,
         })
-
         function _toggle_neotree()
           local cur = vim.api.nvim_get_current_win()
           local nt_open = false
@@ -67,7 +64,6 @@
           desc = "Toggle file explorer";
         };
       };
-
       filetree.neo-tree = {
         enable = true;
         setupOpts = {
@@ -75,18 +71,9 @@
           enable_diagnostics = true;
         };
       };
-
       visuals.nvim-web-devicons.enable = true;
       tabline.nvimBufferline.enable = true;
     };
-
-    hjem =
-      { pkgs, ... }:
-      {
-        packages = [ (den.lib.nvim.package pkgs den.aspects.nvim { }) ];
-        environment.sessionVariables.EDITOR = "nvim";
-      };
   };
-
   flake-file.inputs.nvf.url = "github:notashelf/nvf";
 }
