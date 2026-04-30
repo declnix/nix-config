@@ -1,9 +1,22 @@
-{
-  den,
-  lib,
-  inputs,
-  ...
-}:
+{ den, lib, inputs, ... }:
+let
+  fwd =
+    { host, user }:
+    den.provides.forward {
+      each = lib.singleton true;
+      fromClass = _: "zsh";
+      intoClass = _: host.class;
+      intoPath = _: [ "hjem" "users" user.userName ];
+      fromAspect = _: {
+        zsh = { pkgs, ... }: {
+          rum.programs.zsh = {
+            enable = true;
+            initConfig = den.lib.zsh.package pkgs user.aspect { inherit host user; };
+          };
+        };
+      };
+    };
+in
 {
   den.lib.zsh.package =
     pkgs: zshAspect: ctx:
@@ -14,26 +27,25 @@
       };
     };
 
-  den.lib.zsh.module =
-    zshAspect: ctx:
+  den.lib.zsh.module = zshAspect: ctx:
     let
-      zshClass =
-        { class, aspect-chain }:
-        den._.forward {
-          each = lib.singleton true;
-          fromClass = _: "zsh";
-          intoClass = _: "";
-          intoPath = _: [ ];
-          fromAspect = _: lib.head aspect-chain;
-          adaptArgs = lib.id;
-        };
-
-      aspect = den.lib.parametric.fixedTo ctx {
-        includes = [
-          zshClass
-          zshAspect
-        ];
-      };
+      toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
+      toUser = if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
+      toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or { } else { };
     in
-    den.lib.aspects.resolve "" aspect;
+    den.lib.aspects.resolve "zsh" {
+      includes = [
+        den.aspects.zsh
+        (den.lib.parametric.fixedTo ctx zshAspect)
+        toUsers
+        toUser
+        toHosts
+      ];
+    };
+
+  den.ctx.user.includes = [ fwd ];
+
+  den.provides.zsh = den.lib.parametric.exactly {
+    includes = [ den.aspects.zsh ];
+  };
 }
