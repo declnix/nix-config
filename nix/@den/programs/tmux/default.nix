@@ -11,14 +11,6 @@
       window-status-format = "#[fg=gray] #I:#W ";
       window-status-current-format = "#[fg=white,bold] #I:#W ";
     };
-
-    hjem =
-      { pkgs, ... }:
-      {
-        packages = [ pkgs.tmux ];
-        files.".config/tmux/tmux.conf".text = den.lib.tmux.package pkgs den.aspects.tmux { };
-      };
   };
-
   flake-file.inputs.ntf.url = "github:declnix/ntf";
 }
