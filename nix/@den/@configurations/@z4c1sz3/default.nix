@@ -9,6 +9,22 @@
 
         networking.networkmanager.enable = true;
         networking.firewall.allowedTCPPorts = [ 5173 ];
+        
+        services.tailscale.enable = true;
+        networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+        services.openssh = {
+          enable = true;
+          ports = [ 2222 ];
+          settings = {
+            AllowUsers = [ "declnix" ];
+            PasswordAuthentication = true;
+            KbdInteractiveAuthentication = true;
+            PermitRootLogin = "no";
+            X11Forwarding = false;
+          };
+        };
+        networking.firewall.allowedTCPPorts = [ 2222 ];
 
         programs.niri.enable = true;
 
