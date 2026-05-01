@@ -1,4 +1,9 @@
-{ den, lib, inputs, ... }:
+{
+  den,
+  lib,
+  inputs,
+  ...
+}:
 let
   fwd =
     { host, user }:
@@ -6,14 +11,20 @@ let
       each = lib.singleton true;
       fromClass = _: "zsh";
       intoClass = _: host.class;
-      intoPath = _: [ "hjem" "users" user.userName ];
+      intoPath = _: [
+        "hjem"
+        "users"
+        user.userName
+      ];
       fromAspect = _: {
-        zsh = { pkgs, ... }: {
-          rum.programs.zsh = {
-            enable = true;
-            initConfig = den.lib.zsh.package pkgs user.aspect { inherit host user; };
+        zsh =
+          { pkgs, ... }:
+          {
+            rum.programs.zsh = {
+              enable = true;
+              initConfig = den.lib.zsh.package pkgs user.aspect { inherit host user; };
+            };
           };
-        };
       };
     };
 in
@@ -27,10 +38,12 @@ in
       };
     };
 
-  den.lib.zsh.module = zshAspect: ctx:
+  den.lib.zsh.module =
+    zshAspect: ctx:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
-      toUser = if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
+      toUser =
+        if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
       toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or { } else { };
     in
     den.lib.aspects.resolve "zsh" {

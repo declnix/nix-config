@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.aspects.tmux = {
-    tmux.tmux.settings = {
+    tmux = {
       mouse = true;
       base-index = 1;
       status-style = "bg=default";

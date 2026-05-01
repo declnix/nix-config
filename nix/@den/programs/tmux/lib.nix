@@ -1,4 +1,9 @@
-{ den, lib, inputs, ... }:
+{
+  den,
+  lib,
+  inputs,
+  ...
+}:
 let
   fwd =
     { host, user }:
@@ -6,12 +11,18 @@ let
       each = lib.singleton true;
       fromClass = _: "hjem";
       intoClass = _: host.class;
-      intoPath = _: [ "hjem" "users" user.userName ];
+      intoPath = _: [
+        "hjem"
+        "users"
+        user.userName
+      ];
       fromAspect = _: {
-        hjem = { pkgs, ... }: {
-          packages = [ pkgs.tmux ];
-          files.".config/tmux/tmux.conf".text = den.lib.tmux.package pkgs user.aspect { inherit host user; };
-        };
+        hjem =
+          { pkgs, ... }:
+          {
+            packages = [ pkgs.tmux ];
+            files.".config/tmux/tmux.conf".text = den.lib.tmux.package pkgs user.aspect { inherit host user; };
+          };
       };
     };
 in
@@ -22,20 +33,25 @@ in
       modules = [ (den.lib.tmux.module tmuxAspect ctx) ];
     };
 
-  den.lib.tmux.module = tmuxAspect: ctx:
+  den.lib.tmux.module =
+    tmuxAspect: ctx:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
-      toUser = if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
+      toUser =
+        if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
       toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or { } else { };
+      resolved = den.lib.aspects.resolve "tmux" {
+        includes = [
+          den.aspects.tmux
+          (den.lib.parametric.fixedTo ctx tmuxAspect)
+          toUsers
+          toUser
+          toHosts
+        ];
+      };
     in
-    den.lib.aspects.resolve "tmux" {
-      includes = [
-        den.aspects.tmux
-        (den.lib.parametric.fixedTo ctx tmuxAspect)
-        toUsers
-        toUser
-        toHosts
-      ];
+    {
+      tmux = resolved;
     };
 
   den.ctx.user.includes = [ fwd ];

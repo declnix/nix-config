@@ -2,12 +2,17 @@
 {
   den.aspects.zsh = {
     zsh = {
+      enableCompletion = true;
       oh-my-zsh.plugins = [ "git" ];
       zsh-autosuggestions.enable = true;
       zsh-syntax-highlighting.enable = true;
       zsh-fzf-history-search.enable = true;
+      zsh-fzf-tab.enable = true;
 
-      plugins.compinit = "autoload -Uz compinit && compinit";
+      history = {
+        enable = true;
+        ignoreAllDups = true;
+      };
 
       plugins.prompt = ''
         if [[ -n $SSH_CLIENT ]]; then

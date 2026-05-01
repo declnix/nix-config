@@ -7,7 +7,7 @@ in
     nixos =
       { pkgs, ... }:
       {
-       systemd.services.nix-daemon.serviceConfig = {
+        systemd.services.nix-daemon.serviceConfig = {
           ExecStartPre = pkgs.writeShellScript "gen-proxy-env" ''
             [ -f /etc/proxy.env ] || exit 0
             ${sourceExported "/etc/proxy.env"}
@@ -15,7 +15,7 @@ in
           '';
           EnvironmentFile = "-/run/nix-proxy.env";
         };
-        
+
         security.sudo.extraConfig = ''
           Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY"
         '';

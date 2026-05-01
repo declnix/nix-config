@@ -1,4 +1,9 @@
-{ den, lib, inputs, ... }:
+{
+  den,
+  lib,
+  inputs,
+  ...
+}:
 let
   fwd =
     { host, user }:
@@ -6,9 +11,14 @@ let
       each = lib.singleton true;
       fromClass = _: "hjem";
       intoClass = _: host.class;
-      intoPath = _: [ "hjem" "users" user.userName ];
+      intoPath = _: [
+        "hjem"
+        "users"
+        user.userName
+      ];
       fromAspect = _: {
-        hjem = { pkgs, ... }:
+        hjem =
+          { pkgs, ... }:
           let
             nvimModule = den.lib.nvim.module user.aspect { inherit host user; };
             nvimResult = inputs.nvf.lib.neovimConfiguration {
@@ -35,10 +45,12 @@ in
       modules = [ (den.lib.nvim.module vimAspect ctx) ];
     }).neovim;
 
-  den.lib.nvim.module = vimAspect: ctx:
+  den.lib.nvim.module =
+    vimAspect: ctx:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
-      toUser = if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
+      toUser =
+        if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
       toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or { } else { };
       vimResolved = den.lib.aspects.resolve "vim" {
         includes = [
@@ -49,14 +61,17 @@ in
           toHosts
         ];
       };
-      vimConfig = (lib.evalModules {
-        modules = [
-          { _module.freeformType = lib.types.lazyAttrsOf lib.types.unspecified; }
-          vimResolved
-        ];
-      }).config;
+      vimConfig =
+        (lib.evalModules {
+          modules = [
+            { _module.freeformType = lib.types.lazyAttrsOf lib.types.unspecified; }
+            vimResolved
+          ];
+        }).config;
     in
-    { vim = builtins.removeAttrs vimConfig [ "_module" ]; };
+    {
+      vim = builtins.removeAttrs vimConfig [ "_module" ];
+    };
 
   den.ctx.user.includes = [ fwd ];
 
