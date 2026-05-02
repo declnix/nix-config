@@ -8,8 +8,8 @@
         boot.loader.efi.canTouchEfiVariables = true;
 
         networking.networkmanager.enable = true;
-        networking.firewall.allowedTCPPorts = [ 5173 ];
-        
+        networking.firewall.allowedTCPPorts = [ 5173 2222 ];
+
         services.tailscale.enable = true;
         networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
@@ -24,7 +24,6 @@
             X11Forwarding = false;
           };
         };
-        networking.firewall.allowedTCPPorts = [ 2222 ];
 
         programs.niri.enable = true;
 
