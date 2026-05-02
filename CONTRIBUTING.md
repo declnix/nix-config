@@ -39,3 +39,8 @@ fix(waybar): correct battery module format
 refactor(hjem): move hjem input to hjem-setup.nix
 chore(flake): update lock file
 ```
+
+## Branch naming
+
+- **Host testing:** `@hostname` (e.g. `@bur34u`, `@z4c1sz3`) — short-lived branches for testing/validating host-specific changes before merging to main
+- **Features/fixes:** use aspect/program names without `@` (e.g. `feature/nvim-langs`, `fix/zsh-config`)
