@@ -3,11 +3,16 @@
   den.aspects.zsh = {
     zsh = {
       enableCompletion = true;
-      oh-my-zsh.plugins = [ "git" ];
-      zsh-autosuggestions.enable = true;
-      zsh-syntax-highlighting.enable = true;
-      zsh-fzf-history-search.enable = true;
-      zsh-fzf-tab.enable = true;
+      plugins = {
+        oh-my-zsh = {
+          enable = true;
+          plugins = [ "git" ];
+        };
+        zsh-autosuggestions.enable = true;
+        zsh-syntax-highlighting.enable = true;
+        zsh-fzf-history-search.enable = true;
+        zsh-fzf-tab.enable = true;
+      };
 
       history = {
         enable = true;
