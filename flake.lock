@@ -485,11 +485,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1777930143,
-        "narHash": "sha256-SEHDpI4LqFFWzT0jezvlpLhrFhgRE8ipssQUDx33WP4=",
+        "lastModified": 1777931439,
+        "narHash": "sha256-7GAMAImTvoOi8ZdAkUPva22i2MLlG8Nf9p1JUUmzgdM=",
         "owner": "declnix",
         "repo": "ntf",
-        "rev": "1d6000d72c25caf13dfc87f1d308f6268cbf1f0a",
+        "rev": "f625d7b91fea92d7c5e4961584d17c447162eb8c",
         "type": "github"
       },
       "original": {

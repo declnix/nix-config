@@ -31,6 +31,9 @@ in
     pkgs: tmuxAspect: ctx:
     inputs.ntf.lib.tmux.tmuxConfiguration {
       modules = [ (den.lib.tmux.module tmuxAspect ctx) ];
+      specialArgs = {
+        lib = inputs.ntf.lib;
+      };
     };
 
   den.lib.tmux.module =
@@ -50,9 +53,7 @@ in
         ];
       };
     in
-    {
-      tmux = resolved;
-    };
+    resolved;
 
   den.ctx.user.includes = [ fwd ];
 
