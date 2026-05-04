@@ -8,6 +8,8 @@
       theme.enable = true;
       lsp.enable = true;
       lsp.formatOnSave = true;
+      autocomplete.blink-cmp.enable = true;
+      lsp.lspconfig.enable = true;
       languages.nix = {
         enable = true;
         format.enable = true;
