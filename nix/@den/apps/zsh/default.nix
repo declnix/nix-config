@@ -19,7 +19,7 @@
         ignoreAllDups = true;
       };
 
-      plugins.prompt = ''
+      extraConfig = ''
         if [[ -n $SSH_CLIENT ]]; then
           PROMPT="%F{green}%n@%m%f %B%F{magenta}❯%f%b "
         else

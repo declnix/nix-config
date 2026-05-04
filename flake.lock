@@ -252,6 +252,21 @@
         "type": "github"
       }
     },
+    "import-tree_3": {
+      "locked": {
+        "lastModified": 1773693634,
+        "narHash": "sha256-BtZ2dtkBdSUnFPPFc+n0kcMbgaTxzFNPv2iaO326Ffg=",
+        "owner": "denful",
+        "repo": "import-tree",
+        "rev": "c41e7d58045f9057880b0d85e1152d6a4430dbf1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "denful",
+        "repo": "import-tree",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1777828893,
@@ -525,14 +540,15 @@
       "inputs": {
         "dag": "dag_2",
         "flake-parts": "flake-parts_4",
+        "import-tree": "import-tree_3",
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1777628365,
-        "narHash": "sha256-IpJY78nwq5KGjtqhYfrf5IPoD6VWMtKz27Ibz61Qj68=",
+        "lastModified": 1777931919,
+        "narHash": "sha256-zqtOVWib6QBwCGHS/sS03UGBzuPykZIg1s9ikPufEg4=",
         "owner": "declnix",
         "repo": "nzf",
-        "rev": "ad6f4cee3950cab9468a4b4e538e382b68db7cc1",
+        "rev": "0f728e4875f1072e62a25708f7006eb009d71886",
         "type": "github"
       },
       "original": {
