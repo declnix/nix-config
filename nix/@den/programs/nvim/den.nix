@@ -47,6 +47,7 @@ in
 
   den.lib.nvim.module =
     vimAspect: ctx:
+    { pkgs, ... }:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
       toUser =
@@ -67,6 +68,9 @@ in
             { _module.freeformType = lib.types.lazyAttrsOf lib.types.unspecified; }
             vimResolved
           ];
+          specialArgs = {
+            inherit pkgs;
+          };
         }).config;
     in
     {
