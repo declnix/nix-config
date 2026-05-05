@@ -45,7 +45,6 @@
     nixpkgs-lib.follows = "nixpkgs";
     ntf.url = "github:declnix/ntf";
     nvf.url = "github:notashelf/nvf";
-    nzf.url = "github:declnix/nzf";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
