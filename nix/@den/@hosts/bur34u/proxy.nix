@@ -16,7 +16,7 @@
     provides.to-users = {
       zsh = {
         extraConfig = ''
-          [ -f /etc/proxy ] && source /etc/proxy
+          set -a; [ -f /etc/proxy ] && source /etc/proxy; set +a
         '';
       };
     };
