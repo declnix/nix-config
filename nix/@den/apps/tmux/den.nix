@@ -1,7 +1,6 @@
 {
   den,
   lib,
-  inputs,
   ...
 }:
 let
@@ -17,33 +16,20 @@ let
         user.userName
       ];
       fromAspect = _: {
-        hjem =
-          { pkgs, ... }:
-          {
-            packages = [ pkgs.tmux ];
-            files.".config/tmux/tmux.conf".text = den.lib.tmux.package pkgs user.aspect { inherit host user; };
-          };
+        hjem = den.lib.tmux.module user.aspect { inherit host user; };
       };
     };
 in
 {
-  den.lib.tmux.package =
-    pkgs: tmuxAspect: ctx:
-    inputs.ntf.lib.tmux.tmuxConfiguration {
-      modules = [ (den.lib.tmux.module tmuxAspect ctx) ];
-      specialArgs = {
-        lib = inputs.ntf.lib;
-      };
-    };
-
   den.lib.tmux.module =
     tmuxAspect: ctx:
+    { pkgs, ... }:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
       toUser =
         if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
       toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or { } else { };
-      resolved = den.lib.aspects.resolve "tmux" {
+      tmuxResolved = den.lib.aspects.resolve "tmux" {
         includes = [
           den.aspects.tmux
           (den.lib.parametric.fixedTo ctx tmuxAspect)
@@ -52,8 +38,27 @@ in
           toHosts
         ];
       };
+      tmuxConfig =
+        (lib.evalModules {
+          modules = [
+            {
+              options.initConfig = lib.mkOption {
+                type = lib.types.lines;
+                default = "";
+              };
+              config._module.freeformType = lib.types.lazyAttrsOf lib.types.anything;
+            }
+            tmuxResolved
+          ];
+          specialArgs = {
+            inherit pkgs lib;
+          };
+        }).config;
     in
-    resolved;
+    {
+      packages = [ pkgs.tmux ];
+      files.".config/tmux/tmux.conf".text = tmuxConfig.initConfig;
+    };
 
   den.ctx.user.includes = [ fwd ];
 
