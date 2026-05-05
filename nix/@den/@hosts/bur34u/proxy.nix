@@ -9,7 +9,7 @@
         };
 
         security.sudo.extraConfig = ''
-          Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY all_proxy ALL_PROXY"
+          Defaults env_keep += "http_proxy https_proxy no_proxy HTTP_PROXY HTTPS_PROXY NO_PROXY"
         '';
       };
 
