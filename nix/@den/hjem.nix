@@ -11,6 +11,7 @@ let
 in
 {
   flake-file.inputs = {
+    dag.url = "github:denful/dag";
     hjem = {
       url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";

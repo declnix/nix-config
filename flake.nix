@@ -5,6 +5,7 @@
     inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree (./nix + "/@den"));
 
   inputs = {
+    dag.url = "github:denful/dag";
     den.url = "github:vic/den";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
