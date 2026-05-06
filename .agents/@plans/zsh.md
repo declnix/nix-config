@@ -1,4 +1,4 @@
-# Spec: Implement custom Zsh module and integration
+# Plan: Implement custom Zsh module and integration
 
 ## Goal
 Replace the external Zsh module from `hjem-rum` with a custom implementation in `nix/hjem/zsh.nix` using `dag`, and simplify the configuration structure by flattening it.
