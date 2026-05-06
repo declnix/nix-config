@@ -5,7 +5,7 @@ Remove legacy Zsh app definitions and register the Zsh aspect in the new module.
 
 ## Implementation Steps
 1. Remove `nix/@den/apps/zsh/den.nix` and `nix/@den/apps/zsh/default.nix`.
-2. Add `den.aspects.zsh` definition to `nix/hjem/zsh.nix`.
+2. [✓] Add `den.aspects.zsh` definition to `nix/@den/apps/zsh.nix`.
 
 ## Snippet
 ```nix

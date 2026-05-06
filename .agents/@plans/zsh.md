@@ -21,12 +21,12 @@ Configure module aggregation to include the new custom Zsh module within the `hj
 Simplify module imports to rely on the new local `hjem` configuration structure.
 [Subplan: zsh/update-hjem-config.md](zsh/update-hjem-config.md)
 
-### 5. Cleanup and integration
+### [✓] 5. Cleanup and integration
 Remove legacy Zsh app definitions and register the Zsh aspect in the new module.
 [Subplan: zsh/cleanup-and-integration.md](zsh/cleanup-and-integration.md)
 
-### 6. Update dependency modules
-Adjust existing dependency modules to utilize the new `rum.programs.zsh.initConfig` paths.
+### [✓] 6. Update dependency modules
+Adjust existing dependency modules to utilize the new `rum.wrappered.zsh.initConfig` paths.
 [Subplan: zsh/update-deps.md](zsh/update-deps.md)
 
 ### 7. Migrate existing plugins
