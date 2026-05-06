@@ -17,7 +17,7 @@ Implement the core Zsh module definition supporting plugin management and config
 Configure module aggregation to include the new custom Zsh module within the `hjem` system.
 [Subplan: zsh/aggregate-modules.md](zsh/aggregate-modules.md)
 
-### 4. Update `nix/@den/hjem.nix`
+### ~~4. Update `nix/@den/hjem.nix`~~
 Simplify module imports to rely on the new local `hjem` configuration structure.
 [Subplan: zsh/update-hjem-config.md](zsh/update-hjem-config.md)
 
