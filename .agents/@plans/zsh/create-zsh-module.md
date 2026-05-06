@@ -10,36 +10,53 @@ Implement the core Zsh module definition supporting plugin management (`dag` ord
 
 ## Snippet
 ```nix
-{ lib, config, inputs, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkOption types concatStringsSep mapAttrs filterAttrs;
-  dag = inputs.dag.lib;
-  cfg = config.rum.programs.zsh;
+  inherit (lib) mkOption types concatStringsSep mapAttrs filterAttrs mkIf;
+  wrapCfg = config.rum.wrappered.zsh;
+  dag = wrapCfg.inputs.dag.lib { inherit lib; };
 in {
-  options.rum.programs.zsh = {
-    enable = lib.mkEnableOption "zsh";
-    plugins = mkOption { type = types.attrsOf (types.submodule { 
-      options = { 
-        enable = lib.mkEnableOption "plugin";
-        after = mkOption { type = types.listOf types.str; default = []; };
-        before = mkOption { type = types.listOf types.str; default = []; };
-        text = mkOption { type = types.lines; };
-      }; 
-    }); default = {}; };
+  options.rum.wrappered.zsh = {
+    enable = lib.mkEnableOption "zsh wrapper with dag-based plugin management";
+    inputs = mkOption {
+      type = types.attrs;
+      default = { };
+      description = "Flake inputs passed from den aspect";
+    };
+    plugins = mkOption { 
+      type = types.attrsOf (types.submodule { 
+        options = { 
+          enable = lib.mkEnableOption "plugin";
+          after = mkOption { type = types.listOf types.str; default = []; };
+          before = mkOption { type = types.listOf types.str; default = []; };
+          text = mkOption { type = types.lines; };
+        }; 
+      }); 
+      default = {}; 
+    };
     initConfig = mkOption { type = types.lines; default = ""; };
   };
-  config = lib.mkIf cfg.enable {
-    files.".zshrc".text = let
-      enabled = filterAttrs (_: v: v.enable) cfg.plugins;
+  config = mkIf wrapCfg.enable {
+    rum.programs.zsh.enable = true;
+    rum.programs.zsh.initConfig = let
+      enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
       dagEntries = mapAttrs (name: p:
         if p.after != [] then dag.entryAfter p.after p.text
         else if p.before != [] then dag.entryBefore p.before p.text
         else dag.entryAnywhere p.text
       ) enabled;
-    in concatStringsSep "\n" (dag.render dagEntries ++ [ cfg.initConfig ]);
+    in concatStringsSep "\n" [ (dag.render { entries = dagEntries; }) wrapCfg.initConfig ];
   };
 }
 ```
 
+## Technical Notes
+- `inputs` option accepts flake inputs dict passed from den aspect
+- `dag = wrapCfg.inputs.dag.lib { inherit lib; }` — dag.lib is a function requiring `lib` parameter
+- `dag.render { entries = dagEntries; }` requires named arguments and returns a string (not list)
+- Plugin ordering via DAG: `entryAfter`, `entryBefore`, `entryAnywhere` functions from dag.lib
+
 ## Verification
-1. [✓] Created `nix/hjem/zsh.nix` and implemented logic. Module is ready for integration.
+1. [✓] Created `nix/hjem/zsh.nix` and implemented logic with inputs option
+2. [✓] DAG-based plugin rendering correctly calls `dag.render { entries = ... }`
+3. [✓] Module integrates with `rum.programs.zsh` config

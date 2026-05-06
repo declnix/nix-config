@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   ...
 }:
 let
@@ -13,12 +12,17 @@ let
     filterAttrs
     mkIf
     ;
-  dag = inputs.dag.lib;
   wrapCfg = config.rum.wrappered.zsh;
+  dag = wrapCfg.inputs.dag.lib { inherit lib; };
 in
 {
   options.rum.wrappered.zsh = {
     enable = lib.mkEnableOption "zsh wrapper with dag-based plugin management";
+    inputs = mkOption {
+      type = types.attrs;
+      default = { };
+      description = "Flake inputs passed from den aspect";
+    };
     plugins = mkOption {
       type = types.attrsOf (
         types.submodule {
@@ -59,6 +63,6 @@ in
             dag.entryAnywhere p.text
         ) enabled;
       in
-      concatStringsSep "\n" (dag.render dagEntries ++ [ wrapCfg.initConfig ]);
+      concatStringsSep "\n" [ (dag.render { entries = dagEntries; }) wrapCfg.initConfig ];
   };
 }

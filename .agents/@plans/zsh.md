@@ -22,7 +22,7 @@ Simplify module imports to rely on the new local `hjem` configuration structure.
 [Subplan: zsh/update-hjem-config.md](zsh/update-hjem-config.md)
 
 ### [✓] 5. Cleanup and integration
-Remove legacy Zsh app definitions and register the Zsh aspect in the new module.
+Remove legacy Zsh app definitions and register the Zsh aspect in the new module with inputs forwarding.
 [Subplan: zsh/cleanup-and-integration.md](zsh/cleanup-and-integration.md)
 
 ### [✓] 6. Update dependency modules
