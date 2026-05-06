@@ -1,13 +1,13 @@
 # Agent Workflow Skill
 
-This skill governs the task lifecycle in the denful ecosystem.
+This skill governs the task lifecycle for this project.
 
 ## Routing
 - [Plan Management](plan.md)
 - [Skill Creation](.agents/skills/skill-creation/SKILL.md)
-- [Commit Conventions](.agents/skills/git/SKILL.md)
+- [Commit Conventions](.agents/skills/git-ops/SKILL.md)
 
 ## Lifecycle
-1. **Initiate**: Read/draft plan in `@plans`.
-2. **Execute**: Perform work using specific domain skills (e.g., `git`, `den`, `hjem`).
-3. **Formalize**: Upon task completion, update or create a skill in `skills/`.
+1. **Initiate**: Read or draft a plan in `@plans`.
+2. **Execute**: Perform tasks using specialized domain skills.
+3. **Formalize**: Upon completion, create or update a skill in `skills/` to capture domain knowledge and procedures.
