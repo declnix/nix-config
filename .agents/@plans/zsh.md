@@ -13,7 +13,7 @@ Integrate `dag` dependency into the project's flake configuration.
 Implement the core Zsh module definition supporting plugin management and configuration initialization.
 [Subplan: zsh/create-zsh-module.md](zsh/create-zsh-module.md)
 
-### 3. Aggregate modules in `nix/hjem/default.nix`
+### [✓] 3. Aggregate modules in `nix/hjem/default.nix`
 Configure module aggregation to include the new custom Zsh module within the `hjem` system.
 [Subplan: zsh/aggregate-modules.md](zsh/aggregate-modules.md)
 

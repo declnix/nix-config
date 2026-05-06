@@ -1,6 +1,17 @@
 # Agent Workflow Skill
 
-This skill governs the task lifecycle for this project.
+This skill governs the task lifecycle and execution mandates for this project.
+
+## Operational Mandates
+
+- **Strict Adherence**: You MUST strictly follow the provided plans and skills. Do NOT attempt to find solutions through trial and error or invent paths.
+- **Subplan-First Execution**: Before starting any numbered plan step:
+  1. Read the corresponding subplan file FIRST (do not defer or ignore)
+  2. Track each implementation step with `[✓]` markers IN REAL-TIME as you complete it
+  3. Update both root plan AND subplan verification sections when step finishes
+  Failure to follow this is non-compliance.
+- **Memory Management**: Do NOT save facts to memory unless explicitly requested by the user.
+- **Pending Changes (WORKSPACE.md)**: Maintain non-tracked `WORKSPACE.md` for pending updates to `.agents/` structure. Each entry must specify target file and exact change.
 
 ## Lifecycle
 1. **Initiate**: Read or draft a plan in `.agents/@plans/`.
