@@ -4,8 +4,8 @@ This skill governs the task lifecycle for this project.
 
 ## Routing
 - [Plan Management](plan.md)
-- [Skill Creation](.agents/skills/skill-creation/SKILL.md)
-- [Commit Conventions](.agents/skills/git-ops/SKILL.md)
+- [Skill Creation](../skill-creation/SKILL.md)
+- [Commit Conventions](../git-ops/SKILL.md)
 
 ## Lifecycle
 1. **Initiate**: Read or draft a plan in `@plans`.
