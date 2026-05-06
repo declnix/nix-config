@@ -1,10 +1,10 @@
 # Project Agents and Skills
 
-Before initiating any work, you **must** familiarize yourself with the specialized agent skills and operational workflows defined in the `.agents/skills/` directory.
+**MANDATORY**: Before initiating ANY work:
+1. Read `.agents/SKILLS.md` for execution sequence and skill overview
+2. This documents the binding workflow you MUST follow for all plan-based tasks
 
 ## Operational Mandates
-- **Strict Adherence**: You MUST strictly follow the provided plans and skills. Do NOT attempt to find solutions through trial and error or invent paths. 
-- **Workflow & Plan Management**: All task lifecycles, plan maintenance, and execution standards are governed by the **Agent Workflow Skill** found in `.agents/skills/agent-workflow/SKILL.md`. Refer to it for the definitive protocol.
-- **Memory Management**: Do NOT save facts to memory unless explicitly requested by the user.
-- **Pending Changes (WORKSPACE.md)**: You may maintain a non-tracked `WORKSPACE.md` file to store ideas for new skills or updates to existing ones. Each entry must specify the target file and the exact change (replacement/addition) to be applied later. This file serves as a pending bucket for manual review and subsequent integration into the official `.agents/` structure.
+
+All operational mandates are defined in [Agent Workflow Skill](/.agents/skills/agent-workflow/SKILL.md) — refer to it as the single source of truth.
 

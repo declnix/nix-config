@@ -8,7 +8,10 @@
         boot.loader.efi.canTouchEfiVariables = true;
 
         networking.networkmanager.enable = true;
-        networking.firewall.allowedTCPPorts = [ 5173 2222 ];
+        networking.firewall.allowedTCPPorts = [
+          5173
+          2222
+        ];
 
         services.tailscale.enable = true;
         networking.firewall.trustedInterfaces = [ "tailscale0" ];

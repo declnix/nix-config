@@ -53,10 +53,11 @@
       };
 
       # Environment setup for Java
-      hjem = { pkgs, ... }: {
-        environment.sessionVariables.JDTLS_JVM_ARGS =
-          "-javaagent:${pkgs.lombok}/share/java/lombok.jar";
-      };
+      hjem =
+        { pkgs, ... }:
+        {
+          environment.sessionVariables.JDTLS_JVM_ARGS = "-javaagent:${pkgs.lombok}/share/java/lombok.jar";
+        };
     };
   };
 }

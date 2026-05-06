@@ -4,11 +4,6 @@
   lib,
   ...
 }:
-let
-  hjemModules = builtins.attrValues (
-    builtins.mapAttrs (name: _: ../hjem/${name}) (builtins.readDir ../hjem)
-  );
-in
 {
   flake-file.inputs = {
     dag.url = "github:denful/dag";
@@ -28,7 +23,9 @@ in
     };
   };
 
-  den.default.nixos.hjem.extraModules = hjemModules ++ [
+  den.default.nixos.hjem.extraModules = [
+    # Wrapper for local hjem modules with inputs forwarding
+    (import ../hjem/default.nix { inherit inputs lib; })
     inputs.hjem-impure.hjemModules.default
     inputs.hjem-rum.hjemModules.default
   ];

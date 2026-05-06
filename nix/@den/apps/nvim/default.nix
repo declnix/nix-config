@@ -1,4 +1,5 @@
-{den, ...}: {
+{ den, ... }:
+{
   den.aspects.nvim = {
     vim = {
       theme.enable = true;
