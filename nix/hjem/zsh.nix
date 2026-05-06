@@ -2,9 +2,9 @@
   lib,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
@@ -13,14 +13,13 @@ let
     mkIf
     ;
   wrapCfg = config.rum.wrappered.zsh;
-  dag = wrapCfg.inputs.dag.lib { inherit lib; };
-in
-{
+  dag = wrapCfg.inputs.dag.lib {inherit lib;};
+in {
   options.rum.wrappered.zsh = {
     enable = lib.mkEnableOption "zsh wrapper with dag-based plugin management";
     inputs = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = "Flake inputs passed from den aspect";
     };
     plugins = mkOption {
@@ -30,17 +29,17 @@ in
             enable = lib.mkEnableOption "plugin";
             after = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
             };
             before = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
             };
-            text = mkOption { type = types.lines; };
+            text = mkOption {type = types.lines;};
           };
         }
       );
-      default = { };
+      default = {};
     };
     initConfig = mkOption {
       type = types.lines;
@@ -50,19 +49,19 @@ in
 
   config = mkIf wrapCfg.enable {
     rum.programs.zsh.enable = true;
-    rum.programs.zsh.initConfig =
-      let
-        enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
-        dagEntries = mapAttrs (
+    rum.programs.zsh.initConfig = let
+      enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
+      dagEntries =
+        mapAttrs (
           name: p:
-          if p.after != [ ] then
-            dag.entryAfter p.after p.text
-          else if p.before != [ ] then
-            dag.entryBefore p.before p.text
-          else
-            dag.entryAnywhere p.text
-        ) enabled;
-      in
-      concatStringsSep "\n" [ (dag.render { entries = dagEntries; }) wrapCfg.initConfig ];
+            if p.after != []
+            then dag.entryAfter p.after p.text
+            else if p.before != []
+            then dag.entryBefore p.before p.text
+            else dag.entryAnywhere p.text
+        )
+        enabled;
+    in
+      concatStringsSep "\n" [(dag.render {entries = dagEntries;}) wrapCfg.initConfig];
   };
 }

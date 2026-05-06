@@ -21,14 +21,12 @@ in
         '';
       };
 
-    provides.to-users = {
-      zsh = {
-        initConfig = ''
-          if [ -f /run/nix-proxy.env ]; then
-            ${sourceExported "/run/nix-proxy.env"}
-          fi
-        '';
-      };
+    provides.to-users.zsh = {
+      initConfig = ''
+        if [ -f /run/nix-proxy.env ]; then
+          ${sourceExported "/run/nix-proxy.env"}
+        fi
+      '';
     };
   };
 }

@@ -29,10 +29,30 @@ Remove legacy Zsh app definitions and register the Zsh aspect in the new module 
 Adjust existing dependency modules to utilize the new `rum.wrappered.zsh.initConfig` paths.
 [Subplan: zsh/update-deps.md](zsh/update-deps.md)
 
-### 7. Migrate existing plugins
+### [✓] 7. Migrate existing plugins
 Refactor and migrate Zsh plugins to the new `rum.programs.zsh.plugins` structure with deferred loading.
 [Subplan: zsh/migrate-plugins.md](zsh/migrate-plugins.md)
 
-### 8. Update host-specific Zsh proxy configuration
+### [✓] 8. Update host-specific Zsh proxy configuration
 Refactor host-specific proxy settings to integrate with the new Zsh module configuration.
 [Subplan: zsh/update-proxy.md](zsh/update-proxy.md)
+
+## Completion Notes
+
+**Final Implementation (May 7, 2026)**
+
+Successfully implemented zsh plugin migration using custom den class with forwarder pattern:
+
+- **Custom Zsh Class**: `den.aspects.zsh` with domain key `zsh` containing all plugin definitions
+- **Forwarder Pattern**: `den.ctx.user.includes` routes zsh class to hjem via `den.provides.forward`
+- **Module Rendering**: `den.lib.zsh.module` evaluates zsh config with aspect resolution, collecting:
+  - Base plugins from `den.aspects.zsh`
+  - User-specific aspects via `den.lib.parametric.fixedTo`
+  - Host-wide contributions via `provides.to-users`
+  - User contributions via `provides.${user.aspect.name}`
+  - Host contributions via `provides.to-hosts`
+- **Plugin Ordering**: DAG-based via `nix/hjem/zsh.nix` with `zsh-defer` for deferred loading
+- **Proxy Integration**: `provides.to-users.zsh` from `proxy.nix` properly merged into initConfig
+- **No Duplication**: Fixed duplication issue by using forwarder pattern instead of direct aspect collection
+
+All plugins appear once in final zshrc with correct DAG ordering.
