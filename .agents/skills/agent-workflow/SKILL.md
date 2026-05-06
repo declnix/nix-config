@@ -18,7 +18,7 @@ This skill governs the task lifecycle for this project.
      - A link to the corresponding subplan file.
    - Plans can be hierarchical (subplans can contain their own subplans).
 3. **Tracking**:
-   - Mark completed sections (including link and description) using `~~strikethrough~~`.
-   - Prioritize execution of the first non-strikethrough numbered section.
+   - Mark completed sections by adding `[✓]` before the numbered title.
+   - Prioritize execution of the first non-completed numbered section.
 4. **Safety**: If the plan is ambiguous or you are unsure of the technical implementation, ASK the user first.
 5. **Consistency**: Do not invent paths. Always prefer existing modules and established patterns.
