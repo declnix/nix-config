@@ -1,5 +1,7 @@
 # Project Agents and Skills
 
-Before initiating any work on this codebase, you **must** read and familiarize yourself with the contents of `.agents/SKILL.md`. This file contains critical information regarding the specialized agent skills available for interacting with the denful ecosystem (`den`, `dag`, and `flake-file`). 
+Before initiating any work, you **must** familiarize yourself with the specialized agent skills and operational workflows defined in the `.agents/skills/` directory.
 
-Loading the appropriate skill based on the task description is mandatory to ensure architectural consistency and adherence to the project standards.
+## Operational Mandates
+- **Strict Adherence**: You MUST strictly follow the provided plans and skills. Do NOT attempt to find solutions through trial and error or invent paths. 
+- **Workflow & Plan Management**: All task lifecycles, plan maintenance, and execution standards are governed by the **Agent Workflow Skill** found in `.agents/skills/agent-workflow/SKILL.md`. Refer to it for the definitive protocol.
