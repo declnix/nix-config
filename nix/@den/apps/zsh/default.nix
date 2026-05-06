@@ -8,7 +8,8 @@
       };
 
       initConfig = ''
-        #
+
+         #
         ZSH="${pkgs.oh-my-zsh}/share/oh-my-zsh"
         plugins=(git)
         source "$ZSH/oh-my-zsh.sh"
@@ -17,7 +18,6 @@
         source "${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh"
 
         function zvm_config() {
-          ZVM_LINE_INIT_MODE=n
           ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
           ZVM_INSERT_MODE_CURSOR=be
           ZVM_NORMAL_MODE_CURSOR=bl
