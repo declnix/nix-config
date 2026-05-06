@@ -1,4 +1,4 @@
-# Plan: Implement custom Tmux module and integration
+# Spec: Implement custom Tmux module and integration
 
 ## Goal
 Replace the external Tmux configuration from `nix/@den/apps/tmux` with a custom implementation in `nix/hjem/tmux.nix` using `dag`, allowing per-plugin `after`/`before` dependency management similar to the Zsh implementation.

@@ -6,3 +6,6 @@ result
 # ai
 .codex
 .claude/
+
+# misc
+.workspace/

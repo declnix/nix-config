@@ -1,4 +1,4 @@
-# Plan: Implement custom Neovim (nvf) module and integration
+# Spec: Implement custom Neovim (nvf) module and integration
 
 ## Goal
 Replace the custom `den` aspect wrapper for `nvf` with a native `hjem` module (`nix/hjem/nvf.nix`). This module will wrap `nvf` configuration, allowing direct use of `rum.programs.nvf` while maintaining compatibility with the existing `nvf` module system.
