@@ -9,7 +9,7 @@ Replace the external Zsh module from `hjem-rum` with a custom implementation in 
 Integrate `dag` dependency into the project's flake configuration.
 [Subplan: zsh/add-dag.md](zsh/add-dag.md)
 
-### 2. Create `nix/hjem/zsh.nix`
+### [✓] 2. Create `nix/hjem/zsh.nix`
 Implement the core Zsh module definition supporting plugin management and configuration initialization.
 [Subplan: zsh/create-zsh-module.md](zsh/create-zsh-module.md)
 

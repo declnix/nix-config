@@ -1,15 +1,3 @@
-# Subplan: Create nix/hjem/zsh.nix
-
-## Objective
-Implement the core Zsh module definition supporting plugin management (`dag` ordering) and `initConfig`.
-
-## Implementation Steps
-1. [✓] Create `nix/hjem/zsh.nix`.
-2. [✓] Implement module options: `enable`, `plugins` (with `after`/`before` logic), and `initConfig`.
-3. [✓] Implement `config` logic to render `dag` entries and `initConfig` into `.zshrc`.
-
-## Snippet
-```nix
 { lib, config, inputs, ... }:
 let
   inherit (lib) mkOption types concatStringsSep mapAttrs filterAttrs;
@@ -39,7 +27,3 @@ in {
     in concatStringsSep "\n" (dag.render dagEntries ++ [ cfg.initConfig ]);
   };
 }
-```
-
-## Verification
-1. [✓] Created `nix/hjem/zsh.nix` and implemented logic. Module is ready for integration.
