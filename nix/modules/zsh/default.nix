@@ -12,12 +12,23 @@ let
     };
 in
 {
-  den.lib.zsh.module = zshAspect: ctx: { pkgs, ... }:
+  den.lib.zsh.module = zshAspect: ctx: { pkgs, inputs, ... }:
     let
-      toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or {} else {};
-      toUser = if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or {} else {};
-      toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or {} else {};
-      
+      toUsers =
+        if ctx ? host
+        then ctx.host.aspect.provides.to-users or {}
+        else {};
+
+      toUser =
+        if ctx ? host && ctx ? user
+        then ctx.host.aspect.provides.${ctx.user.aspect.name} or {}
+        else {};
+
+      toHosts =
+        if ctx ? user
+        then ctx.user.aspect.provides.to-hosts or {}
+        else {};
+
       zshResolved = den.lib.aspects.resolve "zsh" {
         includes = [
           den.aspects.zsh
@@ -27,17 +38,45 @@ in
           toHosts
         ];
       };
-      
-      zshConfig = (lib.evalModules {
-        modules = [
-          {
-            config._module.freeformType = lib.types.lazyAttrsOf lib.types.anything;
+
+      zshConfig =
+        (
+          lib.evalModules {
+            modules = [
+              {
+                options = {
+                  enable = lib.mkEnableOption "zsh";
+
+                  plugins = lib.mkOption {
+                    type = lib.types.lazyAttrsOf lib.types.anything;
+                    default = {};
+                  };
+
+                  initConfig = lib.mkOption {
+                    type = lib.types.lines;
+                    default = "";
+                  };
+
+                  inputs = lib.mkOption {
+                    type = lib.types.lazyAttrsOf lib.types.anything;
+                    default = {};
+                  };
+                };
+
+                config._module.freeformType =
+                  lib.types.lazyAttrsOf lib.types.anything;
+              }
+
+              zshResolved
+            ];
+
+            specialArgs = {
+              inherit pkgs lib inputs;
+            };
           }
-          zshResolved
-        ];
-      }).config;
+        ).config;
     in {
-      zsh = builtins.removeAttrs zshConfig [ "_module" ];
+      zsh = zshConfig;
     };
   
   den.ctx.user.includes = [ fwd ];

@@ -48,7 +48,7 @@ in {
   };
 
   config = mkIf wrapCfg.enable {
-    files.".zshrc" = let
+    files.".zshrc".text = let
       enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
       dagEntries =
         mapAttrs (

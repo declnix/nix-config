@@ -1,4 +1,3 @@
-{ den, ... }:
 {
   den.aspects.nvim = {
     vim = {
@@ -6,5 +5,5 @@
       tabline.nvimBufferline.enable = true;
     };
   };
-  flake-file.inputs.nvf.url = "github:notashelf/nvf";
+
 }
