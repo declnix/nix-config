@@ -5,7 +5,6 @@
     ./eza.nix
     ./lazygit.nix
     ./waybar.nix
-    ./zsh.nix
     inputs.hjem-rum.hjemModules.default
   ];
 }

@@ -23,9 +23,7 @@
     };
   };
 
-  den.default.nixos.hjem.extraModules = [
-    # Wrapper for local hjem modules with inputs forwarding
-    (import ../hjem/default.nix { inherit inputs lib; })
+  den.default.nixos.hjem.extraModules = lib.mkAfter [
     inputs.hjem-impure.hjemModules.default
     inputs.hjem-rum.hjemModules.default
   ];
@@ -34,7 +32,7 @@
     impure.enable = true;
   };
 
-  den.schema.user.classes = lib.mkDefault [
-    "hjem"
+  den.schema.user.classes = lib.mkAfter [
+    "hjem" 
   ];
 }

@@ -175,7 +175,7 @@ in {
           }
         ).config;
     in {
-      rum.wrappered.zsh = zshConfig;
+      zsh = zshConfig;
     };
 
   den.provides.zsh = den.lib.parametric.exactly {

@@ -12,10 +12,10 @@
     filterAttrs
     mkIf
     ;
-  wrapCfg = config.rum.wrappered.zsh;
+  wrapCfg = config.zsh;
   dag = wrapCfg.inputs.dag.lib {inherit lib;};
 in {
-  options.rum.wrappered.zsh = {
+  options.zsh = {
     enable = lib.mkEnableOption "zsh wrapper with dag-based plugin management";
     inputs = mkOption {
       type = types.attrs;
@@ -48,8 +48,7 @@ in {
   };
 
   config = mkIf wrapCfg.enable {
-    rum.programs.zsh.enable = true;
-    rum.programs.zsh.initConfig = let
+    files.".zshrc" = let
       enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
       dagEntries =
         mapAttrs (

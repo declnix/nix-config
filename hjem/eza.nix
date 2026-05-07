@@ -21,7 +21,7 @@ in
   config = mkIf cfg.enable {
     packages = mkIf (cfg.package != null) [ cfg.package ];
 
-    rum.wrappered.zsh.initConfig = mkIf cfg.integrations.zsh.enable (mkAfter ''
+    zsh.initConfig = mkIf cfg.integrations.zsh.enable (mkAfter ''
       alias ls='${getExe cfg.package} --icons'
       alias ll='${getExe cfg.package} -l --icons --git'
       alias la='${getExe cfg.package} -la --icons --git'
