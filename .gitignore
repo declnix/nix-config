@@ -4,8 +4,6 @@ result
 .direnv/
 
 # ai
-.codex
-.claude/
 # Agent skill pending changes
 WORKSPACE.md
 

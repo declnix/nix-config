@@ -46,27 +46,30 @@
             '';
           };
 
+          zsh-compinit = {
+            enable = true;
+            text = "autoload -U compinit && compinit";
+          };
+
           zsh-fzf-tab = {
             enable = true;
-            after = ["zsh-vi-mode"];
-            text = "zsh-defer source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh";
+            after = ["zsh-compinit"];
+            text = "source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh";
           };
 
           zsh-fzf-history-search = {
             enable = true;
-            after = ["zsh-fzf-tab"];
+            after = ["zsh-fzf-tab" "zsh-vi-mode"];
             text = ''
-              _zsh_fzf_history_search_setup() {
-                source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.zsh
+              source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.zsh
+              function zvm_after_init() {
                 bindkey -M viins '^R' fzf_history_search
               }
-              zsh-defer _zsh_fzf_history_search_setup
             '';
           };
         };
 
         initConfig = ''
-          autoload -U compinit && compinit
           HISTDUP=erase
           setopt appendhistory sharehistory hist_ignore_space hist_ignore_all_dups hist_save_no_dups hist_find_no_dups
 

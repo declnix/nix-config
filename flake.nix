@@ -9,7 +9,7 @@
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
+      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
     };
     hjem = {
       url = "github:feel-co/hjem";
@@ -42,6 +42,7 @@
       };
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs-lib.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

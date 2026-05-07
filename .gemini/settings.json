@@ -1,0 +1,15 @@
+{
+  "experimental": {},
+  "agents": {
+    "overrides": {
+      "codebase_investigator": {
+        "modelConfig": {
+          "model": "gemini-3.1-flash-lite-preview"
+        }
+      }
+    }
+  },
+  "context": {
+    "fileName": ["CLAUDE.md"]
+  }
+}
