@@ -57,23 +57,27 @@
         };
 
         config = mkIf wrapCfg.enable {
-          files.".zshrc".text =
-            let
-              enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
-              dagEntries = mapAttrs (
-                name: p:
-                if p.after != [ ] then
-                  dag.entryAfter p.after p.text
-                else if p.before != [ ] then
-                  dag.entryBefore p.before p.text
-                else
-                  dag.entryAnywhere p.text
-              ) enabled;
-            in
-            concatStringsSep "\n" [
-              (dag.render { entries = dagEntries; })
-              wrapCfg.initConfig
-            ];
+          rum.programs.zsh = {
+            enable = true;
+            initConfig = lib.mkBefore (
+              let
+                enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
+                dagEntries = mapAttrs (
+                  name: p:
+                  if p.after != [ ] then
+                    dag.entryAfter p.after p.text
+                  else if p.before != [ ] then
+                    dag.entryBefore p.before p.text
+                  else
+                    dag.entryAnywhere p.text
+                ) enabled;
+              in
+              concatStringsSep "\n" [
+                (dag.render { entries = dagEntries; })
+                wrapCfg.initConfig
+              ]
+            );
+          };
         };
       }
     )
