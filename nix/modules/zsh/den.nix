@@ -7,15 +7,12 @@
 {
   den.lib.zsh.module =
     zshAspect: ctx:
-    { pkgs, inputs, ... }:
+    { pkgs, ... }:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
-
       toUser =
         if ctx ? host && ctx ? user then ctx.host.aspect.provides.${ctx.user.aspect.name} or { } else { };
-
       toHosts = if ctx ? user then ctx.user.aspect.provides.to-hosts or { } else { };
-
       zshResolved = den.lib.aspects.resolve "zsh" {
         includes = [
           den.aspects.zsh
@@ -25,7 +22,6 @@
           toHosts
         ];
       };
-
       zshConfig =
         (lib.evalModules {
           modules = [
@@ -51,17 +47,15 @@
 
               config._module.freeformType = lib.types.lazyAttrsOf lib.types.anything;
             }
-
             zshResolved
           ];
-
           specialArgs = {
             inherit pkgs lib inputs;
           };
         }).config;
     in
     {
-      zsh = zshConfig;
+      zsh = zshConfig // { enable = true; };
     };
 
   den.ctx.user.includes = [
@@ -84,8 +78,13 @@
   ];
   den.schema.user.classes = lib.mkAfter [ "zsh" ];
 
-  den.provides.zsh = den.lib.parametric.exactly {
-    includes = [ den.aspects.zsh ];
+  den.aspects.zsh = {
+    zsh.inputs = { inherit (inputs) dag; };
   };
 
+  den.provides.zsh = den.lib.parametric.exactly {
+    includes = [
+      den.aspects.zsh
+    ];
+  };
 }

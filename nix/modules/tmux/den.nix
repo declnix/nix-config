@@ -1,8 +1,11 @@
-{ lib, den, ... }:
 {
-  den.lib.tmux.module =
-    tmuxAspect: ctx:
-    { pkgs, ... }:
+  lib,
+  den,
+  inputs,
+  ...
+}:
+{
+  den.lib.tmux.module = tmuxAspect: ctx: { pkgs, ... }:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
       toUser =
@@ -57,9 +60,13 @@
       }
     )
   ];
+  den.schema.user.classes = lib.mkAfter [ "tmux" ];
+
+  den.aspects.tmux = {
+    tmux.inputs = { inherit (inputs) dag; };
+  };
 
   den.provides.tmux = den.lib.parametric.exactly {
     includes = [ den.aspects.tmux ];
   };
-
 }
