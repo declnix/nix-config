@@ -40,23 +40,26 @@
     };
 
   den.ctx.user.includes = [
-    ({ host, user }:
+    (
+      { host, user }:
       den.provides.forward {
         each = lib.singleton true;
         fromClass = _: "hjem";
         intoClass = _: host.class;
-        intoPath = _: [ "hjem" "users" user.userName ];
+        intoPath = _: [
+          "hjem"
+          "users"
+          user.userName
+        ];
         fromAspect = _: {
           hjem = den.lib.tmux.module user.aspect { inherit host user; };
         };
-      })
+      }
+    )
   ];
 
   den.provides.tmux = den.lib.parametric.exactly {
     includes = [ den.aspects.tmux ];
   };
 
-  den.default.nixos.hjem.extraModules = lib.mkAfter [
-    ./_/hjem-module.nix
-  ];
 }

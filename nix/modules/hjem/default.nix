@@ -33,6 +33,6 @@
   };
 
   den.schema.user.classes = lib.mkAfter [
-    "hjem" 
+    "hjem"
   ];
 }

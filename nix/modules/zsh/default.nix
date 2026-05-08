@@ -2,7 +2,8 @@
 {
   den.aspects.zsh = {
     zsh =
-      {pkgs, ...}: {
+      { pkgs, ... }:
+      {
         plugins = {
           zsh-defer = {
             enable = true;
@@ -11,13 +12,13 @@
 
           zsh-autosuggestions = {
             enable = true;
-            after = ["zsh-defer"];
+            after = [ "zsh-defer" ];
             text = "source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh";
           };
 
           git-plugin = {
             enable = true;
-            after = ["zsh-autosuggestions"];
+            after = [ "zsh-autosuggestions" ];
             text = ''
               _git_plugin_setup() {
                 source ${pkgs.oh-my-zsh}/share/oh-my-zsh/lib/git.zsh
@@ -29,13 +30,13 @@
 
           zsh-syntax-highlighting = {
             enable = true;
-            after = ["zsh-autosuggestions"];
+            after = [ "zsh-autosuggestions" ];
             text = "zsh-defer source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
           };
 
           zsh-vi-mode = {
             enable = true;
-            after = ["zsh-autosuggestions"];
+            after = [ "zsh-autosuggestions" ];
             text = ''
               function zvm_config() {
                 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
@@ -53,13 +54,16 @@
 
           zsh-fzf-tab = {
             enable = true;
-            after = ["zsh-compinit"];
+            after = [ "zsh-compinit" ];
             text = "source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh";
           };
 
           zsh-fzf-history-search = {
             enable = true;
-            after = ["zsh-fzf-tab" "zsh-vi-mode"];
+            after = [
+              "zsh-fzf-tab"
+              "zsh-vi-mode"
+            ];
             text = ''
               source ${pkgs.zsh-fzf-history-search}/share/zsh-fzf-history-search/zsh-fzf-history-search.zsh
               function zvm_after_init() {

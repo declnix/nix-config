@@ -1,4 +1,9 @@
-{ lib, den, inputs, ... }:
+{
+  lib,
+  den,
+  inputs,
+  ...
+}:
 {
   den.aspects.nvim = {
     vim = {
