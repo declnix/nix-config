@@ -68,10 +68,4 @@
       }
     )
   ];
-  den.schema.user.classes = lib.mkAfter [ "vim" ];
-
-  den.provides.nvim = den.lib.parametric.exactly {
-    includes = [ den.aspects.nvim ];
-  };
-
 }

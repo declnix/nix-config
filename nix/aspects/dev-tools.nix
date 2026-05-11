@@ -23,7 +23,6 @@
       zsh
       tmux
       nvim
-      utils
     ];
   };
 }

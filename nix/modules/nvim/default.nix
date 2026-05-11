@@ -20,5 +20,9 @@
     };
   };
 
+  den.default.nixos.hjem.extraModules = lib.mkAfter [
+    ./_hjem-module.nix
+  ];
+
   flake-file.inputs.nvf.url = "github:notashelf/nvf";
 }
