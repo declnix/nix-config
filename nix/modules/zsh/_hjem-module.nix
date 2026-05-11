@@ -1,14 +1,7 @@
 {
-  lib,
-  config,
-  ...
-}:
-{
-  den.default.nixos.hjem.extraModules = lib.mkAfter [
-    (
-      {
         lib,
         config,
+        pkgs,
         ...
       }:
       let
@@ -57,9 +50,8 @@
         };
 
         config = mkIf wrapCfg.enable {
-          rum.programs.zsh = {
-            enable = true;
-            initConfig = lib.mkBefore (
+          packages = [ pkgs.zsh ];
+          files.".zshrc".text = (
               let
                 enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
                 dagEntries = mapAttrs (
@@ -78,8 +70,4 @@
               ]
             );
           };
-        };
-      }
-    )
-  ];
-}
+       }

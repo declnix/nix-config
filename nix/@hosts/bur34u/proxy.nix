@@ -21,8 +21,8 @@ in
         '';
       };
 
-    provides.to-users.zsh = {
-      initConfig = ''
+    provides.to-users = {
+      zsh.initConfig = ''
         if [ -f /run/nix-proxy.env ]; then
           ${sourceExported "/run/nix-proxy.env"}
         fi

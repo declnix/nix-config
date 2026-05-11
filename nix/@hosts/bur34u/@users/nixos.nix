@@ -1,7 +1,6 @@
 { den, ... }:
 {
-  den.aspects.bur34u = {
-    provides.nixos = {
+  den.aspects.bur34u.provides.nixos = {
       vim = {
         # LSP server presets
         lsp.presets = {
@@ -59,5 +58,4 @@
           environment.sessionVariables.JDTLS_JVM_ARGS = "-javaagent:${pkgs.lombok}/share/java/lombok.jar";
         };
     };
-  };
 }
