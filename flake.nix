@@ -5,11 +5,11 @@
 
   inputs = {
     dag.url = "github:denful/dag";
-    den.url = "github:vic/den";
+    den.url = "github:denful/den";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs-lib";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     hjem = {
       url = "github:feel-co/hjem";
@@ -42,7 +42,6 @@
       };
     };
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-    nixpkgs-lib.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

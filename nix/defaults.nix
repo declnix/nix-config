@@ -4,10 +4,10 @@
 }:
 {
   den.default.includes = [
-    den._.mutual-provider
-    den._.hostname
-    den._.define-user
-    den._.inputs'
+    den.batteries.mutual-provider
+    den.batteries.hostname
+    den.batteries.define-user
+    den.batteries.inputs'
   ]
   ++ (with den.aspects; [
     nix

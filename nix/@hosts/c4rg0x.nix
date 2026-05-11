@@ -8,8 +8,8 @@
       };
 
       includes = [
-        den._.primary-user
-        (den._.user-shell "zsh")
+        den.batteries.primary-user
+        (den.batteries.user-shell "zsh")
       ]
       ++ (with den.aspects; [
         dev-tools

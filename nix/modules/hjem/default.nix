@@ -32,7 +32,7 @@
     impure.enable = true;
   };
 
-  den.schema.user.classes = lib.mkAfter [
-    "hjem"
-  ];
+  den.schema.user.classes = [ "hjem" ];
+
+  den.schema.host.hjem.enable = true;
 }

@@ -8,5 +8,5 @@
       };
   };
 
-  den.default.includes = [ (den._.unfree [ "claude-code" ]) ];
+  den.default.includes = [ (den.batteries.unfree [ "claude-code" ]) ];
 }

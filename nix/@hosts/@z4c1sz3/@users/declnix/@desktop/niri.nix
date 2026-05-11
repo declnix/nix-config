@@ -454,9 +454,6 @@
             };
           };
           config = ''
-            layout {
-              gaps 0
-            }
           '';
         };
       };

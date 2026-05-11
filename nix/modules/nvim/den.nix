@@ -5,17 +5,7 @@
   ...
 }:
 {
-  den.lib.nvim.module = vimAspect: ctx: {
-    nvim = {
-      enable = true;
-      inputs = { inherit (inputs) nvf; };
-      vimModules = [ (den.lib.nvim.vimModule vimAspect ctx) ];
-    };
-  };
-
-  den.lib.nvim.vimModule =
-    vimAspect: ctx:
-    { pkgs, ... }:
+  den.lib.nvim.vimModule = vimAspect: ctx: { pkgs, ... }:
     let
       toUsers = if ctx ? host then ctx.host.aspect.provides.to-users or { } else { };
       toUser =
@@ -32,40 +22,28 @@
       };
       vimConfig =
         (lib.evalModules {
-          modules = [
-            { config._module.freeformType = lib.types.lazyAttrsOf lib.types.anything; }
-            vimResolved
-          ];
-          specialArgs = { inherit pkgs; };
-        }).config;
+        modules = [
+          { config._module.freeformType = lib.types.lazyAttrsOf lib.types.anything; }
+          vimResolved
+        ];
+        specialArgs = { inherit pkgs; };
+      }).config;
     in
     {
       vim = builtins.removeAttrs vimConfig [ "_module" ];
     };
 
-  den.lib.nvim.package =
-    pkgs: vimAspect: ctx:
-    (inputs.nvf.lib.neovimConfiguration {
-      inherit pkgs;
-      modules = [ (den.lib.nvim.vimModule vimAspect ctx) ];
-    }).neovim;
-
-  den.ctx.user.includes = [
+  den.schema.user.includes = [
     (
       { host, user }:
-      den.provides.forward {
-        each = lib.singleton true;
-        fromClass = _: "hjem";
-        intoClass = _: host.class;
-        intoPath = _: [
-          "hjem"
-          "users"
-          user.userName
-        ];
-        fromAspect = _: {
-          hjem = den.lib.nvim.module user.aspect { inherit host user; };
+      {
+        hjem.nvim = {
+          enable = true;
+          inputs = { inherit (inputs) nvf; };
+          vimModules = [ (den.lib.nvim.vimModule user.aspect { inherit host user; }) ];
         };
       }
     )
   ];
+
 }

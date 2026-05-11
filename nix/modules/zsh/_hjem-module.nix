@@ -49,7 +49,7 @@
           };
         };
 
-        config = mkIf wrapCfg.enable {
+        config = mkIf wrapCfg.enable or true {
           packages = [ pkgs.zsh ];
           files.".zshrc".text = (
               let

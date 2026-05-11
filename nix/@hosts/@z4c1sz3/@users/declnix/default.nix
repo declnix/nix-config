@@ -1,14 +1,14 @@
 { den, ... }:
-{
-  den.aspects.declnix.provides.z4c1sz3 = {
+{ 
+  den.aspects.z4c1sz3.provides.declnix = {
     hjem =
       { pkgs, ... }:
       {
+        enable = true;
         packages = with pkgs; [
           wget
           curl
           firefox
-          gh
         ];
         rum.programs.alacritty = {
           enable = true;
@@ -22,8 +22,8 @@
     };
 
     includes = [
-      den._.primary-user
-      (den._.user-shell "zsh")
+      den.batteries.primary-user
+      (den.batteries.user-shell "zsh")
     ]
     ++ (with den.aspects; [
       dev-tools

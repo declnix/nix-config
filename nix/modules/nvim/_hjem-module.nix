@@ -9,15 +9,20 @@ let
   cfg = config.nvim;
 in
 {
-  options.nvim = {
-    enable = lib.mkEnableOption "nvim wrapper";
-    inputs = mkOption {
-      type = types.attrs;
-      default = { };
-    };
-    vimModules = mkOption {
-      type = types.listOf types.deferredModule;
-      default = [ ];
+  options.nvim = mkOption {
+    default = { };
+    type = types.submodule {
+      options = {
+        enable = lib.mkEnableOption "nvim wrapper";
+        inputs = mkOption {
+          type = types.attrs;
+          default = { };
+        };
+        vimModules = mkOption {
+          type = types.listOf types.deferredModule;
+          default = [ ];
+        };
+      };
     };
   };
 
