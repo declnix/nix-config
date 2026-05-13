@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.ai = {
+  den.aspects.assistant = {
     hjem =
       { pkgs, ... }:
       {
