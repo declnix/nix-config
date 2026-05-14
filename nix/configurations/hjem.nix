@@ -9,6 +9,9 @@
     {
       _module.args.dag = inputs.dag.lib { inherit lib; };
       _module.args.inputs = inputs;
+      disabledModules = [
+        "${inputs.hjem-rum}/modules/collection/programs/zsh.nix"
+      ];
     }
   ]
   ++ [
