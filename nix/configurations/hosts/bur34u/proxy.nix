@@ -12,7 +12,7 @@
       };
 
     provides.to-users = {
-      zsh.initConfig = ''
+      rum.programs.zsh.initConfig = ''
         if [ -f /etc/proxy ]; then
           set -a; source /etc/proxy; set +a
         fi
