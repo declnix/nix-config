@@ -5,13 +5,10 @@
   ...
 }:
 let
-  # Automatyczne wyłączanie modułów z hjem-rum, które mamy zdefiniowane lokalnie
-  # Skanujemy folder ../hjemModules i mapujemy pliki na strukturę w hjem-rum/modules/
   disabledFromRum =
     let
-      hjemModulesDir = ../hjemModules;
+      hjemModulesDir = ./_modules;
       
-      # Rekurencyjne zbieranie plików .nix
       getFiles = dir:
         lib.mapAttrsToList (name: type:
           let path = dir + "/${name}"; in
@@ -43,7 +40,7 @@ in
       inputs.hjem-impure.hjemModules.default
       inputs.hjem-rum.hjemModules.default
     ]
-    ++ (inputs.import-tree ../hjemModules).imports;
+    ++ (inputs.import-tree ./_modules).imports;
   den.default.hjem = {
     impure.enable = true;
   };
