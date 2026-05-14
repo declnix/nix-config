@@ -5,8 +5,9 @@
       { ... }:
       {
         rum.desktops.niri.spawn-at-startup = [ [ "waybar" ] ];
-        waybar.enable = true;
-        waybar.extraConfig = builtins.toJSON {
+        rum.programs.waybar = {
+          enable = true;
+          extraConfig = builtins.toJSON {
           layer = "top";
           position = "top";
           height = 30;
@@ -52,7 +53,7 @@
             tooltip = false;
           };
         };
-        waybar.extraStyle = ''
+        extraStyle = ''
           * {
             all: unset;
             font-family: "JetBrainsMono Nerd Font";
@@ -93,6 +94,7 @@
             color: #ff4444;
           }
         '';
+      };
       };
   };
 
