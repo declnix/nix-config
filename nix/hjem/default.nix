@@ -5,49 +5,44 @@
   ...
 }:
 let
+  localFiles = (inputs.import-tree.withLib lib).leafs ./_modules;
+
   disabledFromRum =
     let
-      hjemModulesDir = ./_modules;
-      
-      getFiles = dir:
-        lib.mapAttrsToList (name: type:
-          let path = dir + "/${name}"; in
-          if type == "directory" then getFiles path
-          else if lib.hasSuffix ".nix" name then [ path ]
-          else [ ]
-        ) (builtins.readDir dir);
-      
-      allLocalFiles = lib.flatten (getFiles hjemModulesDir);
-
-      toRumPath = p:
+      toRumPath =
+        p:
         let
-          relPath = lib.removePrefix (toString hjemModulesDir + "/") (toString p);
+          relPath = lib.removePrefix (toString ./_modules + "/") (toString p);
         in
         "${inputs.hjem-rum}/modules/${relPath}";
     in
-    builtins.filter builtins.pathExists (map toRumPath allLocalFiles);
+    builtins.filter builtins.pathExists (map toRumPath localFiles);
 in
 {
-  den.default.nixos.hjem.extraModules =
-    [
-      {
-        _module.args.dag = inputs.dag.lib { inherit lib; };
-        _module.args.inputs = inputs;
-        disabledModules = disabledFromRum;
-      }
-    ]
-    ++ [
-      inputs.hjem-impure.hjemModules.default
-      inputs.hjem-rum.hjemModules.default
-    ]
-    ++ (inputs.import-tree ./_modules).imports;
-  den.default.hjem = {
-    impure.enable = true;
+  den = {
+    default = {
+      nixos.hjem.extraModules =
+        [
+          {
+            _module.args = {
+              dag = inputs.dag.lib { inherit lib; };
+              inherit inputs;
+            };
+            disabledModules = disabledFromRum;
+          }
+          inputs.hjem-impure.hjemModules.default
+          inputs.hjem-rum.hjemModules.default
+        ]
+        ++ localFiles;
+
+      hjem.impure.enable = true;
+    };
+
+    schema = {
+      user.classes = [ "hjem" ];
+      host.hjem.enable = true;
+    };
   };
-
-  den.schema.user.classes = [ "hjem" ];
-
-  den.schema.host.hjem.enable = true;
 
   flake-file.inputs = {
     dag.url = "github:denful/dag";
