@@ -27,7 +27,7 @@
     ]
     ++ (with den.aspects; [
       development
-      ai
+      assistant
     ]);
   };
 
