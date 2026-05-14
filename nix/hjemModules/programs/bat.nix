@@ -8,10 +8,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption mkPackageOption;
 
-  cfg = config.extraRum.programs.bat;
+  cfg = config.rum.programs.bat;
 in
 {
-  options.extraRum.programs.bat = {
+  options.rum.programs.bat = {
     enable = mkEnableOption "bat";
     package = mkPackageOption pkgs "bat" { nullable = true; };
     integrations.zsh.enable = mkEnableOption "bat alias for cat in zsh";
@@ -20,7 +20,7 @@ in
   config = mkIf cfg.enable {
     packages = mkIf (cfg.package != null) [ cfg.package ];
 
-    zsh.initConfig = mkIf cfg.integrations.zsh.enable ''
+    rum.programs.zsh.initConfig = mkIf cfg.integrations.zsh.enable ''
       alias cat='${lib.meta.getExe cfg.package}'
     '';
   };
