@@ -8,7 +8,6 @@
   ]
   ++ (with den.aspects; [
     nix
-    essentials
   ]);
 
   den.default.nixos = {
