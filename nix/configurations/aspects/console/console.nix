@@ -9,11 +9,11 @@
     hjem =
       { pkgs, ... }:
       {
-        extraRum.programs.bat = {
+        rum.programs.bat = {
           enable = true;
           integrations.zsh.enable = true;
         };
-        extraRum.programs.eza = {
+        rum.programs.eza = {
           enable = true;
           integrations.zsh.enable = true;
         };
