@@ -13,7 +13,7 @@
       ]
       ++ (with den.aspects; [
         development
-        ai
+        assistant
       ]);
     };
 
@@ -23,10 +23,11 @@
     { host, ... }:
     {
       includes = with den.aspects; [
-        wsl
         zscaler
       ];
     };
 
-  den.hosts.x86_64-linux.c4rg0x = { };
+  den.hosts.x86_64-linux.c4rg0x = {
+    wsl.enable = true;
+  };
 }
