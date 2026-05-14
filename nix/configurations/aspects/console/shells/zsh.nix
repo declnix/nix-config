@@ -22,10 +22,9 @@ let
 in
 {
   den.aspects.zsh = {
-    hjem =
+    zsh  =
       { pkgs, ... }:
       {
-        rum.programs.zsh = {
           enable = true;
 
           plugins = {
@@ -115,7 +114,6 @@ in
               '';
             };
           };
-        };
       };
   };
 
