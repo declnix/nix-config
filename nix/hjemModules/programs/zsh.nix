@@ -14,10 +14,10 @@ let
     filterAttrs
     mkIf
     ;
-  wrapCfg = config.extraRum.programs.zsh;
+  wrapCfg = config.rum.programs.zsh;
 in
 {
-  options.extraRum.programs.zsh = {
+  options.rum.programs.zsh = {
     enable = lib.mkEnableOption "zsh wrapper with dag-based plugin management";
 
     plugins = mkOption {
@@ -45,27 +45,25 @@ in
     };
   };
 
-  config = {
-    extraRum.programs.zsh = {
-      enable = wrapCfg.enable;
-      initConfig = mkIf wrapCfg.enable (
-        let
-          enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
-          dagEntries = mapAttrs (
-            name: p:
-            if p.after != [ ] then
-              dag.entryAfter p.after p.text
-            else if p.before != [ ] then
-              dag.entryBefore p.before p.text
-            else
-              dag.entryAnywhere p.text
-          ) enabled;
-        in
-        concatStringsSep "\n" [
-          (dag.render { entries = dagEntries; })
-          wrapCfg.initConfig
-        ]
-      );
-    };
+  config = mkIf wrapCfg.enable {
+    packages = [ pkgs.zsh ];
+    files.".zshrc".text = (
+      let
+        enabled = filterAttrs (_: v: v.enable) wrapCfg.plugins;
+        dagEntries = mapAttrs (
+          name: p:
+          if p.after != [ ] then
+            dag.entryAfter p.after p.text
+          else if p.before != [ ] then
+            dag.entryBefore p.before p.text
+          else
+            dag.entryAnywhere p.text
+        ) enabled;
+      in
+      concatStringsSep "\n" [
+        (dag.render { entries = dagEntries; })
+        wrapCfg.initConfig
+      ]
+    );
   };
 }
