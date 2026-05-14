@@ -14,10 +14,10 @@ let
     filterAttrs
     mkIf
     ;
-  wrapCfg = config.extraRum.programs.tmux;
-in
-{
-  options.extraRum.programs.tmux = {
+  wrapCfg = config.rum.programs.tmux;
+  in
+  {
+  options.rum.programs.tmux = {
     enable = lib.mkEnableOption "tmux wrapper";
     inputs = mkOption {
       type = types.attrs;
@@ -70,4 +70,4 @@ in
       ]
     );
   };
-}
+  }
