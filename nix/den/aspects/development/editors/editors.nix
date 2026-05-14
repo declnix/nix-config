@@ -1,8 +1,0 @@
-{ den, ... }:
-{
-  den.aspects.editors = {
-    includes = with den.aspects; [
-      nvim
-    ];
-  };
-}

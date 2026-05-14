@@ -10,10 +10,10 @@
 
 ```nix
 # WRONG — second function silently wins, first is dropped
-den.aspects.declnix.provides.z4c1sz3 = { ... }: { hjem = ...; };
+den.aspects.declnix.provides.kr7va = { ... }: { hjem = ...; };
 
 # CORRECT — attrset merges with other contributors
-den.aspects.z4c1sz3.provides.declnix = { hjem = ...; };
+den.aspects.kr7va.provides.declnix = { hjem = ...; };
 ```
 
 ---

@@ -3,9 +3,8 @@ result
 *.qcow2
 .direnv/
 
-# ai
-# Agent skill pending changes
-WORKSPACE.md
-
-# misc
-.workspace/
+# we use hook like approach to keep root project clean
+.claude
+CLAUDE.md
+.codex
+.gemini
