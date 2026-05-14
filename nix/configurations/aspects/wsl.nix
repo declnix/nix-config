@@ -1,31 +1,26 @@
-{ den, inputs, ... }:
+{
+  den,
+  lib,
+  ...
+}:
 {
   den.aspects.wsl = {
-    hjem =
-      { ... }:
-      {
-        rum.programs.git.settings.credential.helper =
-          "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
+    nixos = {
+      wsl = {
+        interop.register = true;
       };
-
-    nixos =
-      { ... }:
-      {
-        imports = [ inputs.nixos-wsl.nixosModules.wsl ];
-        wsl = {
-          enable = true;
-          interop.register = true;
-          defaultUser = "declnix";
-        };
-        programs.nix-ld.enable = true;
-      };
-  };
-
-  flake-file.inputs = {
-    nixos-wsl = {
-      url = "github:nix-community/nixos-wsl";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "";
+    };
+    hjem = {
+      rum.programs.git.settings.credential.helper =
+        "/mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe";
     };
   };
+
+  # Policy: if wsl is enabled, include our extra settings automatically
+  den.policies.wsl-extras = { host, ... }:
+    lib.optional ((host.wsl or { }).enable or false) (
+      den.lib.policy.include den.aspects.wsl
+    );
+
+  den.schema.host.includes = [ den.policies.wsl-extras ];
 }
