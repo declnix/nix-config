@@ -453,7 +453,15 @@
               action = "power-off-monitors";
             };
           };
-          config = "";
+          config = ''
+            input {
+              touchpad {
+                tap
+                natural-scroll
+                scroll-method "two-finger"
+              }
+            }
+          '';
         };
       };
 
