@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  kr7va_declnix.niri = {
+  den.aspects.kr7va.provides.declnix = {
     hjem =
       { pkgs, ... }:
       {

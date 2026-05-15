@@ -5,8 +5,6 @@
   ...
 }:
 {
-  imports = [ (inputs.den.namespace "bur34u_declnix" false) ];
-
   den.aspects.bur34u.provides.declnix =
     { ... }:
     {

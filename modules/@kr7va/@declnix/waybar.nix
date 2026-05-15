@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  kr7va_declnix.waybar = {
+  den.aspects.kr7va.provides.declnix = {
     hjem =
       { ... }:
       {
@@ -96,15 +96,15 @@
           '';
         };
       };
-  };
 
-  den.aspects.kr7va.nixos =
-    { pkgs, ... }:
-    {
-      xdg.portal = {
-        enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        config.common.default = "*";
+    nixos =
+      { pkgs, ... }:
+      {
+        xdg.portal = {
+          enable = true;
+          extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+          config.common.default = "*";
+        };
       };
-    };
+  };
 }
