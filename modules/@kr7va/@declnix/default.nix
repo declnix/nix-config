@@ -38,6 +38,7 @@
       { pkgs, ... }:
       {
         packages = with pkgs; [
+          claude-code
           codex
           gemini-cli
           wget
@@ -45,6 +46,8 @@
           firefox
         ];
       };
+
+    includes = [ (den.batteries.unfree [ "claude-code" ]) ];
   };
 
   kr7va_declnix.ssh = {
