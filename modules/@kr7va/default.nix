@@ -18,6 +18,11 @@
         networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
         time.timeZone = "Europe/Warsaw";
+
+        services.logind = {
+          lidSwitch = "suspend";
+          lidSwitchExternalPower = "ignore";
+        };
       };
 
     includes =
