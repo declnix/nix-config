@@ -9,7 +9,7 @@
       {
         services.greetd = {
           enable = true;
-          settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd niri-session";
+          settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri-session";
         };
 
         networking.networkmanager.enable = true;
@@ -19,9 +19,9 @@
 
         time.timeZone = "Europe/Warsaw";
 
-        services.logind = {
-          lidSwitch = "suspend";
-          lidSwitchExternalPower = "ignore";
+        services.logind.settings.Login = {
+          HandleLidSwitch = "suspend";
+          HandleLidSwitchExternalPower = "ignore";
         };
       };
 
