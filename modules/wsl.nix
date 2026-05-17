@@ -25,4 +25,6 @@
     lib.optional ((host.wsl or { }).enable or false) (den.lib.policy.include den.aspects.wsl);
 
   den.schema.host.includes = [ den.policies.wsl-extras ];
+
+  flake-file.inputs.nixos-wsl.url = "github:nix-community/nixos-wsl";
 }
