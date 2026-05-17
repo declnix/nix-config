@@ -10,16 +10,16 @@ let
 in
 {
   options.flakeAdapters.zef = lib.mkOption {
-    type = lib.types.submoduleWith {
-      modules = import "${zefInput}/modules/modules.nix";
-      specialArgs = { inherit pkgs; };
-    };
+    type = lib.types.deferredModule;
     default = { };
   };
 
   config = {
     packages = [
-      config.flakeAdapters.zef.zsh.build.finalPackage
+      (zefInput.lib.zshConfiguration {
+        inherit pkgs;
+        modules = [ config.flakeAdapters.zef ];
+      }).package
     ];
   };
 }
