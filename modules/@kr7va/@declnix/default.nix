@@ -22,6 +22,7 @@
           wget
           curl
           firefox
+          gh
         ];
       };
 
