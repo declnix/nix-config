@@ -40,6 +40,7 @@
     nixos-wsl.url = "github:nix-community/nixos-wsl";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nvf.url = "github:notashelf/nvf";
+    pi.url = "github:lukasl-dev/pi.nix";
     tmf.url = "github:declnix/tmf";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
