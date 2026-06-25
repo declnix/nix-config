@@ -42,7 +42,7 @@
 
           rum.programs.zsh.initConfig = mkIf cfg.integrations.zsh.enable (
             let
-              flags = lib.strings.concatStringsSep " " (cfg.flags ++ lib.optional cfg.icons "--icons");
+              flags = lib.strings.concatStringsSep " " (cfg.flags ++ lib.optional cfg.icons "--icons=always");
             in
             mkAfter ''
               alias ls="${getExe cfg.package} ${flags}"
