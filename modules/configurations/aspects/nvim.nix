@@ -27,7 +27,7 @@
         # lsp
         lsp = {
           enable = true;
-          formatOnSave = true;
+          formatOnSave = false;
           lspconfig.enable = true;
         };
         languages.nix = {
