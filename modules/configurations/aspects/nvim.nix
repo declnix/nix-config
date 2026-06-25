@@ -59,6 +59,10 @@
             action = "<cmd>FzfLua buffers<CR>";
             desc = "Find buffers";
           };
+          "<C-.>" = {
+            action = "<cmd>FzfLua lsp_code_actions<CR>";
+            desc = "Code actions";
+          };
         };
       } // {
         # fyler
