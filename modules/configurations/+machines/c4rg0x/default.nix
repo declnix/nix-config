@@ -1,9 +1,9 @@
 { den, ... }:
 {
   den.aspects.c4rg0x = {
-    provides.declnix = { ... }: {
+    provides.nixos-user = { user, ... }: {
       nixos = {
-        users.users.declnix.initialPassword = "test";
+        users.users.${user.userName}.initialPassword = "test";
       };
 
       includes = [
@@ -17,6 +17,6 @@
 
   den.hosts.x86_64-linux.c4rg0x = {
     wsl.enable = true;
-    users.declnix = { };
+    users.nixos-user.userName = "nixos";
   };
 }

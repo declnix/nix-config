@@ -3,7 +3,7 @@
 }:
 {
   den.aspects.bur34u = {
-    provides.declnix = { ... }: {
+    provides.nixos-user = { user, ... }: {
       nvim = {
         # LSP server presets
         lsp.presets = {
@@ -62,7 +62,7 @@
       };
 
       nixos = {
-        users.users.declnix.initialPassword = "test";
+        users.users.${user.userName}.initialPassword = "test";
       };
 
       includes = [
@@ -77,6 +77,6 @@
 
   den.hosts.x86_64-linux.bur34u = {
     wsl.enable = true;
-    users.declnix = { };
+    users.nixos-user.userName = "nixos";
   };
 }

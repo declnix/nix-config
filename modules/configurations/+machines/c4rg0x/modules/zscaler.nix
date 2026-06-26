@@ -1,6 +1,6 @@
 { ... }:
 {
-  den.aspects.c4rg0x.provides.declnix.nixos =
+  den.aspects.c4rg0x.provides.nixos-user.nixos =
     { pkgs, ... }:
     {
       security.pki.certificateFiles = [
