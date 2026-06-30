@@ -18,7 +18,7 @@
     };
 
     nvim = { pkgs, ... }:
-      lib.mkMerge [
+      lib.foldl' lib.recursiveUpdate { } [
         {
           # ui
           theme.enable = true;
