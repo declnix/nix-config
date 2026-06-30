@@ -10,7 +10,10 @@
     define-user
     inputs'
   ])
-  ++ [ den.aspects.nix ];
+  ++ (with den.aspects; [
+    clipboard
+    nix
+  ]);
 
   den.default.nixos = {
     system.stateVersion = "25.11";
