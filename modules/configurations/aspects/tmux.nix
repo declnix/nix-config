@@ -2,12 +2,10 @@
 {
   den.aspects.tmux = {
     tmux = {
-      sensible.enable = true;
-      resurrect.enable = true;
-      continuum.enable = true;
-      history = 50000;
-      statusBar.enable = true;
-      statusBar.position = "bottom";
+      history.limit = 50000;
+      persistence.enable = true;
+      status.enable = true;
+      status.position = "bottom";
 
       initExtra = ''
         set -g mouse on
@@ -61,8 +59,8 @@
   den.default.nixos.hjem.extraModules = lib.mkAfter [
     ({ inputs, lib, config, pkgs, ... }:
       let
-        ntmInput = inputs.tmf or (throw "inputs.tmf is required in flake inputs.");
-        tmuxConfig = ntmInput.lib.tmuxConfiguration {
+        tmuxNixInput = inputs.tmux-nix or (throw "inputs.tmux-nix is required in flake inputs.");
+        tmuxConfig = tmuxNixInput.lib.tmuxConfiguration {
           inherit pkgs;
           modules = [ config.flakes.tmux ];
         };
@@ -74,11 +72,11 @@
         };
 
         config = {
-          files.".config/tmux/tmux.conf".source = tmuxConfig;
+          files.".config/tmux/tmux.conf".source = "${tmuxConfig}/.tmux.conf";
           packages = [ pkgs.tmux ];
         };
       })
   ];
 
-  flake-file.inputs.tmf.url = "github:declnix/tmf";
+  flake-file.inputs.tmux-nix.url = "github:declnix/tmux.nix";
 }

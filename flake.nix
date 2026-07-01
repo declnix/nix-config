@@ -41,7 +41,7 @@
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
     nvf.url = "github:notashelf/nvf";
     pi.url = "github:lukasl-dev/pi.nix";
-    tmf.url = "github:declnix/tmf";
+    tmux-nix.url = "github:declnix/tmux.nix";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -264,7 +264,7 @@
     "flake-parts_4": {
       "inputs": {
         "nixpkgs-lib": [
-          "tmf",
+          "tmux-nix",
           "nixpkgs"
         ]
       },
@@ -330,7 +330,7 @@
         "flake-compat": "flake-compat_4",
         "gitignore": "gitignore_2",
         "nixpkgs": [
-          "tmf",
+          "tmux-nix",
           "nixpkgs"
         ]
       },
@@ -395,7 +395,7 @@
     "gitignore_2": {
       "inputs": {
         "nixpkgs": [
-          "tmf",
+          "tmux-nix",
           "git-hooks-nix",
           "nixpkgs"
         ]
@@ -767,7 +767,7 @@
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
         "pi": "pi",
-        "tmf": "tmf",
+        "tmux-nix": "tmux-nix",
         "treefmt-nix": "treefmt-nix_3",
         "zsh-nix": "zsh-nix"
       }
@@ -802,7 +802,7 @@
         "type": "github"
       }
     },
-    "tmf": {
+    "tmux-nix": {
       "inputs": {
         "dag": "dag",
         "flake-file": "flake-file_2",
@@ -813,16 +813,16 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1780524384,
-        "narHash": "sha256-13C2r9vmXvP12agDKNLSFvIC67pme0FjEvmC7uddCdU=",
+        "lastModified": 1782912777,
+        "narHash": "sha256-0EizYpQOeZewWrc3qfJBA5Hi2bC99sul/sh3f+kobJ4=",
         "owner": "declnix",
-        "repo": "tmf",
-        "rev": "e7b40a3a7e9096a34637f2b23d519e3914d4f615",
+        "repo": "tmux.nix",
+        "rev": "ea75a7b611c53122865642d743e1304e98630b6b",
         "type": "github"
       },
       "original": {
         "owner": "declnix",
-        "repo": "tmf",
+        "repo": "tmux.nix",
         "type": "github"
       }
     },
@@ -851,7 +851,7 @@
     "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
-          "tmf",
+          "tmux-nix",
           "nixpkgs"
         ]
       },
