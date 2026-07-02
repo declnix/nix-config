@@ -5,12 +5,10 @@
   den = {
     default = {
       nixos.hjem.extraModules = [
-        {
-          _module.args = { inherit inputs; };
-        }
         inputs.hjem-impure.hjemModules.default
         inputs.hjem-rum.hjemModules.default
-      ];
+      ]
+      ++ (inputs.import-tree ../hjemModules).imports;
 
       hjem.impure.enable = true;
     };

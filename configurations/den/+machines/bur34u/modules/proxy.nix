@@ -1,4 +1,4 @@
-{
+{ lib, ... }: {
   den.aspects.bur34u = {
     nixos = {
       systemd.services.nix-daemon.serviceConfig.EnvironmentFile = "-/etc/proxy";

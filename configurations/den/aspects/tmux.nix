@@ -1,4 +1,4 @@
-{ lib, den, ... }:
+{ lib, den, inputs, ... }:
 {
   den.aspects.tmux = {
     tmux = {
@@ -76,6 +76,9 @@
           packages = [ pkgs.tmux ];
         };
       })
+    {
+      _module.args.inputs = { inherit (inputs) tmux-nix; };
+    }
   ];
 
   flake-file.inputs.tmux-nix.url = "github:declnix/tmux.nix";

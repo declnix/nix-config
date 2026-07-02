@@ -1,4 +1,4 @@
-{ pkgs, lib, den, ... }:
+{ pkgs, lib, den, inputs, ... }:
 {
   den.aspects.zsh = {
     zsh = {
@@ -75,6 +75,9 @@
           };
         };
       })
+    {
+      _module.args.inputs = { inherit (inputs) zsh-nix; };
+    }
   ];
 
   flake-file.inputs.zsh-nix.url = "github:declnix/zsh.nix";

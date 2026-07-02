@@ -1,4 +1,4 @@
-{ den, lib, ... }:
+{ den, lib, inputs, ... }:
 {
   den.aspects.nvim = {
     nixos = {
@@ -177,6 +177,9 @@
           ];
         };
       })
+    {
+      _module.args.inputs = { inherit (inputs) nvf; };
+    }
   ];
 
   flake-file.inputs.nvf.url = "github:notashelf/nvf";
