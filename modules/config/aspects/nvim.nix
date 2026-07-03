@@ -1,22 +1,6 @@
 { den, lib, inputs, ... }:
 {
   den.aspects.nvim = {
-    nixos = {
-      environment.sessionVariables = {
-        EDITOR = "nvim";
-        VISUAL = "nvim";
-        GIT_EDITOR = "nvim";
-      };
-    };
-
-    hjem = {
-      environment.sessionVariables = {
-        EDITOR = "nvim";
-        VISUAL = "nvim";
-        GIT_EDITOR = "nvim";
-      };
-    };
-
     nvim = { pkgs, ... }:
       lib.foldl' lib.recursiveUpdate { } [
         {
@@ -143,6 +127,22 @@
           };
         }
       ];
+
+    nixos = {
+      environment.sessionVariables = {
+        EDITOR = "nvim";
+        VISUAL = "nvim";
+        GIT_EDITOR = "nvim";
+      };
+    };
+
+    hjem = {
+      environment.sessionVariables = {
+        EDITOR = "nvim";
+        VISUAL = "nvim";
+        GIT_EDITOR = "nvim";
+      };
+    };
   };
 
   den.schema.user.includes = [

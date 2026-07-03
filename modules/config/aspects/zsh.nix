@@ -18,7 +18,7 @@
 
       integrations.git.enable = true;
 
-      initExtra = ''
+      initConfig = ''
         if [[ -n $SSH_CLIENT ]]; then
           PROMPT="%F{green}%n@%m%f %B%F{magenta}❯%f%b "
         else

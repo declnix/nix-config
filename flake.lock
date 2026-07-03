@@ -922,11 +922,11 @@
         "zsh-patina": "zsh-patina"
       },
       "locked": {
-        "lastModified": 1782480281,
-        "narHash": "sha256-dyvNY1ClU6Q0x+4RO1CC8EJUD5HjKmAbTsvI1L5pJU4=",
+        "lastModified": 1783018331,
+        "narHash": "sha256-oE9IldRcls8g2gd4Hb2IxIIbPPE1lFwywxbeCmFN9Lw=",
         "owner": "declnix",
         "repo": "zsh.nix",
-        "rev": "e3c0880e78ce3b91c422fabdf5f50589d1bf4b1c",
+        "rev": "a8d2c3260dba5c4759bc40826bd3a69b6abbf496",
         "type": "github"
       },
       "original": {
