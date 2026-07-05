@@ -8,15 +8,15 @@ host := `hostname`
 
 # [switch] Apply configuration to the current system
 switch host=host:
-    sudo nixos-rebuild switch --flake ".#{{host}}" --show-trace
+    sudo nixos-rebuild switch --flake ".#{{host}}" --show-trace --accept-flake-config
 
 # [boot] Schedule configuration change for next reboot
 boot host=host:
-    sudo nixos-rebuild boot --flake ".#{{host}}"
+    sudo nixos-rebuild boot --flake ".#{{host}}" --accept-flake-config
 
 # [vm] Build and test configuration in a local VM
 vm host=host:
-    nixos-rebuild build-vm --flake ".#{{host}}"
+    nixos-rebuild build-vm --flake ".#{{host}}" --accept-flake-config
     ./result/bin/run-{{host}}-vm
 
 # --- Flake & Development ---
@@ -36,7 +36,7 @@ fmt:
 
 # [check] Verify configuration integrity
 check:
-    nix flake check --show-trace
+    nix flake check --show-trace --accept-flake-config
 
 # --- Maintenance ---
 

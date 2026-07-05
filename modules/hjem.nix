@@ -9,6 +9,10 @@
         inputs.hjem-rum.hjemModules.default
       ];
 
+      nixos.hjem.specialArgs = {
+        inherit inputs;
+      };
+
       hjem.impure.enable = true;
     };
 

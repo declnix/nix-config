@@ -7,6 +7,11 @@
         "flakes"
         "pipe-operators"
       ];
+
+      nix.settings.trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
   };
 }
