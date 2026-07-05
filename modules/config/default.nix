@@ -12,6 +12,7 @@
   ])
   ++ (with den.aspects; [
     clipboard
+    comma
     nix
   ]);
 
