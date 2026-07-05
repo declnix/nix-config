@@ -4,14 +4,11 @@
 {
   den.aspects.kr7va = {
     nixos =
-      { pkgs, ... }:
+      { ... }:
       {
-        services.greetd = {
-          enable = true;
-          settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --cmd niri-session";
-        };
-
         networking.networkmanager.enable = true;
+        services.upower.enable = true;
+        services.power-profiles-daemon.enable = true;
 
         time.timeZone = "Europe/Warsaw";
 
