@@ -30,6 +30,7 @@
         Ctrl+Alt+Delete { quit; }
 
         Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+        Mod+O { toggle-overview; }
         Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
         Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
 
@@ -82,10 +83,18 @@
 
         Mod+Page_Down { focus-workspace-down; }
         Mod+Page_Up { focus-workspace-up; }
+        Mod+Alt+Down { focus-workspace-down; }
+        Mod+Alt+Up { focus-workspace-up; }
+        Mod+Alt+Right { focus-workspace-down; }
+        Mod+Alt+Left { focus-workspace-up; }
         Mod+U { focus-workspace-down; }
         Mod+I { focus-workspace-up; }
         Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
         Mod+Ctrl+Page_Up { move-column-to-workspace-up; }
+        Mod+Alt+Shift+Down { move-column-to-workspace-down; }
+        Mod+Alt+Shift+Up { move-column-to-workspace-up; }
+        Mod+Alt+Shift+Right { move-column-to-workspace-down; }
+        Mod+Alt+Shift+Left { move-column-to-workspace-up; }
         Mod+Ctrl+U { move-column-to-workspace-down; }
         Mod+Ctrl+I { move-column-to-workspace-up; }
         Mod+Shift+Page_Down { move-workspace-down; }
