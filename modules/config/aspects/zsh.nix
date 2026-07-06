@@ -8,7 +8,7 @@
           autosuggestions.enable = true;
         };
 
-        highlighting.enable = true;
+        highlighting.patina.enable = true;
 
         completion = {
           fzfTab.enable = true;
