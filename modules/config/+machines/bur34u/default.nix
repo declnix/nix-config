@@ -57,6 +57,13 @@
         };
       };
 
+      zsh = {
+        omz = {
+          mvn.enable = true;
+          npm.enable = true;
+        };
+      };
+
       hjem = { pkgs, ... }: {
         environment.sessionVariables.JDTLS_JVM_ARGS = "-javaagent:${pkgs.lombok}/share/java/lombok.jar";
       };
