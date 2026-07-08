@@ -3,7 +3,7 @@
   den.aspects.tmux = {
     tmux = {
       history.limit = 50000;
-      persistence.enable = true;
+      tmux-continuum.enable = true;
       status.enable = true;
       status.position = "bottom";
 

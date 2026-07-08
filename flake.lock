@@ -956,11 +956,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1782912777,
-        "narHash": "sha256-0EizYpQOeZewWrc3qfJBA5Hi2bC99sul/sh3f+kobJ4=",
+        "lastModified": 1783503872,
+        "narHash": "sha256-t1QMKeQKdaRElek0aEyM3Yta9MPEOJfqeDjdiiwCsQ0=",
         "owner": "declnix",
         "repo": "tmux.nix",
-        "rev": "ea75a7b611c53122865642d743e1304e98630b6b",
+        "rev": "8a880e6cc869b0878424e8627c2f1323ccc725e9",
         "type": "github"
       },
       "original": {
