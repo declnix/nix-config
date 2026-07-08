@@ -12,10 +12,12 @@
       initExtra = ''
         set -g mouse on
         set -g status-style "bg=default"
+        set -g status-justify absolute-centre
         set -g status-left ""
-        set -g status-right "#[fg=white,bold]  #S"
-        set -g window-status-format "#[fg=gray]   #I:#W "
-        set -g window-status-current-format "#[fg=cyan,bold]   #I:#W "
+        set -g status-right ""
+        set -g window-status-separator ""
+        set -g window-status-format "#{?window_start_flag,#[fg=white,bold] #S #[fg=gray]| ,}#[fg=gray]#I:#W "
+        set -g window-status-current-format "#{?window_start_flag,#[fg=white,bold] #S #[fg=gray]| ,}#[fg=cyan,bold]#I:#W "
 
         # Open new panes/windows in current directory
         bind c new-window -c "#{pane_current_path}"
