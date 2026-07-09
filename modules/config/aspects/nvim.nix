@@ -2,7 +2,7 @@
 {
   den.aspects.nvim = {
     nvim = { pkgs, ... }:
-      lib.foldl' lib.recursiveUpdate { } [
+      lib.mkMerge [
         {
           # ui
           theme.enable = true;
