@@ -1,8 +1,9 @@
 # Global Instructions
 
+- If a Nix operation needs a newly created file, stage that path first with `git add <path>`; untracked files are invisible to Nix flakes.
+
 - Commit messages: use `scope: short description`, e.g. `kr7va: add audio support`.
 - For host-specific module changes under `modules/config/+machines/<host>/`, use the host as the scope and include the module in the title as `host: module -> title`, e.g. `kr7va: niri -> extract config`.
-- Before any Nix operation, run `git add .` so new files are tracked.
 
 ## Den File & Aspect Structure Ordering
 
