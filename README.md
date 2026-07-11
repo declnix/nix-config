@@ -1,3 +1,5 @@
 # ❄️ My Nix Configuration
 
-Welcome to my personal computing environment, managed entirely with Nix and [den](https://github.com/vic/den). This repository stores my system-wide settings, terminal workflows, and development environment, ensuring a consistent experience across all my machines.
+My dotfiles, mostly NixOS these days.
+
+This is where I keep machine configs, shell/editor bits, and whatever glue helps me get my work done.
