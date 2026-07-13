@@ -50,6 +50,7 @@
             enable = true;
             formatOnSave = false;
             lspconfig.enable = true;
+            mappings.format = null;
           };
           languages.nix = {
             enable = true;
@@ -143,6 +144,14 @@
               mode = "n";
               action = "<cmd>lua vim.lsp.buf.references()<CR>";
               desc = "Find references";
+            }
+            # FIXME: nvf maps lsp.mappings.format to vim.lsp.buf.format, but
+            # language formatters such as markdown/mdformat are registered via conform.
+            {
+              key = "<leader>lf";
+              mode = "n";
+              action = "<cmd>lua require('conform').format({ lsp_format = 'fallback' })<CR>";
+              desc = "Format";
             }
           ];
         }
