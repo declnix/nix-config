@@ -11,6 +11,8 @@ in
   perSystem = { config, pkgs, ... }: {
     devShells.default = pkgs.mkShell {
       packages = [
+        pkgs.gettext
+        pkgs.gnumake
         pkgs.just
       ];
 
@@ -43,6 +45,7 @@ in
       [no-exit-message]
       switch host=host:
           @just _check_host "{{host}}" 2>/dev/null
+          @if [ -f "modules/config/+machines/{{host}}/Makefile" ]; then make -C "modules/config/+machines/{{host}}"; fi
           sudo nixos-rebuild switch --flake ".#{{host}}" --show-trace --accept-flake-config
 
       # [boot] Schedule configuration for next boot

@@ -1,11 +1,25 @@
 ## Proxy
 
-Proxy settings are read from `/etc/proxy` (KEY=VALUE format). The nix daemon receives it via `EnvironmentFile=-/etc/proxy`, and zsh sources the same file at shell init. If `/etc/proxy` does not exist, proxy is not configured.
+Proxy settings are read from these host-local files:
 
-Example `/etc/proxy`:
+`/etc/environment.d/90-proxy.conf`
+`/etc/gitconfig.d/proxy.conf`
+
+Install them from the current shell environment:
 
 ```sh
-http_proxy=http://<gateway>:<port>
-https_proxy=http://<gateway>:<port>
-no_proxy=localhost,127.0.0.1,<internal-domain>
+make
+```
+
+Expected variables:
+
+```sh
+http_proxy=...
+https_proxy=...
+all_proxy=...
+no_proxy=...
+HTTP_PROXY=...
+HTTPS_PROXY=...
+ALL_PROXY=...
+NO_PROXY=...
 ```

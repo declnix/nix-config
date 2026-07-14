@@ -1,0 +1,5 @@
+[http]
+  proxy = ${git_proxy}
+
+[https]
+  proxy = ${git_proxy}
