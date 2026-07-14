@@ -3,6 +3,7 @@ set quiet := true
 
 host := `hostname`
 hosts := "bur34u c4rg0x kr7va"
+switch_preserve_env := "DBUS_SESSION_BUS_ADDRESS,XDG_RUNTIME_DIR"
 
 [no-exit-message]
 _check_host host:
@@ -22,7 +23,7 @@ build host=host:
 switch host=host:
     @just _check_host "{{host}}" 2>/dev/null
     @if [ -f "modules/config/+machines/{{host}}/Makefile" ]; then make -s -C "modules/config/+machines/{{host}}"; fi
-    sudo nixos-rebuild switch --flake ".#{{host}}" --show-trace --accept-flake-config
+    sudo --preserve-env="{{switch_preserve_env}}" nixos-rebuild switch --flake ".#{{host}}" --show-trace --accept-flake-config
 
 # [boot] Schedule configuration for next boot
 [no-exit-message]
