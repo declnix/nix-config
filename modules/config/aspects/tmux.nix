@@ -73,6 +73,39 @@
           inherit pkgs;
           modules = [ config.flakes.tmux ];
         };
+        tmuxRestoreSession = pkgs.writeShellApplication {
+          name = "tmux-restore-session";
+          runtimeInputs = [
+            pkgs.coreutils
+            pkgs.gawk
+            pkgs.gnugrep
+            pkgs.gnused
+            pkgs.tmux
+          ];
+          text = ''
+            tmux_config="$HOME/.config/tmux/tmux.conf"
+            resurrect_last="$HOME/.tmux/resurrect/last"
+            resurrect_restore="${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/scripts/restore.sh"
+
+            if tmux has-session 2>/dev/null; then
+              exit 0
+            fi
+
+            tmux -f "$tmux_config" new-session -d
+
+            if [ -e "$resurrect_last" ]; then
+              "$resurrect_restore" || true
+            fi
+
+            if tmux has-session -t 0 2>/dev/null; then
+              tmux rename-session -t 0 default
+            fi
+
+            if ! tmux has-session 2>/dev/null; then
+              tmux -f "$tmux_config" new-session -Ad -s default
+            fi
+          '';
+        };
       in
       {
         options.flakes.tmux = lib.mkOption {
@@ -88,7 +121,7 @@
             wantedBy = [ "default.target" ];
             serviceConfig = {
               Type = "oneshot";
-              ExecStart = "${lib.getExe pkgs.tmux} -f %h/.config/tmux/tmux.conf new-session -Ad -s default";
+              ExecStart = lib.getExe tmuxRestoreSession;
               RemainAfterExit = true;
             };
           };

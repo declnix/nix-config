@@ -3,7 +3,7 @@ result
 result-*
 .pre-commit-config.yaml
 .dirlocal
-.envrc
+.env
 .direnv
 *.drv
 
