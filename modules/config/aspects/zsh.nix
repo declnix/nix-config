@@ -3,23 +3,6 @@
   den.aspects.zsh = {
     zsh =
       { pkgs, inputs, lib, ... }:
-      let
-        patinaSrc = inputs.zsh-patina;
-        patinaManifest = (lib.importTOML (patinaSrc + "/Cargo.toml")).package;
-        patina = pkgs.rustPlatform.buildRustPackage {
-          pname = patinaManifest.name;
-          version = patinaManifest.version;
-          src = patinaSrc;
-          cargoLock.lockFile = patinaSrc + "/Cargo.lock";
-        };
-
-        fzf-tab = pkgs.fetchFromGitHub {
-          owner = "Aloxaf";
-          repo = "fzf-tab";
-          rev = "e394092c17277c84cb3d234917c4ac1073102ba6";
-          sha256 = "sha256-WlmWLKHrLeptc5rqlHbKvthD73it9ij7IDT9QxN4jCc=";
-        };
-      in
       {
         plugins = {
           vi-mode = {
@@ -37,18 +20,34 @@
             source = "share/zsh-autoenv/autoenv.plugin.zsh";
           };
 
-          syntax-highlighting = {
-            package = patina;
-            source = null;
-            init = ''
-              eval "$(${patina}/bin/zsh-patina activate)"
-            '';
-            after = [ "autosuggestions" ];
-          };
+          syntax-highlighting =
+            let
+              src = inputs.zsh-patina;
+              manifest = (lib.importTOML (src + "/Cargo.toml")).package;
+              package = pkgs.rustPlatform.buildRustPackage {
+                pname = manifest.name;
+                version = manifest.version;
+                inherit src;
+                cargoLock.lockFile = src + "/Cargo.lock";
+              };
+            in
+            {
+              inherit package;
+              source = null;
+              init = ''
+                eval "$(${package}/bin/zsh-patina activate)"
+              '';
+              after = [ "autosuggestions" ];
+            };
 
           fzf-tab = {
             load = "idle";
-            package = fzf-tab;
+            package = pkgs.fetchFromGitHub {
+              owner = "Aloxaf";
+              repo = "fzf-tab";
+              rev = "e394092c17277c84cb3d234917c4ac1073102ba6";
+              sha256 = "sha256-WlmWLKHrLeptc5rqlHbKvthD73it9ij7IDT9QxN4jCc=";
+            };
             source = "fzf-tab.plugin.zsh";
             init = "enable-fzf-tab";
           };

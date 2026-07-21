@@ -47,3 +47,7 @@ den.aspects.kr7va = {
   provides.declnix.nixos = { ... };
 };
 ```
+
+### 4. Inline Plugin Package Definitions
+
+For plugin-oriented aspects such as `zsh` and `tmux`, keep package fetches/builds inline with the plugin declaration that uses them. Do not hoist plugin packages into a shared outer `let` unless the same derivation is intentionally reused by multiple plugin entries or non-plugin settings.
