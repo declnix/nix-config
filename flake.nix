@@ -21,10 +21,6 @@
     };
     dag.url = "github:denful/dag";
     den.url = "github:denful/den";
-    files = {
-      url = "github:mightyiam/files";
-      flake = false;
-    };
     flake-file.url = "github:denful/flake-file";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
