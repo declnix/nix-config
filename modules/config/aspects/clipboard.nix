@@ -20,7 +20,7 @@
     };
 
     tmux = {
-      initExtra = lib.mkAfter ''
+      initConfig = lib.mkAfter ''
         set -g set-clipboard on
         bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
         bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "pbcopy"
