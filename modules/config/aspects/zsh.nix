@@ -58,13 +58,85 @@
             source = "share/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh";
           };
 
+          omz-lib-functions = {
+            load = "idle";
+            package = pkgs.oh-my-zsh;
+            source = "share/oh-my-zsh/lib/functions.zsh";
+          };
+
+          omz-lib-directories = {
+            load = "idle";
+            package = pkgs.oh-my-zsh;
+            source = "share/oh-my-zsh/lib/directories.zsh";
+            after = [ "omz-lib-functions" ];
+          };
+
+          omz-lib-history = {
+            load = "idle";
+            package = pkgs.oh-my-zsh;
+            source = "share/oh-my-zsh/lib/history.zsh";
+            after = [ "omz-lib-functions" ];
+          };
+
+          omz-lib-grep =
+            let
+              package = pkgs.runCommand "oh-my-zsh-grep-lib" { } ''
+                lib_dir=$out/share/oh-my-zsh/lib
+                mkdir -p "$lib_dir"
+                printf '%s\n' \
+                  'alias grep="grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.venv,venv}"' \
+                  'alias egrep="grep -E"' \
+                  'alias fgrep="grep -F"' \
+                  > "$lib_dir/grep.zsh"
+              '';
+            in
+            {
+              load = "idle";
+              inherit package;
+              source = "share/oh-my-zsh/lib/grep.zsh";
+              after = [ "omz-lib-functions" ];
+            };
+
+          omz-lib-git = {
+            load = "idle";
+            package = pkgs.oh-my-zsh;
+            source = "share/oh-my-zsh/lib/git.zsh";
+            after = [ "omz-lib-functions" ];
+          };
+
           omz-git = {
             load = "idle";
             package = pkgs.oh-my-zsh;
-            sources = [
-              "share/oh-my-zsh/lib/git.zsh"
-              "share/oh-my-zsh/plugins/git/git.plugin.zsh"
-            ];
+            source = "share/oh-my-zsh/plugins/git/git.plugin.zsh";
+            after = [ "omz-lib-git" ];
+          };
+
+          omz-docker =
+            let
+              package = pkgs.runCommand "oh-my-zsh-docker-plugin" { } ''
+                plugin_dir=$out/share/oh-my-zsh/plugins/docker
+                mkdir -p "$plugin_dir"
+                cp -R ${pkgs.oh-my-zsh}/share/oh-my-zsh/plugins/docker/. "$plugin_dir/"
+                chmod -R u+w "$plugin_dir"
+
+                sed -i '/^# If the completion file/,$d' "$plugin_dir/docker.plugin.zsh"
+              '';
+            in
+            {
+              load = "idle";
+              inherit package;
+              source = "share/oh-my-zsh/plugins/docker/docker.plugin.zsh";
+              init = ''
+                fpath=("${package}/share/oh-my-zsh/plugins/docker/completions" $fpath)
+              '';
+              after = [ "omz-lib-functions" ];
+            };
+
+          omz-docker-compose = {
+            load = "idle";
+            package = pkgs.oh-my-zsh;
+            source = "share/oh-my-zsh/plugins/docker-compose/docker-compose.plugin.zsh";
+            after = [ "omz-docker" ];
           };
         };
 
