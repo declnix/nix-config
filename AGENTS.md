@@ -55,3 +55,7 @@ For plugin-oriented aspects such as `zsh` and `tmux`, keep package fetches/build
 ### 5. Simple Console Tool Aspects
 
 For simple console tool aspects that only install a package and add shell aliases or hooks, prefer direct `hjem.packages` plus `zsh.initConfig`. Do not create a custom `rum.programs.<tool>` module or `den.default.nixos.hjem.extraModules` block unless the tool needs reusable options, conditional behavior, or non-trivial integration logic.
+
+### 6. Neovim Language Grouping
+
+When a host-specific `nvim` class configures language tooling, split related settings with `lib.mkMerge` into domain groups that match that host's role, such as `frontend` and `backend` for a development workstation. Keep LSP presets, server overrides, and language declarations in the same domain block when they belong to the same host-specific toolchain.

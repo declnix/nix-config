@@ -1,70 +1,74 @@
 { den
+, lib
 , ...
 }:
 {
   den.aspects.bur34u = {
     provides.nixos-user = { user, ... }: {
-      nvim = {
-        # LSP server presets
-        lsp.presets = {
-          angular-language-server.enable = true;
-          typescript-language-server.enable = true;
-        };
-
-        # TypeScript LSP configuration
-        lsp.servers.typescript-language-server.filetypes = [
-          "typescript"
-          "typescriptreact"
-          "javascript"
-          "javascriptreact"
-        ];
-
-
-        # Language support
-        languages = {
-          typescript = {
-            enable = true;
-            lsp = {
-              enable = true;
-              servers = [ "angular-language-server" ];
-            };
-            treesitter.enable = true;
+      nvim = { ... }: lib.mkMerge [
+        {
+          # frontend
+          lsp.presets = {
+            angular-language-server.enable = true;
+            typescript-language-server.enable = true;
           };
 
-          html = {
-            enable = true;
-            lsp = {
-              enable = true;
-              servers = [ "angular-language-server" ];
-            };
-            treesitter.enable = true;
-          };
+          lsp.servers.typescript-language-server.filetypes = [
+            "typescript"
+            "typescriptreact"
+            "javascript"
+            "javascriptreact"
+          ];
 
-          css = {
-            enable = true;
-            lsp = {
+          languages = {
+            typescript = {
               enable = true;
+              lsp = {
+                enable = true;
+                servers = [ "angular-language-server" ];
+              };
+              treesitter.enable = true;
             };
-            treesitter.enable = true;
-          };
 
-          java = {
-            enable = true;
-            lsp = {
+            html = {
               enable = true;
+              lsp = {
+                enable = true;
+                servers = [ "angular-language-server" ];
+              };
+              treesitter.enable = true;
             };
-            treesitter.enable = true;
-          };
 
-          kotlin = {
-            enable = true;
-            lsp = {
+            css = {
               enable = true;
+              lsp = {
+                enable = true;
+              };
+              treesitter.enable = true;
             };
-            treesitter.enable = true;
           };
-        };
-      };
+        }
+        {
+          # backend
+          languages = {
+            java = {
+              enable = true;
+              lsp = {
+                enable = true;
+              };
+              treesitter.enable = true;
+            };
+
+            kotlin = {
+              enable = true;
+              lsp = {
+                enable = true;
+              };
+              treesitter.enable = true;
+            };
+          };
+        }
+      ];
 
       zsh = { pkgs, ... }: {
         plugins = {
