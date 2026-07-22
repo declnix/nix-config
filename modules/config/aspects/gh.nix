@@ -1,4 +1,4 @@
-{
+{ den, ... }: {
   den.aspects.gh = {
     hjem = { pkgs, ... }: {
       packages = [ pkgs.gh ];
@@ -14,5 +14,7 @@
         ];
       };
     };
+
+    includes = [ den.aspects.gh ];
   };
 }

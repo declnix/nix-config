@@ -5,6 +5,6 @@
   };
 
   den.aspects.development = {
-    includes = with den.aspects; [ console direnv git ripgrep devbox nvim ];
+    includes = with den.aspects; [ console direnv gh lazygit ripgrep devbox nvim ];
   };
 }
