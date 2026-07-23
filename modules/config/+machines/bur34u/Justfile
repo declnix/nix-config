@@ -1,0 +1,68 @@
+set quiet := true
+
+default: proxy git-proxy glab
+
+proxy:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    tmp="$(mktemp)"
+    trap 'rm -f "$tmp"' EXIT
+
+    http_proxy="${http_proxy:-${HTTP_PROXY:-}}" \
+    https_proxy="${https_proxy:-${HTTPS_PROXY:-${http_proxy:-${HTTP_PROXY:-}}}}" \
+    all_proxy="${all_proxy:-${ALL_PROXY:-}}" \
+    no_proxy="${no_proxy:-${NO_PROXY:-}}" \
+    HTTP_PROXY="${HTTP_PROXY:-${http_proxy:-}}" \
+    HTTPS_PROXY="${HTTPS_PROXY:-${https_proxy:-${http_proxy:-}}}" \
+    ALL_PROXY="${ALL_PROXY:-${all_proxy:-}}" \
+    NO_PROXY="${NO_PROXY:-${no_proxy:-}}" \
+        envsubst \
+        < modules/proxy/90-proxy.conf.in \
+        > "$tmp"
+
+    sudo install \
+        --compare \
+        -D \
+        -m 0644 \
+        "$tmp" \
+        /etc/environment.d/90-proxy.conf
+
+git-proxy:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    tmp="$(mktemp)"
+    trap 'rm -f "$tmp"' EXIT
+
+    proxy="${https_proxy:-${HTTPS_PROXY:-${http_proxy:-${HTTP_PROXY:-}}}}"
+
+    if [[ -n "$proxy" ]]; then
+        git_proxy="$proxy" \
+            envsubst \
+            < modules/proxy/gitconfig.conf.in \
+            > "$tmp"
+    else
+        : > "$tmp"
+    fi
+
+    sudo install \
+        --compare \
+        -D \
+        -m 0644 \
+        "$tmp" \
+        /etc/gitconfig.d/proxy.conf
+
+glab:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    host="${GITLAB_HOST:?GITLAB_HOST is required}"
+    host="${host#https://}"
+    host="${host#http://}"
+    host="${host%/}"
+
+    glab config set \
+        --global \
+        host \
+        "$host"
