@@ -200,6 +200,7 @@
               printf 'sed'
               printf ' -e %q' '/^---------------------------$/d'
               printf ' -e %q' '/restored history/d'
+              printf ' -e %q' '/restored scrollback/d'
               printf ' -e %q' '/tmux-ensure/d'
               printf ' -e %q' '/ensure-sessions/d'
               printf ' -e %q' '/tmux-save/d'
@@ -207,13 +208,47 @@
               printf ' %q' "$contents_file"
             }
 
+            restore_separator_command() {
+              cat <<'RESTORE_SEPARATOR'
+            cols="$(${pkgs.ncurses}/bin/tput cols 2>/dev/null || printf 80)"
+            case "$cols" in
+              *[!0-9]* | "") cols=80 ;;
+            esac
+
+            label=" restored scrollback "
+            label_len="''${#label}"
+            draw_rule() {
+              count="$1"
+              while [ "$count" -gt 0 ]; do
+                printf '─'
+                count=$((count - 1))
+              done
+            }
+
+            if [ "$cols" -le "$label_len" ]; then
+              printf '\n%s\n\n' "$label"
+            else
+              fill=$((cols - label_len))
+              left=$((fill / 2))
+              right=$((fill - left))
+
+              printf '\n'
+              draw_rule "$left"
+              printf '%s' "$label"
+              draw_rule "$right"
+              printf '\n\n'
+            fi
+            RESTORE_SEPARATOR
+            }
+
             pane_restore_command() {
               contents_file="$1/contents"
               if [ -s "$contents_file" ]; then
                 shell="$(restore_shell)"
                 contents_command="$(restore_contents_command "$contents_file")"
+                separator_command="$(restore_separator_command)"
                 log "restoring pane contents file=$contents_file shell=$shell"
-                printf '%s; printf "\n---------------------------\n󰁝 restored history\n\n"; exec %q -l' "$contents_command" "$shell"
+                printf '%s; %s; exec %q -l' "$contents_command" "$separator_command" "$shell"
               fi
             }
 
@@ -404,6 +439,7 @@
               sed \
                 -e '/^---------------------------$/d' \
                 -e '/restored history/d' \
+                -e '/restored scrollback/d' \
                 -e '/tmux-ensure/d' \
                 -e '/ensure-sessions/d' \
                 -e '/tmux-save/d' \
