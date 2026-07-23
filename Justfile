@@ -37,14 +37,16 @@ switch host=host:
 
     host_dir="{{machines_dir}}/{{host}}"
 
+
+    printf '\033[0;32m------------------------\033[0m\n'
+    printf '\033[1;32m\uf444 switch \033[0;32m%s\033[0m\n' "{{host}}"
+    printf '\033[0;32m------------------------\033[0m\n'
+    
     if [ -f "$host_dir/Justfile" ]; then
         just \
             --justfile "$host_dir/Justfile" \
             --working-directory "$host_dir"
     fi
-
-    printf '\033[1;32m\uf444 switch \033[0;32m%s\033[0m\n' "{{host}}"
-    printf '\033[0;32m------------------------\033[0m\n'
 
     nixos-rebuild switch \
         --flake ".#{{host}}" \
