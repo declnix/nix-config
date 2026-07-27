@@ -14,6 +14,18 @@
           visuals.nvim-web-devicons.enable = true;
           mini.icons.enable = true;
 
+          diagnostics = {
+            enable = true;
+            config.signs.text = lib.generators.mkLuaInline ''
+              {
+                [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                [vim.diagnostic.severity.WARN] = "󰀪 ",
+                [vim.diagnostic.severity.INFO] = "󰋽 ",
+                [vim.diagnostic.severity.HINT] = "󰌶 ",
+              }
+            '';
+          };
+
           luaConfigPost = ''
             vim.o.mouse = "a"
           '';
