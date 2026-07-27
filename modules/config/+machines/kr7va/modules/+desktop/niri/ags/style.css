@@ -1,0 +1,151 @@
+* {
+  font-family: "FiraCode Nerd Font", "Inter", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.bar-window,
+.popup-window {
+  background: transparent;
+  background-color: transparent;
+}
+
+.bar-stage {
+  background: transparent;
+  background-color: transparent;
+}
+
+.bar-revealer {
+  background: transparent;
+  background-color: transparent;
+}
+
+.bar {
+  margin: 6px 14px 0;
+  padding: 3px 10px;
+  min-height: 28px;
+  color: #cdd6f4;
+  background: #1e1e2e;
+  background-color: #1e1e2e;
+  border: 1px solid #45475a;
+  border-radius: 18px;
+}
+
+.pill {
+  min-height: 28px;
+  padding: 0 12px;
+  color: #cdd6f4;
+  background: #313244;
+  border: 1px solid #45475a;
+  border-radius: 14px;
+}
+
+button.pill,
+.clock-button {
+  transition: 120ms ease;
+}
+
+button.pill:hover {
+  color: #11111b;
+  background: #f5c2e7;
+  border-color: #f5c2e7;
+}
+
+.bar-status {
+  min-height: 24px;
+  color: #cdd6f4;
+}
+
+.pill.accent {
+  color: #11111b;
+  background: #89b4fa;
+  border-color: #89b4fa;
+}
+
+.pill.danger {
+  color: #11111b;
+  background: #f38ba8;
+  border-color: #f38ba8;
+}
+
+.pill.quiet {
+  color: #a6adc8;
+  background: #181825;
+}
+
+.pill.media {
+  min-width: 160px;
+}
+
+.clock-button {
+  padding: 0 8px;
+  min-height: 24px;
+  color: #cdd6f4;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 15px;
+}
+
+.clock-button:hover {
+  color: #11111b;
+  background: #f9e2af;
+  border-color: #f9e2af;
+}
+
+.clock {
+  min-width: 64px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f9e2af;
+}
+
+.clock-button:hover .clock,
+.clock-button:hover .date {
+  color: #11111b;
+}
+
+.date {
+  color: #a6adc8;
+}
+
+.wifi-status {
+  min-width: 156px;
+}
+
+.battery-status {
+  min-width: 64px;
+}
+
+.calendar {
+  padding: 12px;
+  color: #cdd6f4;
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 12px;
+  font-family: "FiraCode Nerd Font", monospace;
+}
+
+.popup {
+  margin: 54px 16px 0 0;
+  padding: 18px;
+  min-width: 320px;
+  color: #cdd6f4;
+  background: rgba(30, 30, 46, 0.96);
+  border: 1px solid #45475a;
+  border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.46);
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f9e2af;
+}
+
+.status-row {
+  padding: 10px 12px;
+  color: #cdd6f4;
+  background: #181825;
+  border: 1px solid #313244;
+  border-radius: 12px;
+}

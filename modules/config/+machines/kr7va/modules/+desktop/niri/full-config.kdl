@@ -6,7 +6,8 @@ input {
   }
 }
 
-spawn-at-startup "noctalia"
+spawn-at-startup "kr7va-shell" "wallpaper"
+spawn-at-startup "kr7va-shell" "run"
 
 binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
@@ -16,16 +17,15 @@ binds {
   Mod+Shift+E { quit; }
   Ctrl+Alt+Delete { quit; }
 
-  Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
-  Mod+O { toggle-overview; }
-  Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
-  Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+  Mod+Space { spawn "kr7va-shell" "toggle" "Launcher"; }
+  Mod+O { spawn "kr7va-shell" "overview-toggle"; }
+  Mod+Comma { spawn "kr7va-shell" "toggle" "Session"; }
 
-  XF86AudioRaiseVolume { spawn-sh "noctalia msg volume-up"; }
-  XF86AudioLowerVolume { spawn-sh "noctalia msg volume-down"; }
-  XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
-  XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
-  XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
+  XF86AudioRaiseVolume { spawn "kr7va-shell" "request" "volume-up"; }
+  XF86AudioLowerVolume { spawn "kr7va-shell" "request" "volume-down"; }
+  XF86AudioMute { spawn "kr7va-shell" "request" "volume-mute"; }
+  XF86MonBrightnessUp { spawn "kr7va-shell" "request" "brightness-up"; }
+  XF86MonBrightnessDown { spawn "kr7va-shell" "request" "brightness-down"; }
 
   Mod+Left { focus-column-left; }
   Mod+Down { focus-window-down; }
@@ -129,6 +129,7 @@ binds {
   Mod+Shift+Minus { set-window-height "-10%"; }
   Mod+Shift+Equal { set-window-height "+10%"; }
   Mod+Shift+P { power-off-monitors; }
+  Mod+Escape { spawn "kr7va-lock"; }
 
   Print { screenshot; }
   Ctrl+Print { screenshot-screen; }
@@ -138,13 +139,6 @@ binds {
 window-rule {
   geometry-corner-radius 20
   clip-to-geometry true
-}
-
-window-rule {
-  match app-id="dev.noctalia.Noctalia.Settings"
-  open-floating true
-  default-column-width { fixed 1080; }
-  default-window-height { fixed 920; }
 }
 
 debug {

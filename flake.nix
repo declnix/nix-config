@@ -4,17 +4,15 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   nixConfig = {
-    extra-substituters = [
-      "https://noctalia.cachix.org"
-      "https://niri.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-      "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
-    ];
+    extra-substituters = [ "https://niri.cachix.org" ];
+    extra-trusted-public-keys = [ "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964=" ];
   };
 
   inputs = {
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     antigravity = {
       url = "github:Hy4ri/antigravity-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -56,11 +54,6 @@
     };
     nixos-wsl.url = "github:nix-community/nixos-wsl";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
-    noctalia.url = "github:noctalia-dev/noctalia/cachix";
-    noctalia-greeter = {
-      url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nvf.url = "github:notashelf/nvf";
     pi.url = "github:lukasl-dev/pi.nix";
     treefmt-nix = {

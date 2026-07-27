@@ -5,8 +5,6 @@
   den.aspects.kr7va = {
     provides.declnix = {
       hjem = { pkgs, ... }: {
-        rum.programs.fuzzel.enable = true;
-
         packages = with pkgs;
           [
             wget
