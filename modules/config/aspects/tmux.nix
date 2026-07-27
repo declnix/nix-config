@@ -38,16 +38,25 @@
         set -g window-status-format "#[fg=gray]  #I:#W  "
         set -g window-status-current-format "#[fg=cyan,bold]  #I:#W  "
 
-        # Pane picker overlay
-        set -g display-panes-active-colour colour220
-        set -g display-panes-colour colour75
-        set -g display-panes-time 7000
+        # Pane picker labels
         bind q {
           set -w pane-border-status top
           set -w pane-border-format "#{?pane_active,#[fg=colour220] #{pane_index} #{pane_current_command} ,#[fg=colour75] #{pane_index} #[fg=colour245]#{pane_current_command} }"
-          display-panes -d 7000 "select-pane -t '%%' \; set -w pane-border-status off"
+          switch-client -T pane-picker
           run-shell -b "sleep 7; tmux set -w pane-border-status off"
         }
+        bind -T pane-picker 0 select-pane -t :.0 \; set -w pane-border-status off
+        bind -T pane-picker 1 select-pane -t :.1 \; set -w pane-border-status off
+        bind -T pane-picker 2 select-pane -t :.2 \; set -w pane-border-status off
+        bind -T pane-picker 3 select-pane -t :.3 \; set -w pane-border-status off
+        bind -T pane-picker 4 select-pane -t :.4 \; set -w pane-border-status off
+        bind -T pane-picker 5 select-pane -t :.5 \; set -w pane-border-status off
+        bind -T pane-picker 6 select-pane -t :.6 \; set -w pane-border-status off
+        bind -T pane-picker 7 select-pane -t :.7 \; set -w pane-border-status off
+        bind -T pane-picker 8 select-pane -t :.8 \; set -w pane-border-status off
+        bind -T pane-picker 9 select-pane -t :.9 \; set -w pane-border-status off
+        bind -T pane-picker Escape set -w pane-border-status off
+        bind -T pane-picker q set -w pane-border-status off
 
         # Open new panes/windows in current directory
         bind c new-window -c "#{pane_current_path}"
