@@ -183,6 +183,14 @@
           '';
         }
         {
+          # indentation detection
+          extraPlugins.guess-indent.package = pkgs.vimPlugins.guess-indent-nvim;
+
+          luaConfigPost = ''
+            require('guess-indent').setup({})
+          '';
+        }
+        {
           # fyler
           extraPlugins.fyler.package = pkgs.vimPlugins.fyler-nvim;
 
