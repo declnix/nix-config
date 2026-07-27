@@ -79,6 +79,12 @@
           fzf-lua = {
             enable = true;
             setupOpts = {
+              winopts = {
+                width = 0.90;
+                height = 0.90;
+                row = 0.50;
+                col = 0.50;
+              };
               keymap = {
                 fzf = {
                   "ctrl-y" = "transform-query(pbpaste)";
@@ -199,13 +205,13 @@
               views = {
                 finder = {
                   win = {
-                    kind = "split_left_most",
+                    kind = "float",
                     kinds = {
-                      split_left_most = {
-                        width = 36,
-                        options = {
-                          winfixwidth = true,
-                        },
+                      float = {
+                        width = "90%";
+                        height = "90%";
+                        top = "5%";
+                        left = "5%";
                       },
                     },
                   },
@@ -218,13 +224,13 @@
             {
               key = "<C-b>";
               mode = "n";
-              action = "<cmd>lua require('fyler').toggle({ kind = 'split_left_most' })<CR>";
+              action = "<cmd>lua require('fyler').toggle()<CR>";
               desc = "Toggle file explorer";
             }
             {
               key = "<leader>e";
               mode = "n";
-              action = "<cmd>lua require('fyler').toggle({ kind = 'split_left_most' })<CR>";
+              action = "<cmd>lua require('fyler').toggle()<CR>";
               desc = "Toggle file explorer";
             }
           ];
