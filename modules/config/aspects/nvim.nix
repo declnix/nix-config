@@ -199,6 +199,18 @@
               desc = "Go to buffer 9";
             }
             {
+              key = "<leader>bd";
+              mode = "n";
+              action = "<cmd>lua require('bufdelete').bufdelete(0, false)<CR>";
+              desc = "Close buffer";
+            }
+            {
+              key = "<leader>bo";
+              mode = "n";
+              action = "<cmd>BufferLineCloseOthers<CR>";
+              desc = "Close other buffers";
+            }
+            {
               key = "<C-Tab>";
               mode = "n";
               action = "<cmd>BufferLineCycleNext<CR>";
