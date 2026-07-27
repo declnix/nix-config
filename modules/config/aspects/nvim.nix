@@ -6,7 +6,10 @@
         {
           # ui
           theme.enable = true;
-          tabline.nvimBufferline.enable = true;
+          tabline.nvimBufferline = {
+            enable = true;
+            setupOpts.options.numbers = "ordinal";
+          };
           statusline.lualine.enable = true;
           visuals.nvim-web-devicons.enable = true;
           mini.icons.enable = true;
@@ -129,6 +132,60 @@
         {
           # VS Code-style editor keymaps
           keymaps = [
+            {
+              key = "<leader>b1";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 1<CR>";
+              desc = "Go to buffer 1";
+            }
+            {
+              key = "<leader>b2";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 2<CR>";
+              desc = "Go to buffer 2";
+            }
+            {
+              key = "<leader>b3";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 3<CR>";
+              desc = "Go to buffer 3";
+            }
+            {
+              key = "<leader>b4";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 4<CR>";
+              desc = "Go to buffer 4";
+            }
+            {
+              key = "<leader>b5";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 5<CR>";
+              desc = "Go to buffer 5";
+            }
+            {
+              key = "<leader>b6";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 6<CR>";
+              desc = "Go to buffer 6";
+            }
+            {
+              key = "<leader>b7";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 7<CR>";
+              desc = "Go to buffer 7";
+            }
+            {
+              key = "<leader>b8";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 8<CR>";
+              desc = "Go to buffer 8";
+            }
+            {
+              key = "<leader>b9";
+              mode = "n";
+              action = "<cmd>BufferLineGoToBuffer 9<CR>";
+              desc = "Go to buffer 9";
+            }
             {
               key = "<C-Tab>";
               mode = "n";
