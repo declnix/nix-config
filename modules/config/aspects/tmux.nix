@@ -38,6 +38,17 @@
         set -g window-status-format "#[fg=gray]  #I:#W  "
         set -g window-status-current-format "#[fg=cyan,bold]  #I:#W  "
 
+        # Pane picker overlay
+        set -g display-panes-active-colour colour220
+        set -g display-panes-colour colour75
+        set -g display-panes-time 7000
+        bind q {
+          set -w pane-border-status top
+          set -w pane-border-format "#{?pane_active,#[fg=colour220] #{pane_index} #{pane_current_command} ,#[fg=colour75] #{pane_index} #[fg=colour245]#{pane_current_command} }"
+          display-panes -d 7000 "select-pane -t '%%' \; set -w pane-border-status off"
+          run-shell -b "sleep 7; tmux set -w pane-border-status off"
+        }
+
         # Open new panes/windows in current directory
         bind c new-window -c "#{pane_current_path}"
         bind '"' split-window -c "#{pane_current_path}"
