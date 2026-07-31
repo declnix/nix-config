@@ -6,10 +6,6 @@
         {
           # ui
           theme.enable = true;
-          tabline.nvimBufferline = {
-            enable = true;
-            setupOpts.options.numbers = "ordinal";
-          };
           statusline.lualine.enable = true;
           visuals.nvim-web-devicons.enable = true;
           mini.icons.enable = true;
@@ -145,82 +141,10 @@
           # VS Code-style editor keymaps
           keymaps = [
             {
-              key = "<leader>b1";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 1<CR>";
-              desc = "Go to buffer 1";
-            }
-            {
-              key = "<leader>b2";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 2<CR>";
-              desc = "Go to buffer 2";
-            }
-            {
-              key = "<leader>b3";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 3<CR>";
-              desc = "Go to buffer 3";
-            }
-            {
-              key = "<leader>b4";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 4<CR>";
-              desc = "Go to buffer 4";
-            }
-            {
-              key = "<leader>b5";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 5<CR>";
-              desc = "Go to buffer 5";
-            }
-            {
-              key = "<leader>b6";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 6<CR>";
-              desc = "Go to buffer 6";
-            }
-            {
-              key = "<leader>b7";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 7<CR>";
-              desc = "Go to buffer 7";
-            }
-            {
-              key = "<leader>b8";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 8<CR>";
-              desc = "Go to buffer 8";
-            }
-            {
-              key = "<leader>b9";
-              mode = "n";
-              action = "<cmd>BufferLineGoToBuffer 9<CR>";
-              desc = "Go to buffer 9";
-            }
-            {
               key = "<leader>bd";
               mode = "n";
               action = "<cmd>lua require('bufdelete').bufdelete(0, false)<CR>";
               desc = "Close buffer";
-            }
-            {
-              key = "<leader>bo";
-              mode = "n";
-              action = "<cmd>BufferLineCloseOthers<CR>";
-              desc = "Close other buffers";
-            }
-            {
-              key = "<C-Tab>";
-              mode = "n";
-              action = "<cmd>BufferLineCycleNext<CR>";
-              desc = "Next buffer";
-            }
-            {
-              key = "<C-S-Tab>";
-              mode = "n";
-              action = "<cmd>BufferLineCyclePrev<CR>";
-              desc = "Previous buffer";
             }
             {
               key = "<F2>";
@@ -282,9 +206,47 @@
           extraPlugins.fyler.package = pkgs.vimPlugins.fyler-nvim;
 
           luaConfigPost = ''
+            local function fyler_buffer_paths()
+              local paths = {}
+              local seen = {}
+
+              for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+                local path = vim.api.nvim_buf_get_name(bufnr)
+
+                if path ~= "" and vim.bo[bufnr].buflisted and vim.bo[bufnr].buftype == "" then
+                  local normalized = vim.fs.normalize(path)
+
+                  if not seen[normalized] then
+                    seen[normalized] = true
+                    table.insert(paths, normalized)
+                  end
+                end
+              end
+
+              table.sort(paths)
+
+              return paths
+            end
+
+            vim.api.nvim_create_user_command("FylerBuffers", function()
+              local fyler = require("fyler")
+              local current = vim.api.nvim_buf_get_name(0)
+
+              fyler.toggle({ dir = vim.uv.cwd() })
+
+              vim.schedule(function()
+                for _, path in ipairs(fyler_buffer_paths()) do
+                  fyler.navigate(path)
+                end
+
+                fyler.navigate(current)
+              end)
+            end, {})
+
             require('fyler').setup({
               views = {
                 finder = {
+                  follow_current_file = true,
                   win = {
                     kind = "float",
                     kinds = {
@@ -305,13 +267,13 @@
             {
               key = "<C-b>";
               mode = "n";
-              action = "<cmd>lua require('fyler').toggle()<CR>";
+              action = "<cmd>FylerBuffers<CR>";
               desc = "Toggle file explorer";
             }
             {
               key = "<leader>e";
               mode = "n";
-              action = "<cmd>lua require('fyler').toggle()<CR>";
+              action = "<cmd>FylerBuffers<CR>";
               desc = "Toggle file explorer";
             }
           ];
