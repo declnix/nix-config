@@ -6,4 +6,10 @@
       };
     };
   };
+
+  impure-files.hosts.bur34u."/etc/xdg/glab-cli/config.yml" = {
+    text = ''
+      host: ''${GITLAB_HOST}
+    '';
+  };
 }

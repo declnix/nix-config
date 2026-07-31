@@ -17,7 +17,8 @@ Within a `.nix` configuration file, order the top-level attributes as follows:
 2. **Policies (`den.policies.<name>`)**: Relations/routing between entities.
 3. **Schema Registrations (`den.schema.<type>.includes`)**: Wiring into the Den schema (e.g., custom class forwarders).
 4. **Target Extensions (`den.default.<target>.extraModules`)**: Auxiliary options and configurations.
-5. **Flake Source Declarations (`flake-file.inputs.<name>.url`)**: External input definitions at the very bottom.
+5. **Impure File Declarations (`impure-files.hosts.<host>."<target-path>"`)**: Host-scoped impure templates, immediately before flake sources.
+6. **Flake Source Declarations (`flake-file.inputs.<name>.url`)**: External input definitions at the very bottom.
 
 ### 2. Inner-Aspect Attribute Ordering
 
