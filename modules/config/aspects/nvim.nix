@@ -175,6 +175,22 @@
           ];
         }
         {
+          # buffer cleanup
+          extraPlugins.nvim-early-retirement.package = pkgs.vimPlugins.nvim-early-retirement;
+
+          luaConfigPost = ''
+            require("early-retirement").setup({
+              retirementAgeMins = 30,
+              minimumBufferNum = 5,
+              ignoreAltFile = true,
+              ignoreUnsavedChangesBufs = true,
+              ignoreSpecialBuftypes = true,
+              ignoreVisibleBufs = true,
+              notificationOnAutoClose = false,
+            })
+          '';
+        }
+        {
           # file mentions
           extraPlugins.filemention.package = pkgs.vimUtils.buildVimPlugin {
             pname = "filemention.nvim";
