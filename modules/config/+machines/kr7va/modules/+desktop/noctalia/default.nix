@@ -9,7 +9,7 @@
         };
       };
 
-      nixos = {
+      nixos = { pkgs, ... }: {
         imports = [
           inputs.noctalia-greeter.nixosModules.default
         ];
@@ -28,7 +28,12 @@
         programs.noctalia-greeter = {
           enable = true;
           greeter-args = "--session niri --user declnix";
-          settings.output.scale = 1.0;
+          package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+            patches = (old.patches or [ ]) ++ [
+              ./patches/noctalia-greeter-allow-output-downscale.patch
+            ];
+          });
+          settings.output.scale = 0.8;
         };
       };
     };

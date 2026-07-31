@@ -1,0 +1,46 @@
+diff --git a/src/compositor/noctalia_compositor.c b/src/compositor/noctalia_compositor.c
+index 9b9225b..68dbd08 100644
+--- a/src/compositor/noctalia_compositor.c
++++ b/src/compositor/noctalia_compositor.c
+@@ -183,8 +183,8 @@ static char* trim(char* value) {
+ }
+ 
+ static float clamp_scale(float value) {
+-  if (value < 1.0f) {
+-    return 1.0f;
++  if (value < 0.5f) {
++    return 0.5f;
+   }
+   if (value > 2.0f) {
+     return 2.0f;
+@@ -226,7 +226,7 @@ static float fallback_scale_for_resolution(const struct wlr_output* output) {
+ }
+ 
+ static float output_ui_scale(const struct wlr_output* output, float manual) {
+-  if (manual >= 1.0f) {
++  if (manual > 0.0f) {
+     return clamp_scale(manual);
+   }
+ 
+@@ -423,7 +423,7 @@ static void read_greeter_config(struct greeter_server* server) {
+   if (config.preferred_output[0] != '\0') {
+     snprintf(server->preferred_output, sizeof(server->preferred_output), "%s", config.preferred_output);
+   }
+-  if (config.manual_scale >= 1.0f) {
++  if (config.manual_scale > 0.0f) {
+     server->manual_scale = config.manual_scale;
+   }
+   if (config.manual_mode_width > 0) {
+diff --git a/src/greeter/greeter_config_io.cpp b/src/greeter/greeter_config_io.cpp
+index fdf7cf7..05da05d 100644
+--- a/src/greeter/greeter_config_io.cpp
++++ b/src/greeter/greeter_config_io.cpp
+@@ -486,7 +486,7 @@ extern "C" void greeter_compositor_config_load(const char* state_dir, struct gre
+     out->keyboard_numlock = *config.keyboardNumlock ? 1 : -1;
+   }
+ 
+-  if (config.outputScale.has_value() && *config.outputScale >= 1.0f) {
++  if (config.outputScale.has_value() && *config.outputScale > 0.0f) {
+     out->manual_scale = *config.outputScale;
+   }
+   if (config.outputModeWidth.has_value() && *config.outputModeWidth > 0) {
