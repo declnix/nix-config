@@ -226,10 +226,10 @@
               local paths = {}
               local seen = {}
 
-              for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-                local path = vim.api.nvim_buf_get_name(bufnr)
+              for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+                local path = buf.name
 
-                if path ~= "" and vim.bo[bufnr].buflisted and vim.bo[bufnr].buftype == "" then
+                if path ~= "" and vim.bo[buf.bufnr].buftype == "" then
                   local normalized = vim.fs.normalize(path)
 
                   if not seen[normalized] then
@@ -244,6 +244,28 @@
               return paths
             end
 
+            local function fyler_reveal_paths(paths, current)
+              local fyler = require("fyler")
+              local index = 1
+
+              local function reveal_next()
+                if index <= #paths then
+                  fyler.navigate(paths[index])
+                  index = index + 1
+                  vim.defer_fn(reveal_next, 20)
+                  return
+                end
+
+                if current ~= "" then
+                  vim.defer_fn(function()
+                    fyler.navigate(current)
+                  end, 20)
+                end
+              end
+
+              reveal_next()
+            end
+
             vim.api.nvim_create_user_command("FylerBuffers", function()
               local fyler = require("fyler")
               local current = vim.api.nvim_buf_get_name(0)
@@ -251,11 +273,7 @@
               fyler.toggle({ dir = vim.uv.cwd() })
 
               vim.schedule(function()
-                for _, path in ipairs(fyler_buffer_paths()) do
-                  fyler.navigate(path)
-                end
-
-                fyler.navigate(current)
+                fyler_reveal_paths(fyler_buffer_paths(), current)
               end)
             end, {})
 
