@@ -8,10 +8,25 @@ input {
 
 spawn-at-startup "noctalia"
 
+layout {
+  focus-ring {
+    off
+  }
+
+  shadow {
+    on
+    softness 30
+    spread 5
+    offset x=0 y=5
+    draw-behind-window true
+    color "#9fd8ff55"
+    inactive-color "#00000070"
+  }
+}
+
 binds {
   Mod+Shift+Slash { show-hotkey-overlay; }
   Mod+T { spawn "alacritty"; }
-  Mod+D { spawn "fuzzel"; }
   Mod+Q { close-window; }
   Mod+Shift+E { quit; }
   Ctrl+Alt+Delete { quit; }

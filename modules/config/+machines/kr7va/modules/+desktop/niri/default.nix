@@ -3,7 +3,7 @@
   den.aspects.kr7va = {
     provides.declnix = {
       hjem = { ... }: {
-        files.".config/niri/config.kdl".text = builtins.readFile ./full-config.kdl;
+        files.".config/niri/config.kdl".text = builtins.readFile ./config.kdl;
       };
 
       nixos = {

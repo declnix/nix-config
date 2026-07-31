@@ -5,7 +5,7 @@
       hjem = {
         programs.noctalia = {
           enable = true;
-          settings = builtins.fromTOML (builtins.readFile ./full-config.toml);
+          settings = builtins.fromTOML (builtins.readFile ./config.toml);
         };
       };
 
