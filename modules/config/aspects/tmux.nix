@@ -557,7 +557,7 @@
           wantedBy = [ "timers.target" ];
           timerConfig = {
             OnBootSec = "1min";
-            OnUnitActiveSec = "10min";
+            OnUnitActiveSec = "1min";
             Unit = "tmux-sessions-save.service";
           };
         };
