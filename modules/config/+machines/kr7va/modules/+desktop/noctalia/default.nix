@@ -9,33 +9,46 @@
         };
       };
 
-      nixos = { pkgs, ... }: {
-        imports = [
-          inputs.noctalia-greeter.nixosModules.default
-        ];
-
-        nix.settings = {
-          extra-substituters = [ "https://noctalia.cachix.org" ];
-          extra-trusted-public-keys = [
-            "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      nixos =
+        { pkgs, ... }:
+        let
+          greeterSettings = {
+            output.scale = 1.0;
+          };
+          greeterConfigFile = (pkgs.formats.toml { }).generate "greeter.toml" greeterSettings;
+        in
+        {
+          imports = [
+            inputs.noctalia-greeter.nixosModules.default
           ];
-        };
 
-        hjem.extraModules = [
-          inputs.noctalia.hjemModules.default
-        ];
-
-        programs.noctalia-greeter = {
-          enable = true;
-          greeter-args = "--session niri --user declnix";
-          package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-            patches = (old.patches or [ ]) ++ [
-              ./patches/noctalia-greeter-allow-output-downscale.patch
+          nix.settings = {
+            extra-substituters = [ "https://noctalia.cachix.org" ];
+            extra-trusted-public-keys = [
+              "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
             ];
-          });
-          settings.output.scale = 0.8;
+          };
+
+          hjem.extraModules = [
+            inputs.noctalia.hjemModules.default
+          ];
+
+          programs.noctalia-greeter = {
+            enable = true;
+            greeter-args = "--session niri --user declnix";
+            package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+              patches = (old.patches or [ ]) ++ [
+                ./patches/noctalia-greeter-allow-output-downscale.patch
+              ];
+            });
+            settings = greeterSettings;
+          };
+
+          system.activationScripts.noctaliaGreeterConfig.text = ''
+            ${pkgs.coreutils}/bin/install -d -o greeter -g greeter -m 0750 /var/lib/noctalia-greeter
+            ${pkgs.coreutils}/bin/install -o greeter -g greeter -m 0644 ${greeterConfigFile} /var/lib/noctalia-greeter/greeter.toml
+          '';
         };
-      };
     };
   };
 
