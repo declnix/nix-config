@@ -36,11 +36,7 @@
           programs.noctalia-greeter = {
             enable = true;
             greeter-args = "--session niri --user declnix";
-            package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
-              patches = (old.patches or [ ]) ++ [
-                ./patches/noctalia-greeter-allow-output-downscale.patch
-              ];
-            });
+            package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
             settings = greeterSettings;
           };
 
