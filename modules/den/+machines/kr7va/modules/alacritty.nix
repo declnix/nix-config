@@ -47,7 +47,7 @@
           };
 
           window = {
-            decorations = "None";
+            decorations = "Full";
             padding = {
               x = 14;
               y = 14;

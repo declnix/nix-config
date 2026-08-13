@@ -1,11 +1,18 @@
 <?xml version="1.0"?>
 <labwc_config>
+  <core>
+    <decoration>server</decoration>
+  </core>
+
   <theme>
     <name>osx</name>
-    <titleLayout>close,iconify,max:</titleLayout>
-    <titlebarShowTitle>yes</titlebarShowTitle>
+    <titlebar>
+      <layout>close,iconify,max:</layout>
+      <showTitle>no</showTitle>
+    </titlebar>
     <cornerRadius>9</cornerRadius>
-    <keepBorder>yes</keepBorder>
+    <keepBorder>no</keepBorder>
+    <maximizedDecoration>titlebar</maximizedDecoration>
     <dropShadows>yes</dropShadows>
   </theme>
 

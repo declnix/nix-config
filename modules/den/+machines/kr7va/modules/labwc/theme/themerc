@@ -1,24 +1,24 @@
-border.width: 1
+border.width: 0
 
-window.titlebar.padding.width: 6
-window.titlebar.padding.height: 2
+window.titlebar.padding.width: 8
+window.titlebar.padding.height: 4
 window.active.title.bg: Solid
-window.active.title.bg.color: #f2f4f8
+window.active.title.bg.color: #161616
 window.inactive.title.bg: Solid
-window.inactive.title.bg.color: #dde1e6
-window.active.border.color: #c1c7cd
-window.inactive.border.color: #c1c7cd
-window.active.label.text.color: #393939
-window.inactive.label.text.color: #697077
+window.inactive.title.bg.color: #161616
+window.active.border.color: #00000000
+window.inactive.border.color: #00000000
+window.active.label.text.color: #f2f4f8
+window.inactive.label.text.color: #f2f4f8
 window.label.text.justify: Center
 
-window.button.width: 12
-window.button.height: 12
-window.button.spacing: 6
+window.button.width: 14
+window.button.height: 14
+window.button.spacing: 7
 window.button.hover.bg.color: #00000000
-window.button.hover.bg.corner-radius: 6
+window.button.hover.bg.corner-radius: 7
 
 window.active.shadow.size: 24
-window.active.shadow.color: #00000030
+window.active.shadow.color: #00000045
 window.inactive.shadow.size: 16
-window.inactive.shadow.color: #00000018
+window.inactive.shadow.color: #00000025
