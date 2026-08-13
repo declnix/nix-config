@@ -1,7 +1,7 @@
 set quiet := true
 
 host := `hostname`
-machines_dir := "modules/config/+machines"
+machines_dir := "modules/den/+machines"
 
 [no-exit-message]
 _check_host host:
