@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<labwc_config>
+  <theme>
+    <name>osx</name>
+    <titleLayout>close,iconify,max:</titleLayout>
+    <titlebarShowTitle>yes</titlebarShowTitle>
+    <cornerRadius>9</cornerRadius>
+    <keepBorder>yes</keepBorder>
+    <dropShadows>yes</dropShadows>
+  </theme>
+
+  <keyboard>
+    <keybind key="F11">
+      <action name="ToggleFullscreen" />
+    </keybind>
+  </keyboard>
+</labwc_config>
