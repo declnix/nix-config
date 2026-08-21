@@ -1,25 +1,12 @@
 set quiet := true
 
 host := `hostname`
-machines_dir := "modules/den/+machines"
-
-[no-exit-message]
-_check_host host:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    if [ ! -d "{{machines_dir}}/{{host}}" ]; then
-        echo '¯\_(ツ)_/¯  Choose a host from {{machines_dir}}.'
-        exit 1
-    fi
 
 # [build] Build configuration for host
 [no-exit-message]
 build host=host:
     #!/usr/bin/env bash
     set -euo pipefail
-
-    just _check_host "{{host}}"
 
     nixos-rebuild build \
         --flake ".#{{host}}" \
@@ -32,8 +19,6 @@ build host=host:
 switch host=host:
     #!/usr/bin/env bash
     set -euo pipefail
-
-    just _check_host "{{host}}"
 
     printf '\033[0;32m------------------------\033[0m\n'
     printf '\033[1;32m\uf444 switch \033[0;32m%s\033[0m\n' "{{host}}"
@@ -55,8 +40,6 @@ switch host=host:
 boot host=host:
     #!/usr/bin/env bash
     set -euo pipefail
-
-    just _check_host "{{host}}"
 
     nixos-rebuild boot \
         --flake ".#{{host}}" \
