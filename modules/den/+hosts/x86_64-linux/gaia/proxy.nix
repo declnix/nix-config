@@ -24,11 +24,11 @@ let
   caSessionVars = lib.genAttrs caVars (_: caBundle);
 in
 {
-  den.aspects.bur34u = {
+  den.aspects.gaia = {
     to-users = {
       hjem = {
         rum.programs.git.settings = {
-          include.path = config.impure-files.hosts.bur34u."/etc/gitconfig.d/proxy.conf".target;
+          include.path = config.impure-files.hosts.gaia."/etc/gitconfig.d/proxy.conf".target;
           http.sslCAInfo = caBundle;
         };
 
@@ -38,7 +38,7 @@ in
       zsh = {
         initConfig =
           let
-            proxyEnvFile = config.impure-files.hosts.bur34u."/etc/environment.d/90-proxy.conf".target;
+            proxyEnvFile = config.impure-files.hosts.gaia."/etc/environment.d/90-proxy.conf".target;
           in
           ''
             proxy_env=${proxyEnvFile}
@@ -58,7 +58,7 @@ in
     nixos =
       { ... }:
       let
-        proxyEnvFile = config.impure-files.hosts.bur34u."/etc/environment.d/90-proxy.conf".target;
+        proxyEnvFile = config.impure-files.hosts.gaia."/etc/environment.d/90-proxy.conf".target;
       in
       {
         nix.settings.ssl-cert-file = caBundle;
@@ -87,7 +87,7 @@ in
     includes = with den.aspects; [ zscaler ];
   };
 
-  impure-files.hosts.bur34u = {
+  impure-files.hosts.gaia = {
     "/etc/environment.d/90-proxy.conf" = {
       text = ''
         http_proxy=''${http_proxy}

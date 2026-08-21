@@ -2,7 +2,7 @@
 , ...
 }:
 {
-  den.aspects.bur34u = {
+  den.aspects.gaia = {
     provides.nixos-user = {
       nvim = { pkgs, ... }: lib.mkMerge [
         {

@@ -1,6 +1,6 @@
 { ... }:
 {
-  den.aspects.bur34u = {
+  den.aspects.gaia = {
     provides.nixos-user = {
       zsh = { pkgs, ... }: {
         plugins = {
