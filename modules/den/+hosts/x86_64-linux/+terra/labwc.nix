@@ -8,7 +8,6 @@
         enable = true;
         settings.default_session = {
           command = "${pkgs.labwc}/bin/labwc";
-          user = "declnix";
         };
       };
     };
