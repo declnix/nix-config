@@ -12,8 +12,6 @@
 
         time.timeZone = "Europe/Warsaw";
 
-        services.greetd.settings.default_session.user = "declnix";
-
         services.logind.settings.Login = {
           HandleLidSwitch = "suspend";
           HandleLidSwitchExternalPower = "ignore";

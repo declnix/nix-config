@@ -55,6 +55,7 @@
       };
 
       nixos = { pkgs, ... }: {
+        services.greetd.settings.default_session.user = "declnix";
         services.openssh.settings.AllowUsers = [ "declnix" ];
         xdg.portal = {
           enable = true;
