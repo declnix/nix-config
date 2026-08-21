@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<labwc_config>
+  <core>
+    <decoration>server</decoration>
+  </core>
+
+  <keyboard>
+    <keybind key="W-Return">
+      <action name="Execute" command="alacritty" />
+    </keybind>
+    <keybind key="W-q">
+      <action name="Close" />
+    </keybind>
+    <keybind key="F11">
+      <action name="ToggleFullscreen" />
+    </keybind>
+  </keyboard>
+</labwc_config>

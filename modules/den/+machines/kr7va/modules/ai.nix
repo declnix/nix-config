@@ -14,7 +14,7 @@
       nixos = { ... }: {
         nixpkgs.overlays = [
           (final: _prev: {
-            antigravity-cli = inputs.antigravity.packages.${final.system}.antigravity-cli;
+            antigravity-cli = inputs.antigravity.packages.${final.stdenv.hostPlatform.system}.antigravity-cli;
           })
         ];
       };
