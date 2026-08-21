@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.c4rg0x = {
+  den.aspects.iter = {
     provides.nixos-user = { user, ... }: {
       nixos = {
         users.users.${user.userName}.initialPassword = "test";
