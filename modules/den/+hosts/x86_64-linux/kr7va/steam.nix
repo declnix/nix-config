@@ -1,7 +1,7 @@
 { den, ... }:
 {
   den.aspects.kr7va = {
-    provides.declnix.nixos = { pkgs, ... }: {
+    nixos = { pkgs, ... }: {
       programs.steam = {
         enable = true;
         remotePlay.openFirewall = true;

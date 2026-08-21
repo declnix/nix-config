@@ -1,7 +1,7 @@
 { ... }:
 {
   den.aspects.kr7va = {
-    provides.declnix.nixos = {
+    nixos = {
       security.rtkit.enable = true;
 
       services.pipewire = {
