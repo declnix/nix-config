@@ -25,7 +25,7 @@ let
 in
 {
   den.aspects.bur34u = {
-    provides.to-users = {
+    to-users = {
       hjem = {
         rum.programs.git.settings = {
           include.path = config.impure-files.hosts.bur34u."/etc/gitconfig.d/proxy.conf".target;

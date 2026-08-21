@@ -35,6 +35,8 @@ Within a `den.aspects.<name> = { ... }` block, order attributes as follows:
 
 When an aspect has any `provides` entries, declare `provides` as a nested key inside the `den.aspects.<name> = { ... }` block, even if there is only one provision.
 
+Host-level catch-all user routing such as `to-users` is not a provision. In host trees, declare it directly on the host aspect, e.g. `den.aspects.<host>.to-users = { ... };`, and keep matching files at the host level rather than under `+provides`.
+
 Do not write provisions with chained top-level assignments such as:
 
 ```nix
