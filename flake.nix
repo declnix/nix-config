@@ -3,11 +3,6 @@
 {
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
-  nixConfig = {
-    extra-substituters = [ "https://pi.cachix.org" ];
-    extra-trusted-public-keys = [ "pi.cachix.org-1:lGeoGJaZ5ZDabuRzkcD5EBTNnDM4HJ1vqeOxlWk1Flk=" ];
-  };
-
   inputs = {
     antigravity = {
       url = "github:Hy4ri/antigravity-flake";
