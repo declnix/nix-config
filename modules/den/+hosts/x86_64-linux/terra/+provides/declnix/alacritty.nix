@@ -1,6 +1,6 @@
 { ... }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     provides.declnix.hjem = {
       rum.programs.alacritty = {
         enable = true;

@@ -2,7 +2,7 @@
 , ...
 }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     nixos =
       { ... }:
       {
@@ -23,7 +23,7 @@
       ++ [ (den.batteries.import-tree ./.imports) ];
   };
 
-  den.hosts.x86_64-linux.kr7va = {
+  den.hosts.x86_64-linux.terra = {
     users.declnix = { };
   };
 }

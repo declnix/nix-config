@@ -1,5 +1,5 @@
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     nixos = {
       security.sudo.enable = true;
       security.sudo.wheelNeedsPassword = false;

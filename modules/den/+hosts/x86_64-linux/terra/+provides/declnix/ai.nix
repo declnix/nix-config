@@ -1,6 +1,6 @@
 { den, inputs, ... }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     provides.declnix = {
       hjem = { pkgs, ... }: {
         packages = with pkgs; [

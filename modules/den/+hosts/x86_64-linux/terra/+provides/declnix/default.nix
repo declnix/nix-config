@@ -3,7 +3,7 @@
 , ...
 }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     provides.declnix = {
       nvim = { ... }: {
         theme = {

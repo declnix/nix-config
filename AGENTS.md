@@ -2,8 +2,8 @@
 
 - If a Nix operation needs a newly created file, stage that path first with `git add <path>`; untracked files are invisible to Nix flakes.
 
-- Commit messages: use `scope: short description`, e.g. `kr7va: add audio support`.
-- For host-specific module changes under `modules/config/+machines/<host>/`, use the host as the scope and include the module in the title as `host: module -> title`, e.g. `kr7va: niri -> extract config`.
+- Commit messages: use `scope: short description`, e.g. `terra: add audio support`.
+- For host-specific module changes under `modules/config/+machines/<host>/`, use the host as the scope and include the module in the title as `host: module -> title`, e.g. `terra: niri -> extract config`.
 
 ## Den File & Aspect Structure Ordering
 
@@ -40,13 +40,13 @@ Host-level catch-all user routing such as `to-users` is not a provision. In host
 Do not write provisions with chained top-level assignments such as:
 
 ```nix
-den.aspects.kr7va.provides.declnix.nixos = { ... };
+den.aspects.terra.provides.declnix.nixos = { ... };
 ```
 
 Prefer:
 
 ```nix
-den.aspects.kr7va = {
+den.aspects.terra = {
   provides.declnix.nixos = { ... };
 };
 ```

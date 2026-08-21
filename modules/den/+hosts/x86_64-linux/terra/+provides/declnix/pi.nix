@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     provides.declnix = {
       hjem = { pkgs, ... }: {
         packages = [ pkgs.pi-coding-agent ];

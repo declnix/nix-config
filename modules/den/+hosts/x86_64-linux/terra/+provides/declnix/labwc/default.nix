@@ -1,6 +1,6 @@
 { ... }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     provides.declnix = {
       hjem = {
         files.".config/labwc/rc.xml".source = ./rc.xml;

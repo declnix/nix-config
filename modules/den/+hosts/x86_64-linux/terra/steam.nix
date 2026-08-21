@@ -1,6 +1,6 @@
 { den, ... }:
 {
-  den.aspects.kr7va = {
+  den.aspects.terra = {
     nixos = { pkgs, ... }: {
       programs.steam = {
         enable = true;
