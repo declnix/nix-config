@@ -4,11 +4,6 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    antigravity = {
-      url = "github:Hy4ri/antigravity-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dag.url = "github:denful/dag";
     den.url = "github:denful/den";
     flake-file.url = "github:denful/flake-file";
     flake-parts = {
@@ -48,10 +43,6 @@
     pi.url = "github:lukasl-dev/pi.nix";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zsh-patina = {
-      url = "github:michel-kraemer/zsh-patina";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
