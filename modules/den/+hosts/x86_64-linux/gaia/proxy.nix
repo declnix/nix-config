@@ -1,6 +1,9 @@
 { config, den, lib, ... }:
 let
+  host = "gaia";
+
   caBundle = "/etc/ssl/certs/ca-certificates.crt";
+  hostFiles = config.host-files.${host};
 
   proxyVars = [
     "http_proxy"
@@ -22,13 +25,14 @@ let
 
   caEnv = map (name: "${name}=${caBundle}") caVars;
   caSessionVars = lib.genAttrs caVars (_: caBundle);
+  proxyEnvFile = hostFiles."/etc/environment.d/90-proxy.conf".target;
 in
 {
-  den.aspects.gaia = {
+  den.aspects.${host} = {
     to-users = {
       hjem = {
         rum.programs.git.settings = {
-          include.path = config.impure-files.hosts.gaia."/etc/gitconfig.d/proxy.conf".target;
+          include.path = hostFiles."/etc/gitconfig.d/proxy.conf".target;
           http.sslCAInfo = caBundle;
         };
 
@@ -36,58 +40,49 @@ in
       };
 
       zsh = {
-        initConfig =
-          let
-            proxyEnvFile = config.impure-files.hosts.gaia."/etc/environment.d/90-proxy.conf".target;
-          in
-          ''
-            proxy_env=${proxyEnvFile}
-            if [ -r "$proxy_env" ]; then
-              while IFS='=' read -r key value; do
-                case "$key" in
-                  http_proxy|https_proxy|all_proxy|no_proxy|HTTP_PROXY|HTTPS_PROXY|ALL_PROXY|NO_PROXY)
-                    export "$key=$value"
-                    ;;
-                esac
-              done < "$proxy_env"
-            fi
-          '';
+        initConfig = ''
+          proxy_env=${proxyEnvFile}
+          if [ -r "$proxy_env" ]; then
+            while IFS='=' read -r key value; do
+              case "$key" in
+                http_proxy|https_proxy|all_proxy|no_proxy|HTTP_PROXY|HTTPS_PROXY|ALL_PROXY|NO_PROXY)
+                  export "$key=$value"
+                  ;;
+              esac
+            done < "$proxy_env"
+          fi
+        '';
       };
     };
 
-    nixos =
-      { ... }:
-      let
-        proxyEnvFile = config.impure-files.hosts.gaia."/etc/environment.d/90-proxy.conf".target;
-      in
-      {
-        nix.settings.ssl-cert-file = caBundle;
+    nixos = {
+      nix.settings.ssl-cert-file = caBundle;
 
-        systemd = {
-          services = {
-            nix-daemon.serviceConfig = {
-              EnvironmentFile = "-${proxyEnvFile}";
-              Environment = lib.mkAfter caEnv;
-            };
-          };
-
-          user.services = {
-            podman.serviceConfig = {
-              EnvironmentFile = "-${proxyEnvFile}";
-              Environment = lib.mkAfter caEnv;
-            };
+      systemd = {
+        services = {
+          nix-daemon.serviceConfig = {
+            EnvironmentFile = "-${proxyEnvFile}";
+            Environment = lib.mkAfter caEnv;
           };
         };
 
-        security.sudo.extraConfig = ''
-          Defaults env_keep += "${lib.concatStringsSep " " (proxyVars ++ caVars)}"
-        '';
+        user.services = {
+          podman.serviceConfig = {
+            EnvironmentFile = "-${proxyEnvFile}";
+            Environment = lib.mkAfter caEnv;
+          };
+        };
       };
+
+      security.sudo.extraConfig = ''
+        Defaults env_keep += "${lib.concatStringsSep " " (proxyVars ++ caVars)}"
+      '';
+    };
 
     includes = with den.aspects; [ zscaler ];
   };
 
-  impure-files.hosts.gaia = {
+  host-files.${host} = {
     "/etc/environment.d/90-proxy.conf" = {
       text = ''
         http_proxy=''${http_proxy}

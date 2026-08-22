@@ -24,7 +24,7 @@ switch host=host:
     printf '\033[1;32m\uf444 switch \033[0;32m%s\033[0m\n' "{{host}}"
     printf '\033[0;32m------------------------\033[0m\n'
 
-    HOST="{{host}}" nix run .#emit-impure-files
+    HOST="{{host}}" nix run .#write-host-files
 
     nixos-rebuild switch \
         --flake ".#{{host}}" \

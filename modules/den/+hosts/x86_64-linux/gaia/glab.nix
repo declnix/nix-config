@@ -1,5 +1,9 @@
-{ ... }: {
-  den.aspects.gaia = {
+{ ... }:
+let
+  host = "gaia";
+in
+{
+  den.aspects.${host} = {
     to-users = {
       hjem = { pkgs, ... }: {
         packages = with pkgs; [ glab ];
@@ -7,9 +11,11 @@
     };
   };
 
-  impure-files.hosts.gaia."/etc/xdg/glab-cli/config.yml" = {
-    text = ''
-      host: ''${GITLAB_HOST}
-    '';
+  host-files.${host} = {
+    "/etc/xdg/glab-cli/config.yml" = {
+      text = ''
+        host: ''${GITLAB_HOST}
+      '';
+    };
   };
 }
